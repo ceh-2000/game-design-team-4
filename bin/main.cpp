@@ -1,18 +1,18 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "Game.h"
 
 int main(int argc, char** argv)
 {
   // Create main window
   sf::RenderWindow app(sf::VideoMode(800,600,32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
-  sf::Music music;
 
-  // Open music file and play music 
-  // We open instead of loading to use less memory
-  if (!music.openFromFile("../data/ChillingMusic.wav")) 
-      std::cout << "Could not load music." << std::endl;
-  music.play();
+  Game game(4.0f, "../data/survive.wav");
+  game.setCurrentSong("../data/survive.wav");
+
+  // Set up variables that will allow us to get the elapsed time
+  float deltaTime = 0.0f;
+  sf::Clock clock;
 
   // Start main loop
   while(app.isOpen())
@@ -25,12 +25,11 @@ int main(int argc, char** argv)
       if(Event.type == sf::Event::Closed)
         app.close();
     }
+    
+    // Get how much time has passed
+    deltaTime = clock.restart().asSeconds();
 
-    // Clear screen and fill with blue
-    app.clear(sf::Color::Blue);
-
-    // Display
-    app.display();
+    game.update(app, deltaTime);
   }
 
   // Done.
