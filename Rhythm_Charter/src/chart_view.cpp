@@ -21,6 +21,9 @@ void Chart_View::init()
 	// this->music_player = std::make_shared<Music_Player>("../data/music/Death Grips - Exmilitary - 3 - Spread Eagle Cross the Block.wav");
 
 	this->font.loadFromFile("../data/fonts/orange kid.ttf");
+	this->fileText = sf::Text("", font, 30);
+
+
 	this->text = sf::Text("", font, 30);
 	this->input_chart = std::make_shared<Input_Chart>(this->window);
 	this->horiz_scrollbar = std::make_shared<Horizontal_Scrollbar>(sf::Vector2f(16.0f, this->WINDOW_SIZE.y - 120.0f), sf::Vector2f(this->WINDOW_SIZE.x - 32.0f, WINDOW_SIZE.y * 0.02f), this->window);
@@ -97,8 +100,15 @@ void Chart_View::pollInput()
 							this->chart_music();
 							break;
 
+						case sf::Keyboard::L:
+							// this->input_chart->importInput();
+							// for(auto itr = this->input_chart->getTimings().begin(); itr <this->input_chart->getTimings().end(); ++itr)
+							// 	this->input_chart->addInput(this->WINDOW_SIZE.x / *itr,this->WINDOW_SIZE.y,*itr);
+							break;
+
 						case sf::Event::TextEntered:
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
+							this->filePath += event.text.unicode;
 							break;
 					}
 
@@ -149,17 +159,15 @@ void Chart_View::pollInput()
 	}
 }
 
-
 void Chart_View::demoChart()
 {
 	int counter = 0;
 	for(float i = 0; i < this->music_player->getDuration(); i++)
 	{
 		counter++;
-		if(int(i)%6 == 0)
+		if(counter%6 == 0)
 		{
-			counter = 0;
-			this->input_chart->addInput(16 + i*16, this->WINDOW_SIZE.y, i*16);
+			this->input_chart->addInput(16.0f + 16.0f*i, this->WINDOW_SIZE.y, counter);
 		}
 	}
 	this->input_chart->exportInput();
@@ -176,7 +184,7 @@ void Chart_View::draw()
 {
 	this->window->clear();
 	for(auto button : button_list)
-		button->draw(this->window);		
+		button->draw(this->window);
 	for(auto element : graphics_list)
 		element->draw(this->window);
 	this->window->draw(text);

@@ -4,10 +4,9 @@ Chart_To_JSON::Chart_To_JSON()
 {
 }
 
-void Chart_To_JSON::saveJSON(std::string filePath, std::vector<float> timings)
+void Chart_To_JSON::saveJSON(std::vector<float> timings)
 {
-	// create an empty structure (null)
-	jsonf jsonfile;
+	nlohmann::json jsonfile;
 
 	for(auto itr = timings.begin(); itr<timings.end(); ++itr)
 		jsonfile["test"] += *itr;
@@ -16,8 +15,13 @@ void Chart_To_JSON::saveJSON(std::string filePath, std::vector<float> timings)
 	file << jsonfile;
 }
 
-void Chart_To_JSON::loadJSON(std::string filePath)
-{
+std::vector<float> Chart_To_JSON::loadJSON()
+{	
+	std::vector<float> timings;
+	std::ifstream fileStream("../timingChart.json");
+	nlohmann::json jTimings = nlohmann::json::parse(fileStream);
 
+	timings.push_back(jTimings["test"]);
+	return timings;
 }
 
