@@ -41,7 +41,7 @@ class Chart_View
 
 		void pollInput();
 		void draw();
-		void update(const float& dt);
+		void update();
 };
 
 #endif

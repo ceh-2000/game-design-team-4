@@ -1,17 +1,19 @@
 #ifndef INPUT_CHART_H
 #define INPUT_CHART_H
 
-#include "importChart.h"
-#include "exportChart.h"
 #include "gui_element.h"
+#include "chart_to_json.h"
 
 class Input_Chart : public GUI_Element
 {
 private:
 	std::shared_ptr<sf::RenderWindow> window;
+	std::shared_ptr<Chart_To_JSON> jsonChart;
+
 	std::vector<std::shared_ptr<sf::RectangleShape>> inputList;
 	std::vector<std::shared_ptr<sf::RectangleShape>> lines;
-	std::vector<float> timings;
+
+	std::vector<float> timings; //in seconds
 
 	sf::Vector2i pixelPos;
 	sf::Vector2f worldPos;

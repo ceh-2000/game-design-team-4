@@ -88,3 +88,8 @@ void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
 	for(auto line: this->lines)
 		window->draw(*line);
 }
+
+void Input_Chart::exportInput()
+{
+	this->jsonChart->saveJSON("", this->timings);
+}
