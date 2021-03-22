@@ -18,10 +18,13 @@ class Chart_View
 
 		sf::Font font;
 		sf::Text text;
+		sf::Text fileText;
+		std::string filePath;
 
 		std::vector<std::shared_ptr<GUI_Element>> graphics_list;
 		std::vector<std::shared_ptr<Button>> button_list;
-		
+
+		std::shared_ptr<Button> textField;
 		std::shared_ptr<Button> play_button;
 		std::shared_ptr<Button> stop_button;
 		std::shared_ptr<Button> chart_button;

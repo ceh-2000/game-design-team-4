@@ -7,7 +7,7 @@ Input_Chart::Input_Chart(std::shared_ptr<sf::RenderWindow> window) : GUI_Element
 
 
 //detect if inside
-bool Input_Chart::isClicked(std::shared_ptr<sf::RenderWindow> window)
+bool Input_Chart::isClicked(std::shared_ptr<sf::RenderWindow> window) //TODO: scan through using binary search tree
 {
 	this->pixelPos = sf::Mouse::getPosition(*window);
 	this->worldPos = window->mapPixelToCoords(this->pixelPos);
@@ -66,7 +66,7 @@ void Input_Chart::addInput(float x, float y, float time)
 	this->lines.push_back(line);
 }
 
-void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) //binary search
+void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) // TODO:using binary search tree to search and remove
 {	
 	int i = 0;
 	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
@@ -87,9 +87,4 @@ void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
 		window->draw(*input);
 	for(auto line: this->lines)
 		window->draw(*line);
-}
-
-void Input_Chart::exportInput()
-{
-	this->jsonChart->saveJSON("", this->timings);
 }

@@ -29,8 +29,10 @@ public:
 	void delInput(std::shared_ptr<sf::RectangleShape> input);
 	void moveInput(std::shared_ptr<sf::RenderWindow> window);
 
-	void importInput();
-	void exportInput();
+	void importInput() { timings = jsonChart->loadJSON(); }
+	void exportInput() { jsonChart->saveJSON(timings); }
+
+	std::vector<float> getTimings() { return timings; }
 
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 };

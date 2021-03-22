@@ -35,7 +35,7 @@ void Horizontal_Scrollbar::autoScroll(std::shared_ptr<sf::RenderWindow> window, 
 
 
 void Horizontal_Scrollbar::draw(std::shared_ptr<sf::RenderWindow> window)
-{   
+{
 	window->draw(this->bar);
 	window->draw(this->slider);
 }
