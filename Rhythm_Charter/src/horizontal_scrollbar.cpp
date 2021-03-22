@@ -17,7 +17,7 @@ Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim, s
 }
 
 
-void Horizontal_Scrollbar::scroll(std::shared_ptr<sf::RenderWindow> window)
+void Horizontal_Scrollbar::manualScroll(std::shared_ptr<sf::RenderWindow> window)
 {
 	this->pixelPos = sf::Mouse::getPosition(*window);
 	this->worldPos = window->mapPixelToCoords(this->pixelPos);

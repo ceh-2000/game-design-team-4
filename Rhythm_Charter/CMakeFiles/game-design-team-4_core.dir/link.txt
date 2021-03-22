@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgame-design-team-4_core.a CMakeFiles/game-design-team-4_core.dir/src/Game.cpp.o CMakeFiles/game-design-team-4_core.dir/src/Song.cpp.o
+/usr/bin/ranlib libgame-design-team-4_core.a

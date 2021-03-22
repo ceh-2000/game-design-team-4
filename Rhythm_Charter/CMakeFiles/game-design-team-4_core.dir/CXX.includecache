@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Game.h
+iostream
+-
+Song.h
+../include/Song.h
+SFML/Graphics.hpp
+-
+
+../include/Song.h
+iostream
+-
+SFML/Audio.hpp
+-
+
+/home/david/Desktop/game-design-team-4/src/Game.cpp
+Game.h
+/home/david/Desktop/game-design-team-4/src/Game.h
+
+/home/david/Desktop/game-design-team-4/src/Song.cpp
+Song.h
+/home/david/Desktop/game-design-team-4/src/Song.h
+

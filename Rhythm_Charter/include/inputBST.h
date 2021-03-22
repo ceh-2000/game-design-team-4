@@ -7,10 +7,14 @@ class InputBST
 {
 private:
     sf::Vector2f pos;
+
+    
     
 public:
-    InputBST(/* args */);
-};
+    InputBST();
 
+    void importBST();
+    void exportBST();
+};
 
 #endif

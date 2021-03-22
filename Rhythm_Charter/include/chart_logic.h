@@ -5,8 +5,6 @@
 #include <memory>
 #include "inputBST.h"
 #include "guiElementBST.h"
-#include "importChart.h"
-#include "exportChart.h"
 
 class Chart_Logic
 {
