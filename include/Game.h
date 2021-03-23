@@ -6,13 +6,17 @@
 class Game
 {
 public:
-    Game(float tTime, std::string filename);
+    Game(std::string filename);
     ~Game();
 
     void setCurrentSong(std::string filename);
     void update(sf::RenderWindow& app, float deltaTime);
+    float determineNextTap(float songTime);
+    float determinePrevTap(float songTime);
+    void tapCheck(sf::RenderWindow &app);
 
 private:
     Song song;
-    float tapTime;
+    int tapNum;
+    int backgroundColor;
 };
