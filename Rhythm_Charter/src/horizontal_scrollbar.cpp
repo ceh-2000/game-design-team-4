@@ -1,6 +1,8 @@
 #include "horizontal_scrollbar.h"
 
-Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim, std::shared_ptr<sf::RenderWindow> window) : GUI_Element()
+
+
+Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim) : GUI_Element()
 {
 	this->bar.setPosition(pos);
 	this->bar.setOrigin(this->slider.getSize() / 2.0f);
@@ -17,18 +19,15 @@ Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim, s
 }
 
 
-void Horizontal_Scrollbar::manualScroll(std::shared_ptr<sf::RenderWindow> window)
+bool Horizontal_Scrollbar::selected(sf::Vector2f mousePos)
 {
-	this->pixelPos = sf::Mouse::getPosition(*window);
-	this->worldPos = window->mapPixelToCoords(this->pixelPos);
-
-	if (this->bar.getOrigin().x <= worldPos.x && this->bar.getOrigin().y <= worldPos.y
-	&& worldPos.x <= this->bar.getSize().x && worldPos.y <= this->bar.getSize().y)
-		this->slider.setPosition(sf::Vector2f(worldPos.x, this->slider.getPosition().y));
+	if (this->bar.getOrigin().x <= mousePos.x && this->bar.getOrigin().y <= mousePos.y
+	&& mousePos.x <= this->bar.getSize().x && mousePos.y <= this->bar.getSize().y)
+		this->slider.setPosition(sf::Vector2f(mousePos.x, this->slider.getPosition().y));
 }
 
 
-void Horizontal_Scrollbar::autoScroll(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Music_Player> music_player)
+void Horizontal_Scrollbar::autoScroll(std::shared_ptr<Music_Player> music_player)
 {
 	this->slider.setPosition(this->bar.getSize().x * music_player->getRatio() + this->slider.getSize().x, this->bar.getPosition().y + this->slider.getSize().y/2.0f);
 }

@@ -1,45 +1,24 @@
 #include "input_chart.h"
 
-Input_Chart::Input_Chart(std::shared_ptr<sf::RenderWindow> window) : GUI_Element()
-{
-	this->window = window;
-}
-
+Input_Chart::Input_Chart() : GUI_Element(){}
 
 //detect if inside
-bool Input_Chart::isClicked(std::shared_ptr<sf::RenderWindow> window) //TODO: scan through using binary search tree
+bool Input_Chart::selected(sf::Vector2f mousePos)
 {
-	this->pixelPos = sf::Mouse::getPosition(*window);
-	this->worldPos = window->mapPixelToCoords(this->pixelPos);
-	for(auto input : this->inputList)
+	if(!this->sorted)
 	{
-		if (this->worldPos.x >= input->getPosition().x
-		&& this->worldPos.x <= input->getPosition().x + input->getSize().x
-		&& this->worldPos.y >= input->getPosition().y
-		&& this->worldPos.y <= input->getPosition().y + input->getSize().y)
-			{
-				input->setFillColor(sf::Color::White);
-				return true;
-			}
-		input->setFillColor(sf::Color::Green);
-		return false;
+		std::sort(this->inputList.begin(), this->inputList.end());
+		this->sorted = true;
 	}
+	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
+		if(mousePos.x >= (*itr)->getPosition().x
+	&& mousePos.x <= (*itr)->getPosition().x + (*itr)->getSize().x
+	&& mousePos.y >= (*itr)->getPosition().y
+	&& mousePos.y <= (*itr)->getPosition().y + (*itr)->getSize().y)
+			(*itr)->setFillColor(sf::Color::White);
 
-	for(auto line : this->lines)
-	{
-		if (this->worldPos.x >= line->getPosition().x
-		&& this->worldPos.x <= line->getPosition().x + line->getSize().x
-		&& this->worldPos.y >= line->getPosition().y
-		&& this->worldPos.y <= line->getPosition().y + line->getSize().y)
-			{
-				line->setFillColor(sf::Color(211,211,211,32));
-				return true;
-			}
-		line->setFillColor(sf::Color::White);
-		return false;
-	}
-	return 0;
 }
+
 
 /*
 Create a new std::shared_ptr<sf::RectangleShape> and add it to the inputList
@@ -55,18 +34,19 @@ void Input_Chart::addInput(float x, float y, float time)
 	input->setOutlineThickness(5);
 	input->setOutlineColor(sf::Color(187,188,188,255));
 	input->setFillColor(sf::Color::Green);
+	this->inputList.push_back(input);
 
 	std::shared_ptr<sf::RectangleShape> line = std::make_shared<sf::RectangleShape>();
 	line->setPosition(x, y/2.0f);
-	line->setSize(sf::Vector2f(1.0f,this->window->getSize().y/2.0f));
-	line->setOrigin(sf::Vector2f(0.5f, this->window->getSize().y/4.0f));
+	line->setSize(sf::Vector2f(1.0f, 50.0f));
+	line->setOrigin(sf::Vector2f(0.5f, 25.0f));
 	line->setFillColor(sf::Color::White);
-
-	this->inputList.push_back(input);
 	this->lines.push_back(line);
+
+	this->sorted = false;
 }
 
-void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) // TODO:using binary search tree to search and remove
+void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) 
 {	
 	int i = 0;
 	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
@@ -74,6 +54,7 @@ void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) // TODO:us
 		if(this->inputList.at(i) == input)
 		{
 			this->inputList.erase(itr);
+			this->lines.erase(this->lines.begin()+(--i));
 			this->timings.erase(this->timings.begin()+(--i));
 		}
 		break;
@@ -87,4 +68,25 @@ void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
 		window->draw(*input);
 	for(auto line: this->lines)
 		window->draw(*line);
+}
+
+void Input_Chart::saveJSON()
+{
+	nlohmann::json jsonfile;
+
+	for(auto itr = this->timings.begin(); itr<this->timings.end(); ++itr)
+		jsonfile["test"] += *itr;
+
+	std::ofstream file("../timingChart.json");
+	file << jsonfile;
+}
+
+std::vector<float> Input_Chart::loadJSON()
+{	
+	std::vector<float> timings;
+	std::ifstream fileStream("../timingChart.json");
+	nlohmann::json jTimings = nlohmann::json::parse(fileStream);
+
+	timings.push_back(jTimings["test"]);
+	return timings;
 }

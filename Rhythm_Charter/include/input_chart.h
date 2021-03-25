@@ -1,36 +1,34 @@
 #ifndef INPUT_CHART_H
 #define INPUT_CHART_H
 
+#include <fstream>
+#include <ostream>
 #include "gui_element.h"
-#include "chart_to_json.h"
+#include "../../include/json.h"
 
 class Input_Chart : public GUI_Element
 {
 private:
-	std::shared_ptr<sf::RenderWindow> window;
-	std::shared_ptr<Chart_To_JSON> jsonChart;
-
 	std::vector<std::shared_ptr<sf::RectangleShape>> inputList;
 	std::vector<std::shared_ptr<sf::RectangleShape>> lines;
 
+	bool sorted = false;
+
 	std::vector<float> timings; //in seconds
 
-	sf::Vector2i pixelPos;
-	sf::Vector2f worldPos;
-
 public:
-	Input_Chart(std::shared_ptr<sf::RenderWindow> window);
+	Input_Chart();
 
 	std::vector<std::shared_ptr<sf::RectangleShape>> getInputList() { return inputList; }
 
-	bool isClicked(std::shared_ptr<sf::RenderWindow> window);
+	bool selected(sf::Vector2f mousePos);
 
 	void addInput(float x, float y, float time);
 	void delInput(std::shared_ptr<sf::RectangleShape> input);
 	void moveInput(std::shared_ptr<sf::RenderWindow> window);
 
-	void importInput() { timings = jsonChart->loadJSON(); }
-	void exportInput() { jsonChart->saveJSON(timings); }
+	void saveJSON();
+    std::vector<float> loadJSON();
 
 	std::vector<float> getTimings() { return timings; }
 

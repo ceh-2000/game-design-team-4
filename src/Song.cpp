@@ -8,9 +8,7 @@ Song::Song(std::string filename){
   music.setVolume(40.0f); // Reduce music to 10%
 }
 
-Song::~Song(){
-
-}
+Song::~Song(){}
 
 void Song::play(){
   // music.setPlayingOffset(sf::seconds(60.f));
