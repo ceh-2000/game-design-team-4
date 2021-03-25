@@ -4,40 +4,21 @@
 Chart_View::Chart_View(std::shared_ptr<Chart_Logic> chart_logic)
 {
 	this->chart_logic = chart_logic;
-	this->WINDOW_SIZE = this->chart_logic->getWindowSize();
-	this->window = std::make_shared<sf::RenderWindow>(sf::VideoMode(this->WINDOW_SIZE.x,this->WINDOW_SIZE.y,32), "Rhythm Charter", sf::Style::Default);
-	init();
-	this->demoChart();
 
-}
-
-void Chart_View::init()
-{
 	// this->music_player = std::make_shared<Music_Player>(or a list of strings);
-
-	this->music_player = std::make_shared<Music_Player>("../data/music/Philly Nice - Friday Night Funkin' OST-HQ.ogg");
-
+	this->music_player = std::make_shared<Music_Player>("../data/music/Gettin' Freaky (Main Menu) - Friday Night Funkin' OST-HQ.ogg");
 	// this->music_player = std::make_shared<Music_Player>("../data/music/Milf_Inst.ogg");
 	// this->music_player = std::make_shared<Music_Player>("../data/music/Death Grips - Exmilitary - 3 - Spread Eagle Cross the Block.wav");
+	this->WINDOW_SIZE = this->chart_logic->getWindowSize();
+	this->window = std::make_shared<sf::RenderWindow>(sf::VideoMode(this->WINDOW_SIZE.x,this->WINDOW_SIZE.y,32), "Rhythm Charter", sf::Style::Default);
+	this->GUIList = this->chart_logic->getGUIList();
 
 	this->font.loadFromFile("../data/fonts/orange kid.ttf");
-	this->fileText = sf::Text("", font, 30);
-
-
-	this->text = sf::Text("", font, 30);
-	this->input_chart = std::make_shared<Input_Chart>(this->window);
-	this->horiz_scrollbar = std::make_shared<Horizontal_Scrollbar>(sf::Vector2f(16.0f, this->WINDOW_SIZE.y - 120.0f), sf::Vector2f(this->WINDOW_SIZE.x - 32.0f, WINDOW_SIZE.y * 0.02f), this->window);
-	this->play_button = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x / 2.0f, this->WINDOW_SIZE.y - 64.0f), sf::Vector2f(32.0f, 32.0f), this->text, sf::Color::White);
-	this->stop_button = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x / 2.0f - 64.0f, this->WINDOW_SIZE.y - 64.0f), sf::Vector2f(32.0f, 32.0f), this->text, sf::Color::White);
-	this->chart_button = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x / 2.0f + 64.0f, this->WINDOW_SIZE.y - 64.0f), sf::Vector2f(32.0f, 32.0f), this->text, sf::Color::White);
-
+	// this->fileText = sf::Text("", font, 30);	
+	this->text = sf::Text("", this->font, 30);
 	this->text.setPosition(sf::Vector2f(this->WINDOW_SIZE.x/1.5f, this->WINDOW_SIZE.y - 64.0f - this->text.getCharacterSize()/2.0f));
 
-	this->graphics_list.push_back(this->horiz_scrollbar);
-	this->graphics_list.push_back(this->input_chart);
-	this->button_list.push_back(this->play_button);
-	this->button_list.push_back(this->stop_button);
-	this->button_list.push_back(this->chart_button);
+	this->demoChart();
 }
 
 void Chart_View::pollInput()
@@ -52,8 +33,8 @@ void Chart_View::pollInput()
 					break;
 
 				case sf::Event::Resized:
-					WINDOW_SIZE.x = event.size.width;
-					WINDOW_SIZE.y = event.size.height;
+					this->WINDOW_SIZE.x = event.size.width;
+					this->WINDOW_SIZE.y = event.size.height;
 					break;
 
 				case sf::Event::KeyPressed:
@@ -101,59 +82,50 @@ void Chart_View::pollInput()
 							break;
 
 						case sf::Keyboard::L:
-							// this->input_chart->importInput();
-							// for(auto itr = this->input_chart->getTimings().begin(); itr <this->input_chart->getTimings().end(); ++itr)
-							// 	this->input_chart->addInput(this->WINDOW_SIZE.x / *itr,this->WINDOW_SIZE.y,*itr);
+							// this->chart_logic->getChart->importInput();
 							break;
 
 						case sf::Event::TextEntered:
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
-							this->filePath += event.text.unicode;
+							// this->filePath += event.text.unicode;
 							break;
 					}
 
 					case sf::Event::MouseButtonPressed:
+
+						pixelPos = sf::Mouse::getPosition(*this->window);
+						worldPos = this->window->mapPixelToCoords(pixelPos);
 						if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 						{
-							for(auto button : this->button_list)
+							// this->music_player->play();
+							int counter = 0;
+							for(auto itr = this->GUIList.begin(); itr< this->GUIList.begin()+3; ++itr)
+								if((*itr)->selected(worldPos))
+								switch(counter)
 								{
-									if(button->clicked(this->window))
-									{
-										if((button == this->play_button))
-										{
-											if(this->music_player->isPlaying())
-												this->music_player->pause();
-											else
-												this->music_player->play();
-										}
-										else if(button == this->stop_button)
-											this->music_player->stop();
-
-										else if(button == this->chart_button)
-										{
-											this->chart_music();
-										}
-									}
+									case 0:
+										if(!this->music_player->isPlaying())
+											this->music_player->play();
+										else
+											this->music_player->pause();
+									break;
+									case 1:
+										this->music_player->stop();
+									break;
+									case 2:
+										this->chart_music();
+									break;
 								}
-							this->input_chart->isClicked(this->window);
-							// for(auto input : this->input_chart->getInputList())
-							// {
-							//     if(this->input_chart->isClicked(this->window))
-							//         input->setFillColor(sf::Color::White);
-							//     else
-							//         input->setFillColor(sf::Color::Green);
-							// }
+								counter++;
+							for(auto itr = this->GUIList.begin()+3; itr < this->GUIList.end(); ++itr)
+								(*itr)->selected(worldPos);
 						}
-						else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
-						{
-							//TODO: click the correct square
+						// this->chart_logic->getChart->selected(this->worldPos);
 
-							//search through binary search tree
-							for(auto input : this->input_chart->getInputList())
-							{
-								this->input_chart->isClicked(this->window);
-							}
-						}
+						// else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+						// {
+						// 	// this->chart_logic->getChart->selected(this->worldPos);
+						// }
 						break;
 		}
 	}
@@ -166,35 +138,30 @@ void Chart_View::demoChart()
 	{
 		counter++;
 		if(counter%6 == 0)
-		{
-			this->input_chart->addInput(16.0f + 16.0f*i, this->WINDOW_SIZE.y, counter);
-		}
+			this->chart_logic->getChart()->addInput(16.0f + 16.0f*i, this->WINDOW_SIZE.y, counter);
 	}
-	this->input_chart->exportInput();
+	this->chart_logic->getChart()->saveJSON();
 }
 
 
 void Chart_View::chart_music()
 {
-	this->input_chart->addInput(this->horiz_scrollbar->getSliderPos().x, this->WINDOW_SIZE.y, this->music_player->getPlayTime());
+	this->chart_logic->getChart()->addInput(this->chart_logic->getScrollBar()->getSliderPos().x, this->WINDOW_SIZE.y, this->music_player->getPlayTime());
 }
 
 
 void Chart_View::draw()
 {
 	this->window->clear();
-	for(auto button : button_list)
-		button->draw(this->window);
-	for(auto element : graphics_list)
+	for(auto element : this->GUIList)
 		element->draw(this->window);
 	this->window->draw(text);
 	this->window->display();
 }
 
-
 void Chart_View::update()
 {
-	this->horiz_scrollbar->autoScroll(this->window, this->music_player);
+	this->chart_logic->getScrollBar()->autoScroll(this->music_player);
 	this->text.setString(this->music_player->getText());
 	this->music_player->updateText();
 	pollInput();
