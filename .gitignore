@@ -5,3 +5,9 @@ Rhythm_Charter/data/music
 
 # Mac specific
 .DS_Store
+
+#Visual Studio extensions
+*.sln
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj.user
