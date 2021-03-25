@@ -19,9 +19,9 @@ private:
 public:
 	Music_Player(std::string path);
 	
-	void play(){ music.play(); playState = true;}
-	void pause(){ music.pause(); playState = false;}
-	void stop(){ music.stop(); playState = false;}
+	void play(){ music.play(); playState = true; }
+	void pause(){ music.pause(); playState = false; }
+	void stop(){ music.stop(); playState = false; }
 	
 	bool isPlaying() { return playState; }
 
@@ -31,7 +31,6 @@ public:
 	void incrementPos(float p) { this->music.setPlayingOffset( this->music.getPlayingOffset() + sf::seconds(p)); }
 	void decrementPos(float p) { this->music.setPlayingOffset( sf::Time(this->music.getPlayingOffset() - sf::seconds(p))); }
 
-	void updateText();
 	std::string getText() {return play_time;}
 
 	float getPlayTime(){return music.getPlayingOffset().asSeconds();}
@@ -39,6 +38,8 @@ public:
 	float getDuration() { return music.getDuration().asSeconds();}
 
 	float getRatio() { return this->music.getPlayingOffset().asSeconds()/this->music.getDuration().asSeconds(); }
+
+	void updateText();
 };
 
 #endif
