@@ -1,12 +1,12 @@
 #include "button.h"
-#include <iostream>
 
-Button::Button(sf::Vector2f pos, sf::Vector2f dim, sf::Color fill) : GUI_Element()
+Button::Button(sf::Vector2f pos, sf::Vector2f dim, std::string imgPath, TYPE type) : GUI_Element(type)
 {
 	this->buttonShape.setPosition(pos);
 	this->buttonShape.setSize(dim);
 	this->buttonShape.setOrigin(dim/2.0f);
-	this->buttonShape.setFillColor(fill);
+	this->buttonShape.setFillColor(sf::Color::White);
+	// this->type = imgPath;
 }
 
 bool Button::selected(sf::Vector2f mousePos)
@@ -16,8 +16,8 @@ bool Button::selected(sf::Vector2f mousePos)
 	&& mousePos.y >= this->buttonShape.getPosition().y
 	&& mousePos.y <= this->buttonShape.getPosition().y + this->buttonShape.getSize().y)
 		{
-			if(this->isClicked){this->isClicked = false;}
-			else{this->isClicked = true;}
+			if(this->isClicked) this->isClicked = false;
+			else this->isClicked = true;
 			return true;
 		}
 	return false;

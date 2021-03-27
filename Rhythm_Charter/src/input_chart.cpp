@@ -1,10 +1,15 @@
 #include "input_chart.h"
-
-Input_Chart::Input_Chart() : GUI_Element(){}
+#include <iostream>
+Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, std::shared_ptr<Music_Player> mp, TYPE type) : GUI_Element(type)
+{
+	this->horiz_scrollbar = horiz_scrollbar;
+	this->mp = mp;
+}
 
 //detect if inside
 bool Input_Chart::selected(sf::Vector2f mousePos)
 {
+	int counter = 0;
 	if(!this->sorted)
 	{
 		std::sort(this->inputList.begin(), this->inputList.end());
@@ -12,66 +17,89 @@ bool Input_Chart::selected(sf::Vector2f mousePos)
 	}
 	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
 		if(mousePos.x >= (*itr)->getPosition().x
-	&& mousePos.x <= (*itr)->getPosition().x + (*itr)->getSize().x
-	&& mousePos.y >= (*itr)->getPosition().y
-	&& mousePos.y <= (*itr)->getPosition().y + (*itr)->getSize().y)
-			(*itr)->setFillColor(sf::Color::White);
+		&& mousePos.x <= (*itr)->getPosition().x + (*itr)->getSize().x
+		&& mousePos.y >= (*itr)->getPosition().y
+		&& mousePos.y <= (*itr)->getPosition().y + (*itr)->getSize().y)
+			{
+				(*itr)->setFillColor(sf::Color::White);
+				this->timingText.at(counter)->setFillColor(sf::Color::White);
+				counter++;
+				return true;
+			}
 
+	return false;
 }
-
 
 /*
 Create a new std::shared_ptr<sf::RectangleShape> and add it to the inputList
 Take in timing
 */
-void Input_Chart::addInput(float x, float y, float time)
+void Input_Chart::addInput(float x, float y, float time, sf::Font &font)
 {
+	std::cout << "P: " << x << std::endl;
+	std::cout<< "t: " << time << std::endl;
 	this->timings.push_back(time);
 	std::shared_ptr<sf::RectangleShape> input = std::make_shared<sf::RectangleShape>();
 	input->setPosition(x, y/2.0f);
-	input->setSize(sf::Vector2f(16.0f,32.0f));
-	input->setOrigin(sf::Vector2f(8.0f, 16.0f));
+	input->setSize(sf::Vector2f(8.0f,32.0f));
+	input->setOrigin(sf::Vector2f(4.0f, 16.0f));
 	input->setOutlineThickness(5);
 	input->setOutlineColor(sf::Color(187,188,188,255));
 	input->setFillColor(sf::Color::Green);
 	this->inputList.push_back(input);
 
-	std::shared_ptr<sf::RectangleShape> line = std::make_shared<sf::RectangleShape>();
-	line->setPosition(x, y/2.0f);
-	line->setSize(sf::Vector2f(1.0f, 50.0f));
-	line->setOrigin(sf::Vector2f(0.5f, 25.0f));
-	line->setFillColor(sf::Color::White);
-	this->lines.push_back(line);
-
+	std::shared_ptr<sf::Text> beatLabel = std::make_shared<sf::Text>(std::to_string(time), font, 20);
+	beatLabel->setPosition(sf::Vector2f(x, y/2.0f+32.0f));
+	beatLabel->setOrigin(sf::Vector2f(5.0f, 5.0f));
+	beatLabel->setFillColor(sf::Color::Transparent);
+	this->timingText.push_back(beatLabel);
 	this->sorted = false;
 }
 
-void Input_Chart::delInput(std::shared_ptr<sf::RectangleShape> input) 
-{	
-	int i = 0;
+
+void Input_Chart::delInput()
+{
+	this->counter = 0;
 	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
 	{
-		if(this->inputList.at(i) == input)
+		if((*itr)->getFillColor() == sf::Color::White)
 		{
 			this->inputList.erase(itr);
-			this->lines.erase(this->lines.begin()+(--i));
-			this->timings.erase(this->timings.begin()+(--i));
+			this->timings.erase(this->timings.begin()+(--this->counter));
+			this->timingText.erase(this->timingText.begin()+(--this->counter));
 		}
-		break;
-		++i;
+		++this->counter;
+	}
+}
+
+
+void Input_Chart::moveInput(sf::Vector2f mousePos, float size)
+{
+	this->counter = 0;
+	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
+	{
+		if((*itr)->getFillColor() == sf::Color::White)
+		{
+			this->timings.at(counter) = this->mp->getDuration()*((mousePos.x-this->horiz_scrollbar->getSlider().getSize().y)/(this->horiz_scrollbar->getBar().getSize().x));
+			(*itr)->setPosition(mousePos);
+			std::cout<<"New Time: " << this->timings.at(counter) <<std::endl;
+		}
+		this->counter++;
+		(*itr)->setFillColor(sf::Color::Green);
 	}
 }
 
 void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
-{   
+{
 	for(auto input : this->inputList)
 		window->draw(*input);
-	for(auto line: this->lines)
-		window->draw(*line);
+	for(auto string: this->timingText)
+		window->draw(*string);
 }
 
 void Input_Chart::saveJSON()
 {
+	std::sort(this->timings.begin(), this->timings.end());
 	nlohmann::json jsonfile;
 
 	for(auto itr = this->timings.begin(); itr<this->timings.end(); ++itr)
@@ -82,7 +110,7 @@ void Input_Chart::saveJSON()
 }
 
 std::vector<float> Input_Chart::loadJSON()
-{	
+{
 	std::vector<float> timings;
 	std::ifstream fileStream("../timingChart.json");
 	nlohmann::json jTimings = nlohmann::json::parse(fileStream);

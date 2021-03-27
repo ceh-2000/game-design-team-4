@@ -14,14 +14,18 @@ class Chart_View
 		std::shared_ptr<Chart_Logic> chart_logic;
 		std::shared_ptr<Music_Player> music_player;
 		std::vector<std::shared_ptr<GUI_Element>> GUIList;
-		std::shared_ptr<Input_Chart> input_chart;
 		std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar;
+		std::shared_ptr<Input_Chart> input_chart;
 
 		sf::Font font;
 		sf::Text text;
+		sf::Text volume;
 		// sf::Text fileText;
 		// std::string filePath;
 		std::shared_ptr<sf::Text> play_time;
+
+		sf::Vector2i startPos;
+		sf::Vector2f endPos;
 
 		sf::Vector2i pixelPos;
 		sf::Vector2f worldPos;		
