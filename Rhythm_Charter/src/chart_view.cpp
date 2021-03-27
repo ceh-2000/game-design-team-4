@@ -63,8 +63,9 @@ void Chart_View::pollInput()
 						case sf::Keyboard::L: // this->chart_logic->getChart->importInput();
 							break;
 						case sf::Event::TextEntered:
+							
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
-							// this->filePath += event.text.unicode;
+							this->filePath += event.text.unicode;
 							break;
 					}
 
@@ -107,9 +108,7 @@ void Chart_View::pollInput()
 						else if (endPos.x > this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x)
 							endPos.x = this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x;
 						this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);
-
 					break;
-
 					default:
 					break;
 		}

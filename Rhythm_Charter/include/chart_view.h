@@ -20,8 +20,9 @@ class Chart_View
 		sf::Font font;
 		sf::Text text;
 		sf::Text volume;
-		// sf::Text fileText;
-		// std::string filePath;
+		
+		sf::Text fileText;
+		std::string filePath;
 		std::shared_ptr<sf::Text> play_time;
 
 		sf::Vector2i startPos;

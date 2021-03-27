@@ -17,7 +17,7 @@ bool Button::selected(sf::Vector2f mousePos)
 	&& mousePos.y <= this->buttonShape.getPosition().y + this->buttonShape.getSize().y)
 		{
 			if(this->isClicked) this->isClicked = false;
-			else this->isClicked = true;
+			else this->isClicked = true; 
 			return true;
 		}
 	return false;
