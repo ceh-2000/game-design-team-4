@@ -45,27 +45,6 @@ file(GLOB EXECLIST bin/*cpp)
 #  include_directories(${Boost_INCLUDE_DIRS})   #
 #  link_libraries(${Boost_LIBRARIES})           #
 #################################################
-       
-# # ################
-# # # Find Json.h #
-# # ################
-
-# find_package(nlohmann_json 3.2.0 REQUIRED)
-# ...
-# add_library(foo ...)
-# ...
-# target_link_libraries(foo PRIVATE nlohmann_json::nlohmann_json)
-
-# #  find_package(PkgConfig REQUIRED)
-# #  pkg_check_modules(JSONCPP jsoncpp)         
-#  include_directories(${JSONCPP_INCLUDE_DIRS})   
-#  target_link_libraries(${rhythm_charter} jsoncpp_lib})           
-
-#  if(NOT JSONCPP_FOUND)
-#   # JSONCPP not found
-#   message(FATAL_ERROR " * Make sure LIB includes the directory where the JSONCPP libraries are installed.\n * Make sure INCLUDE includes the directory where the JSONCPP header files are installed.")	
-# endif()
-
 
 #############
 # Find SFML #

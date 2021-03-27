@@ -12,7 +12,9 @@ public:
     void pause();
     void stop();
     float getSongTime();
+    float getACorrectTiming(int index);
 
 private:
     sf::Music music;
+    std::vector<float> correctTimings;
 };
