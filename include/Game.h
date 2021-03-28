@@ -21,7 +21,20 @@ private:
     int tapNum;
     int backgroundColor;
     bool isHit;
+    bool animate;
+    int counter;
     //act and success regions vary between songs
     float actRegion; //defines entire hit action region for a given song
     float winRegion; //defines successful hit time window in action region
+    float almostRegion; //defines near hit / near miss time window in action region
+
+    float elapsedDuration;
+    float duration;
+
+    sf::Texture texture;
+    sf::Sprite sprite;
+    sf::IntRect rectSourceSprite;
+
+    sf::Font font;
+    sf::Text resultText;
 };
