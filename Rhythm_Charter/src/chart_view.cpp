@@ -39,6 +39,15 @@ void Chart_View::pollInput()
 
 					switch(event.key.code)
 					{
+						case sf::Keyboard::LControl:
+						case sf::Keyboard::RControl:
+							if(sf::Keyboard::S)	this->input_chart->saveJSON();
+							// if(sf::Keyboard::O) open();
+							// if(sf::Keyboard::Z) undo();
+							// if(sf::Keyboard::Y) redo();
+							if(sf::Keyboard::A) this->input_chart->selectAll();
+						break;
+
 						case sf::Keyboard::Q:
 						case sf::Keyboard::Escape: this->chart_logic->setActive(false); break;
 
@@ -58,10 +67,12 @@ void Chart_View::pollInput()
 
 						case sf::Keyboard::C: this->chart_music(); break;
 
+						case sf::Keyboard::L: // this->input_chart->importInput();
+						break;
 						case sf::Keyboard::Delete: this->input_chart->delInput(); break;
+						case sf::Keyboard::BackSpace: this->input_chart->clearInput(); break;
 						
-						case sf::Keyboard::L: // this->chart_logic->getChart->importInput();
-							break;
+
 						case sf::Event::TextEntered:
 							
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
@@ -101,13 +112,17 @@ void Chart_View::pollInput()
 					case sf::Event::MouseButtonReleased:
 						this->startPos = sf::Mouse::getPosition(*this->window);
 						this->endPos = this->window->mapPixelToCoords(this->startPos);
-
-						//bound the mouseReleased coords
-						if(endPos.x < this->horiz_scrollbar->getBar().getPosition().x)
-							endPos.x = this->horiz_scrollbar->getBar().getPosition().x;
-						else if (endPos.x > this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x)
-							endPos.x = this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x;
-						this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);
+						if(this->worldPos != this->endPos)
+						{
+							//bound the mouseReleased coords
+							if(endPos.x < this->horiz_scrollbar->getBar().getPosition().x)
+								endPos.x = this->horiz_scrollbar->getBar().getPosition().x;
+							else if (endPos.x > this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x)
+								endPos.x = this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x;
+							this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);	
+						}
+						// else if (this->worldPos == this->endPos)
+						// 	this->input_chart->clearInput();
 					break;
 					default:
 					break;

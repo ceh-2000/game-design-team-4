@@ -7,7 +7,6 @@ int main(int argc, char** argv)
 	std::shared_ptr<Chart_View> chart_view = std::make_shared<Chart_View>(chart_logic);
 
 	// start main loop
-
 	while(chart_logic->getActive())
 	{
 		chart_view->update();

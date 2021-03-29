@@ -24,11 +24,14 @@ public:
 
 	std::vector<std::shared_ptr<sf::RectangleShape>> getInputList() { return inputList; }
 	std::vector<float> getTimings() { return timings; }
-
+	
 	bool selected(sf::Vector2f mousePos);
+	void selectAll();
+	
 	void addInput(float x, float y, float time, sf::Font &font);
 	void delInput();
 	void moveInput(sf::Vector2f mousePos, float size);
+	void clearInput();
 
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 

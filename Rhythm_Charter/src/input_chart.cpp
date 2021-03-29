@@ -6,15 +6,17 @@ Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, 
 	this->mp = mp;
 }
 
-//detect if inside
+//Check if a certain beat is selected
 bool Input_Chart::selected(sf::Vector2f mousePos)
 {
 	int counter = 0;
+	//A sorted vector is better to use than a binary search tree as there are no cache misses in comparison
 	if(!this->sorted)
 	{
 		std::sort(this->inputList.begin(), this->inputList.end());
 		this->sorted = true;
 	}
+	//detect if cursor inside
 	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
 		if(mousePos.x >= (*itr)->getPosition().x
 		&& mousePos.x <= (*itr)->getPosition().x + (*itr)->getSize().x
@@ -22,11 +24,10 @@ bool Input_Chart::selected(sf::Vector2f mousePos)
 		&& mousePos.y <= (*itr)->getPosition().y + (*itr)->getSize().y)
 			{
 				(*itr)->setFillColor(sf::Color::White);
-				this->timingText.at(counter)->setFillColor(sf::Color::White);
+				// this->timingText.at(counter)->setFillColor(sf::Color::White);
 				counter++;
 				return true;
 			}
-
 	return false;
 }
 
@@ -65,9 +66,21 @@ void Input_Chart::delInput()
 		if((*itr)->getFillColor() == sf::Color::White)
 		{
 			this->inputList.erase(itr);
-			this->timings.erase(this->timings.begin()+(--this->counter));
-			this->timingText.erase(this->timingText.begin()+(--this->counter));
+			this->timings.erase(this->timings.begin()+this->counter);
+			this->timingText.erase(this->timingText.begin()+this->counter);
 		}
+		++this->counter;
+	}
+}
+
+void Input_Chart::clearInput()
+{
+	this->counter = 0;
+	for(auto itr = this->inputList.begin(); itr < this->inputList.end(); ++itr)
+	{
+		this->inputList.erase(itr);
+		this->timings.erase(this->timings.begin()+this->counter);
+		this->timingText.erase(this->timingText.begin()+this->counter);
 		++this->counter;
 	}
 }
@@ -83,10 +96,16 @@ void Input_Chart::moveInput(sf::Vector2f mousePos, float size)
 			this->timings.at(counter) = this->mp->getDuration()*((mousePos.x-this->horiz_scrollbar->getSlider().getSize().y)/(this->horiz_scrollbar->getBar().getSize().x));
 			(*itr)->setPosition(mousePos);
 			std::cout<<"New Time: " << this->timings.at(counter) <<std::endl;
+			(*itr)->setFillColor(sf::Color::Green);
 		}
 		this->counter++;
-		(*itr)->setFillColor(sf::Color::Green);
 	}
+}
+
+void Input_Chart::selectAll()
+{
+	for(auto itr = this->inputList.begin(); itr<this->inputList.end(); ++itr)
+		(*itr)->setFillColor(sf::Color::White);
 }
 
 void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)

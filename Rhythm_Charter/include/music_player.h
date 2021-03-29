@@ -13,10 +13,10 @@ private:
 	std::string play_time;
 	std::string volume;
 	std::vector<std::string> playlist;
+	std::string times[4];
 
 	bool playState = false;
-
-	std::string times[4];
+	
 public:
 	Music_Player(std::string path);
 	
@@ -33,7 +33,6 @@ public:
 
 	void incrementPos(float p) { this->music.setPlayingOffset( this->music.getPlayingOffset() + sf::seconds(p)); }
 	void decrementPos(float p) { this->music.setPlayingOffset( sf::Time(this->music.getPlayingOffset() - sf::seconds(p))); }
-
 	std::string getText() {return play_time;}
 
 	float getPlayTime(){return music.getPlayingOffset().asSeconds();}
