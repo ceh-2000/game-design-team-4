@@ -11,26 +11,28 @@ private:
 	sf::Music music;
 	std::string path;
 	std::string play_time;
+	std::string volume;
 	std::vector<std::string> playlist;
+	std::string times[4];
 
 	bool playState = false;
-
-	std::string times[4];
+	
 public:
 	Music_Player(std::string path);
 	
 	void play(){ music.play(); playState = true; }
 	void pause(){ music.pause(); playState = false; }
 	void stop(){ music.stop(); playState = false; }
+	void changeTrack(std::string filePath) { this->music.openFromFile(filePath); }
 	
 	bool isPlaying() { return playState; }
 
-	void increaseVolume(int v) { this->music.setVolume( this->music.getVolume() + v ); }
-	void decreaseVolume(int v) { this->music.setVolume( this->music.getVolume() - v ); }
+	void increaseVolume(int v) { this->music.setVolume( this->music.getVolume() + v ); this->volume = std::to_string(this->music.getVolume());}
+	void decreaseVolume(int v) { this->music.setVolume( this->music.getVolume() - v ); this->volume = std::to_string(this->music.getVolume());}
+	std::string getVolume() { return this->volume; }
 
 	void incrementPos(float p) { this->music.setPlayingOffset( this->music.getPlayingOffset() + sf::seconds(p)); }
 	void decrementPos(float p) { this->music.setPlayingOffset( sf::Time(this->music.getPlayingOffset() - sf::seconds(p))); }
-
 	std::string getText() {return play_time;}
 
 	float getPlayTime(){return music.getPlayingOffset().asSeconds();}

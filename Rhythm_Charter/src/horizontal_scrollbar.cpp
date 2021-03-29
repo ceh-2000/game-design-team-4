@@ -1,8 +1,6 @@
 #include "horizontal_scrollbar.h"
 
-
-
-Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim) : GUI_Element()
+Horizontal_Scrollbar::Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim, TYPE type) : GUI_Element(type)
 {
 	this->bar.setPosition(pos);
 	this->bar.setOrigin(this->slider.getSize() / 2.0f);
@@ -23,7 +21,11 @@ bool Horizontal_Scrollbar::selected(sf::Vector2f mousePos)
 {
 	if (this->bar.getOrigin().x <= mousePos.x && this->bar.getOrigin().y <= mousePos.y
 	&& mousePos.x <= this->bar.getSize().x && mousePos.y <= this->bar.getSize().y)
+	{
 		this->slider.setPosition(sf::Vector2f(mousePos.x, this->slider.getPosition().y));
+		return true;
+	}
+	return false;
 }
 
 

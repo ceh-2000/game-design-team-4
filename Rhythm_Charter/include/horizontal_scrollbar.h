@@ -13,13 +13,11 @@ class Horizontal_Scrollbar : public GUI_Element
 private:
     sf::RectangleShape bar;
     sf::RectangleShape slider;
-
-    sf::Vector2f startPos;
-    sf::Vector2f currentPos;
     
 public:
-    Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim);
-    sf::Vector2f getSliderPos() {return slider.getPosition();}
+    Horizontal_Scrollbar(sf::Vector2f pos, sf::Vector2f dim, TYPE type);
+    sf::RectangleShape getBar() { return bar;}
+    sf::RectangleShape getSlider() {return slider;}
     
     bool selected(sf::Vector2f mousePos);
     void autoScroll(std::shared_ptr<Music_Player> music_player);

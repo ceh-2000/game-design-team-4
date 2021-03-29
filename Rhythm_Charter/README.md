@@ -13,5 +13,6 @@
 * DOWN or S: Decrease Volume by 5
 * RIGHT or D: Increase Music Position by 5
 * LEFT or A: Decrease Music Position by 5
-
-*WIP: Deleting and Click and Dragging a beat
+* LEFT CLICK on beat: Select beat
+* DELETE: If selected, beat will be deleted
+* Click and Drag beat
