@@ -16,7 +16,7 @@ song(filename)
 
 
     // load sprite sheet for Satsana
-    if(!texture.loadFromFile("../data/SatsanaSheet.png")){
+    if(!texture.loadFromFile("../data/art/SatsanaSheet.png")){
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
     }
     rectSourceSprite.left = 0;
@@ -29,7 +29,7 @@ song(filename)
     sprite.setTextureRect(rectSourceSprite);
 
     //load in the font for result text
-    if(!font.loadFromFile("../data/orange_kid.ttf")){
+    if(!font.loadFromFile("../data/fonts/orange_kid.ttf")){
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
     resultText.setFont(font);

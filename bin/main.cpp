@@ -7,12 +7,12 @@ int main(int argc, char **argv)
   // Create main window
   sf::RenderWindow app(sf::VideoMode(800, 600, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
   /*
-  Game game("../data/survive.wav");
-  game.setCurrentSong("../data/survive.wav");
+  Game game("../data/music/survive.wav");
+  game.setCurrentSong("../data/music/survive.wav");
   */
 
-  Game game("../data/Sixty_BPM.wav");
-  game.setCurrentSong("../data/Sixty_BPM.wav");
+  Game game("../data/music/Sixty_BPM.wav");
+  game.setCurrentSong("../data/music/Sixty_BPM.wav");
 
   // Set up variables that will allow us to get the elapsed time
   float deltaTime = 0.0f;
