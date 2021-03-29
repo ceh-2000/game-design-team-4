@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Song.h"
+#include "Animation.h"
 #include <SFML/Graphics.hpp>
 
 class Game

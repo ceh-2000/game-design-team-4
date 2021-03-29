@@ -171,21 +171,23 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
             elapsedDuration -= duration;
 
             // cycle through 6 frames of talking
-            if(rectSourceSprite.left == 512){
+            if(counter == 3){
                 rectSourceSprite.left = 0;
-            }
-            else{
-                rectSourceSprite.left += 256;
-            }
-            counter++;
-            if(counter == 6){
                 animate = false;
                 counter = 0;
                 resultText.setString("");
             }
+            else{
+                rectSourceSprite.left += 128;
+                counter++;
+            }
         }
         sprite.setTextureRect(rectSourceSprite);
     }
+
+    //Upcoming changes?
+    // if(animate)
+    //     Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite);
 
     app.draw(resultText);
     app.draw(sprite);
