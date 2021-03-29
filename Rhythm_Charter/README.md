@@ -15,4 +15,4 @@
 * LEFT or A: Decrease Music Position by 5
 * LEFT CLICK on beat: Select beat
 * DELETE: If selected, beat will be deleted
-** Click and Drag beat
+* Click and Drag beat
