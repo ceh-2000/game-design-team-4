@@ -14,9 +14,14 @@ public:
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
     void tapCheck(sf::RenderWindow &app);
+    bool hitCheck();
 
 private:
     Song song;
     int tapNum;
     int backgroundColor;
+    bool isHit;
+    //act and success regions vary between songs
+    float actRegion; //defines entire hit action region for a given song
+    float winRegion; //defines successful hit time window in action region
 };
