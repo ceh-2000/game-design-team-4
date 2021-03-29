@@ -21,8 +21,8 @@ song(filename)
     }
     rectSourceSprite.left = 0;
     rectSourceSprite.top = 0;
-    rectSourceSprite.width = 256;
-    rectSourceSprite.height = 256;
+    rectSourceSprite.width = 128;
+    rectSourceSprite.height = 128;
 
     sprite.setTexture(texture);
     sprite.setPosition(0, 0);  
