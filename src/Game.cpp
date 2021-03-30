@@ -75,11 +75,15 @@ void Game::regionCheck()
 		isHit = true;
 		animate = true;
 		resultText.setString("Try Again!");
+        resetHitYet = false;
 	}
-
+    else if((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)){
+        resetHitYet = false;
+	}
 	// Reset once we reenter an active region
-	else if(std::abs(curSongTime - nextTap) < actRegion){
+	else if(resetHitYet == false && std::abs(curSongTime - nextTap) < actRegion){
 		isHit = false;
+        resetHitYet = true;
 	}
 }
 

@@ -4,11 +4,6 @@
 
 int main(int argc, char **argv)
 {
-	// Create main window
-	/*
-	Game game("../data/music/survive.wav");
-	game.setCurrentSong("../data/music/survive.wav");
-	*/
 	std::vector<std::string> songList;
 	songList.push_back("../data/music/Sixty_BPM.wav");
 
@@ -22,12 +17,6 @@ int main(int argc, char **argv)
 	// Start main loop
 	while (game->getActive())
 	{
-		//check if no hit was made
-		// if(hitCheckfreq == 0) {
-		//   game.hitCheck();
-		// }
-		// Get how much time has passed
-		// hitCheckfreq = (hitCheckfreq + 1) % 200;
 		deltaTime = clock.restart().asSeconds();
 
 		game->update(deltaTime);

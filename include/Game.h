@@ -29,8 +29,9 @@ private:
     bool isHit = false;
     bool animate;
     int counter = 0;
+    bool resetHitYet = false;
     
-    //act and success regions vary between songs
+    // Act and success regions vary between songs
     float actRegion = 0.45f; //defines entire hit action region for a given song
     float winRegion = 0.15f; //defines successful hit time window in action region
     float almostRegion = 0.3f; //defines near hit / near miss time window in action region
