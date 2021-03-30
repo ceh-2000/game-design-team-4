@@ -52,29 +52,31 @@ float Game::determineNextTap(float songTime)
 /*
 Check whether the player did not tap in previous action region
 */
-bool Game::hitCheck()
-{
-  if(isHit) {
-    return true;
-  }
-  float curSongTime = song.getSongTime();
-  float prevTap = determinePrevTap(curSongTime);
-  std::cout << "curSongTime: " << curSongTime << std::endl;
-  std::cout << "prevTap: " << prevTap << std::endl;
-  //if song time is past tap region and no hits happened
-  if(curSongTime - prevTap > actRegion)
-  {
-    backgroundColor = 0;
-    std::cout << "No tap in action region" << std::endl;
-    return false;
-  }
+bool Game::regionCheck()
+{   
+    float curSongTime = song.getSongTime();
+    float prevTap = determinePrevTap(curSongTime);
+
+    // We tapped and we're now outside the tapping region so go back to default
+    if(isHit && curSongTime - prevTap > actRegion){
+        // isHit = false;
+        backgroundColor = 0;
+        return true;
+    }
+    // We never hit. Sad :(
+    else if(curSongTime - prevTap > actRegion){
+        std::cout << "No tap in action region" << std::endl;
+        backgroundColor = 2;
+        return false;
+    }
+    // There is still time to tap
+    else{
+        return true;
+    }
 }
 
 void Game::tapCheck(sf::RenderWindow &app)
 {
-  // TODO: move this into the event manager
-  // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-  // {
       float curSongTime = song.getSongTime();
       float nextTap = determineNextTap(curSongTime);
       float prevTap = determinePrevTap(curSongTime);
@@ -101,11 +103,12 @@ void Game::tapCheck(sf::RenderWindow &app)
           std::cout << "Miss!" << std::endl;
           isHit = true;
       }
-  //}
 }
 
 void Game::update(sf::RenderWindow &app, float deltaTime)
 {
+    regionCheck();
+
     // Clear screen and fill with blue
     if(backgroundColor == 0){
         app.clear(sf::Color::Blue);
@@ -117,7 +120,6 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
         app.clear(sf::Color::Red);
     }
 
-    // tapCheck(app);
 
     // Display
     app.display();

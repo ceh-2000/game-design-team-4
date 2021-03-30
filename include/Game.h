@@ -14,7 +14,7 @@ public:
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
     void tapCheck(sf::RenderWindow &app);
-    bool hitCheck();
+    bool regionCheck();
 
 private:
     Song song;
