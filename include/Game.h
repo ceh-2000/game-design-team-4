@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "Song.h"
 #include "Animation.h"
 #include <SFML/Graphics.hpp>

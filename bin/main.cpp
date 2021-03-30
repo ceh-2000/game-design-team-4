@@ -11,8 +11,8 @@ int main(int argc, char **argv)
   game.setCurrentSong("../data/music/survive.wav");
   */
 
-  Game game("../data/music/Sixty_BPM.wav");
-  game.setCurrentSong("../data/music/Sixty_BPM.wav");
+  std::shared_ptr<Game> game = std::make_shared<Game>("../data/music/Sixty_BPM.wav");
+  game->setCurrentSong("../data/music/Sixty_BPM.wav");
 
   // Set up variables that will allow us to get the elapsed time
   float deltaTime = 0.0f;
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
       {
         if (Event.key.code == sf::Keyboard::Space)
         {
-          game.tapCheck(app);
+          game->tapCheck(app);
         }
       }
     }
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     // hitCheckfreq = (hitCheckfreq + 1) % 200;
     deltaTime = clock.restart().asSeconds();
 
-    game.update(app, deltaTime);
+    game->update(app, deltaTime);
   }
 
   // Done.
