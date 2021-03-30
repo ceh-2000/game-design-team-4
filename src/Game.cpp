@@ -152,6 +152,21 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
 
     regionCheck();
 
+    // Clear screen and fill with blue
+    if(backgroundColor == 0){
+        app.clear(sf::Color::Blue);
+    }
+    else if(backgroundColor == 1){
+        app.clear(sf::Color::Green);
+    }
+    else if(backgroundColor == 2){
+        app.clear(sf::Color::Yellow);
+    }
+    else if(backgroundColor == 3){
+        app.clear(sf::Color::Red);
+    }
+
+
     if(animate){
         elapsedDuration += deltaTime;
 
