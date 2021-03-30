@@ -37,11 +37,11 @@ int main(int argc, char **argv)
       }
     }
     //check if no hit was made
-    if(hitCheckfreq == 0) {
-      game.hitCheck();
-    }
+    // if(hitCheckfreq == 0) {
+    //   game.hitCheck();
+    // }
     // Get how much time has passed
-    hitCheckfreq = (hitCheckfreq + 1) % 200;
+    // hitCheckfreq = (hitCheckfreq + 1) % 200;
     deltaTime = clock.restart().asSeconds();
 
     game.update(app, deltaTime);
