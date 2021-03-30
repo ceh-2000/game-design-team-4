@@ -34,9 +34,9 @@ song(filename)
     }
     resultText.setFont(font);
     resultText.setString("");
-    resultText.setCharacterSize(48);
+    resultText.setCharacterSize(24);
     resultText.setFillColor(sf::Color::Black);
-    resultText.setPosition(210, 90);
+    resultText.setPosition(130, 40);
 }
 
 Game::~Game() {}
@@ -163,7 +163,6 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
         app.clear(sf::Color::Red);
     }
 
-    // if character should be talking, animating talking
     if(animate){
         elapsedDuration += deltaTime;
 
@@ -171,23 +170,28 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
             elapsedDuration -= duration;
 
             // cycle through 6 frames of talking
-            if(counter == 3){
+            if(rectSourceSprite.left == 256){
                 rectSourceSprite.left = 0;
-                animate = false;
-                counter = 0;
-                resultText.setString("");
             }
             else{
                 rectSourceSprite.left += 128;
-                counter++;
+            }
+            counter++;
+            if(counter == 6){
+                animate = false;
+                counter = 0;
+                resultText.setString("");
             }
         }
         sprite.setTextureRect(rectSourceSprite);
     }
 
+    app.draw(resultText);
+    app.draw(sprite);
+
     //Upcoming changes?
-    // if(animate)
-    //     Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite);
+    //if(animate)
+    //    Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite, app);
 
     app.draw(resultText);
     app.draw(sprite);
