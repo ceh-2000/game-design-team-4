@@ -15,7 +15,7 @@ public:
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
     void tapCheck(sf::RenderWindow &app);
-    bool regionCheck();
+    void regionCheck();
 
 private:
     Song song;
@@ -24,6 +24,7 @@ private:
     bool isHit;
     bool animate;
     int counter;
+    
     //act and success regions vary between songs
     float actRegion; //defines entire hit action region for a given song
     float winRegion; //defines successful hit time window in action region

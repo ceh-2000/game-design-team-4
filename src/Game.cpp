@@ -80,26 +80,25 @@ float Game::determineNextTap(float songTime)
 /*
 Check whether the player did not tap in previous action region
 */
-bool Game::regionCheck()
+void Game::regionCheck()
 {   
     float curSongTime = song.getSongTime();
+    float nextTap = determineNextTap(curSongTime);
     float prevTap = determinePrevTap(curSongTime);
 
-    // We tapped and we're now outside the tapping region so go back to default
-    if(isHit && curSongTime - prevTap > actRegion){
-        // isHit = false;
-        backgroundColor = 0;
-        return true;
-    }
-    // We never hit. Sad :(
-    else if(curSongTime - prevTap > actRegion){
+    // Kick-off an animation to show that the user missed because they never hit
+    if(isHit == false && (std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)){
         std::cout << "No tap in action region" << std::endl;
-        backgroundColor = 2;
-        return false;
+        std::cout << "Miss!" << std::endl;
+        backgroundColor = 3;
+        isHit = true;
+        animate = true;
+        resultText.setString("Try Again!");
     }
-    // There is still time to tap
-    else{
-        return true;
+
+    // Reset once we reenter an active region
+    else if(std::abs(curSongTime - nextTap) < actRegion){
+        isHit = false;
     }
 }
 
@@ -108,20 +107,22 @@ void Game::tapCheck(sf::RenderWindow &app)
       float curSongTime = song.getSongTime();
       float nextTap = determineNextTap(curSongTime);
       float prevTap = determinePrevTap(curSongTime);
+
       std::cout << "current to nextTap: " << std::abs(curSongTime - nextTap) << std::endl;
       std::cout << "current to prevTap: " << std::abs(curSongTime - prevTap) << std::endl;
 
       //current song time not in any tap action regions
       if((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion))
       {
+          isHit = false;
           backgroundColor = 0;
       }
 
       //current song time hit in success range
       else if (std::abs(curSongTime - nextTap) < winRegion || std::abs(curSongTime - prevTap) < winRegion)
       {
-          backgroundColor = 1;
           std::cout << "Hit!" << std::endl;
+          backgroundColor = 1;
           isHit = true;
           animate = true;
           resultText.setString("Perfect!");
@@ -130,8 +131,8 @@ void Game::tapCheck(sf::RenderWindow &app)
       else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion
               || std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion)
       {
-          backgroundColor = 2;
           std::cout << "Almost!" << std::endl;
+          backgroundColor = 2;
           isHit = true;
           animate = true;
           resultText.setString("Almost!");
@@ -139,8 +140,8 @@ void Game::tapCheck(sf::RenderWindow &app)
       //current song time hit in fail range
       else
       {
-          backgroundColor = 3;
           std::cout << "Miss!" << std::endl;
+          backgroundColor = 3;
           isHit = true;
           animate = true;
           resultText.setString("Try Again!");
@@ -152,21 +153,9 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
 
     regionCheck();
 
-    // Clear screen and fill with blue
-    if(backgroundColor == 0){
-        app.clear(sf::Color::Blue);
-    }
-    else if(backgroundColor == 1){
-        app.clear(sf::Color::Green);
-    }
-    else if(backgroundColor == 2){
-        app.clear(sf::Color::Yellow);
-    }
-    else if(backgroundColor == 3){
-        app.clear(sf::Color::Red);
-    }
+    // TODO: Extract all view logic to a view class
 
-
+    // Animation logic
     if(animate){
         elapsedDuration += deltaTime;
 
@@ -183,11 +172,26 @@ void Game::update(sf::RenderWindow &app, float deltaTime)
             counter++;
             if(counter == 6){
                 animate = false;
+                backgroundColor = 0;
                 counter = 0;
                 resultText.setString("");
             }
         }
         sprite.setTextureRect(rectSourceSprite);
+    }
+
+    // Draw background and animation
+    if(backgroundColor == 0){
+        app.clear(sf::Color::Blue);
+    }
+    else if(backgroundColor == 1){
+        app.clear(sf::Color::Green);
+    }
+    else if(backgroundColor == 2){
+        app.clear(sf::Color::Yellow);
+    }
+    else if(backgroundColor == 3){
+        app.clear(sf::Color::Red);
     }
 
     app.draw(resultText);
