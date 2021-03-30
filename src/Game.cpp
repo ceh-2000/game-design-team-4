@@ -6,8 +6,37 @@ song(filename)
     tapNum = 0;
     backgroundColor = 0;
     isHit = false;
-    actRegion = 0.3;
+    actRegion = 0.45;
     winRegion = 0.15;
+    almostRegion = 0.3;
+    int counter = 0;
+
+    duration = .075;
+    elapsedDuration = duration;
+
+
+    // load sprite sheet for Satsana
+    if(!texture.loadFromFile("../data/art/SatsanaSheet.png")){
+        std::cout << "Could not load Satsana sprite sheet." << std::endl;
+    }
+    rectSourceSprite.left = 0;
+    rectSourceSprite.top = 0;
+    rectSourceSprite.width = 128;
+    rectSourceSprite.height = 128;
+
+    sprite.setTexture(texture);
+    sprite.setPosition(0, 0);  
+    sprite.setTextureRect(rectSourceSprite);
+
+    //load in the font for result text
+    if(!font.loadFromFile("../data/fonts/orange_kid.ttf")){
+        std::cout << "Could not load orange_kid.ttf." << std::endl;
+    }
+    resultText.setFont(font);
+    resultText.setString("");
+    resultText.setCharacterSize(24);
+    resultText.setFillColor(sf::Color::Black);
+    resultText.setPosition(130, 40);
 }
 
 Game::~Game() {}
@@ -45,7 +74,6 @@ float Game::determineNextTap(float songTime)
         tapNum = tapNum + 1;
         nextTap = song.getACorrectTiming(tapNum);
     }
-
     return nextTap;
 }
 
@@ -87,38 +115,75 @@ void Game::tapCheck(sf::RenderWindow &app)
       if((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion))
       {
           backgroundColor = 0;
-
       }
+
       //current song time hit in success range
       else if (std::abs(curSongTime - nextTap) < winRegion || std::abs(curSongTime - prevTap) < winRegion)
       {
           backgroundColor = 1;
           std::cout << "Hit!" << std::endl;
           isHit = true;
+          animate = true;
+          resultText.setString("Perfect!");
+      }
+      //current song time hit in almost range
+      else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion
+              || std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion)
+      {
+          backgroundColor = 2;
+          std::cout << "Almost!" << std::endl;
+          isHit = true;
+          animate = true;
+          resultText.setString("Almost!");
       }
       //current song time hit in fail range
       else
       {
-          backgroundColor = 2;
+          backgroundColor = 3;
           std::cout << "Miss!" << std::endl;
           isHit = true;
+          animate = true;
+          resultText.setString("Try Again!");
       }
 }
 
 void Game::update(sf::RenderWindow &app, float deltaTime)
 {
+
     regionCheck();
 
-    // Clear screen and fill with blue
-    if(backgroundColor == 0){
-        app.clear(sf::Color::Blue);
+    if(animate){
+        elapsedDuration += deltaTime;
+
+        while(elapsedDuration > duration){
+            elapsedDuration -= duration;
+
+            // cycle through 6 frames of talking
+            if(rectSourceSprite.left == 256){
+                rectSourceSprite.left = 0;
+            }
+            else{
+                rectSourceSprite.left += 128;
+            }
+            counter++;
+            if(counter == 6){
+                animate = false;
+                counter = 0;
+                resultText.setString("");
+            }
+        }
+        sprite.setTextureRect(rectSourceSprite);
     }
-    else if(backgroundColor == 1){
-        app.clear(sf::Color::Green);
-    }
-    else if(backgroundColor == 2){
-        app.clear(sf::Color::Red);
-    }
+
+    app.draw(resultText);
+    app.draw(sprite);
+
+    //Upcoming changes?
+    //if(animate)
+    //    Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite, app);
+
+    app.draw(resultText);
+    app.draw(sprite);
 
 
     // Display
