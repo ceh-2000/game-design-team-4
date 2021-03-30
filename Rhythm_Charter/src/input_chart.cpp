@@ -4,6 +4,8 @@ Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, 
 {
 	this->horiz_scrollbar = horiz_scrollbar;
 	this->mp = mp;
+
+	this->selection = std::make_shared<sf::RectangleShape>();
 }
 
 //Check if a certain beat is selected
@@ -23,6 +25,7 @@ bool Input_Chart::selected(sf::Vector2f mousePos)
 		&& mousePos.y >= (*itr)->getPosition().y
 		&& mousePos.y <= (*itr)->getPosition().y + (*itr)->getSize().y)
 			{
+				this->selection->setSize(sf::Vector2f((*itr)->getSize().x+this->selection->getSize().x, (*itr)->getSize().y+this->selection->getSize().y));
 				(*itr)->setFillColor(sf::Color::White);
 				// this->timingText.at(counter)->setFillColor(sf::Color::White);
 				counter++;
@@ -31,10 +34,10 @@ bool Input_Chart::selected(sf::Vector2f mousePos)
 	return false;
 }
 
-/*
+/*///////////////////////////
 Create a new std::shared_ptr<sf::RectangleShape> and add it to the inputList
 Take in timing
-*/
+*////////////////////
 void Input_Chart::addInput(float x, float y, float time, sf::Font &font)
 {
 	std::cout << "P: " << x << std::endl;
@@ -93,8 +96,12 @@ void Input_Chart::moveInput(sf::Vector2f mousePos, float size)
 	{
 		if((*itr)->getFillColor() == sf::Color::White)
 		{
+			//select
+			this->selection->setOrigin(this->selection->getPosition()/2.0f);
+			(*itr)->move(this->selection->getPosition() - (*itr)->getPosition());
+			
 			this->timings.at(counter) = this->mp->getDuration()*((mousePos.x-this->horiz_scrollbar->getSlider().getSize().y)/(this->horiz_scrollbar->getBar().getSize().x));
-			(*itr)->setPosition(mousePos);
+
 			std::cout<<"New Time: " << this->timings.at(counter) <<std::endl;
 			(*itr)->setFillColor(sf::Color::Green);
 		}
@@ -104,12 +111,16 @@ void Input_Chart::moveInput(sf::Vector2f mousePos, float size)
 
 void Input_Chart::selectAll()
 {
-	for(auto itr = this->inputList.begin(); itr<this->inputList.end(); ++itr)
-		(*itr)->setFillColor(sf::Color::White);
+	// for(auto itr = this->inputList.begin(); itr<this->inputList.end(); ++itr)
+	// 	{
+	// 		(*itr)->setFillColor(sf::Color::White);
+	// 		(*itr)->getSize()
+	// 	}
 }
 
 void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
 {
+	window->draw(*this->selection);
 	for(auto input : this->inputList)
 		window->draw(*input);
 	for(auto string: this->timingText)

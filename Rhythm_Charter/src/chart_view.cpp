@@ -45,7 +45,7 @@ void Chart_View::pollInput()
 							// if(sf::Keyboard::O) open();
 							// if(sf::Keyboard::Z) undo();
 							// if(sf::Keyboard::Y) redo();
-							if(sf::Keyboard::A) this->input_chart->selectAll();
+							// if(sf::Keyboard::A) this->input_chart->selectAll();
 						break;
 
 						case sf::Keyboard::Q:
@@ -104,6 +104,10 @@ void Chart_View::pollInput()
 											this->input_chart->saveJSON();
 										break;
 									}
+								}
+								else
+								{
+									this->input_chart->getSelectionRect()->setSize(sf::Vector2f(0.0f, 0.0f));
 								}
 							}
 						}
