@@ -27,7 +27,7 @@ Return true if we're not at our end position yet and false otherwise.
 */
 void BeatBoxLogic::update(float deltaTime, float curSongTime)
 {
-
+    // How long until box needs to be at its end position
     float timeUntilHit = songTimeHit - curSongTime;
 
     // Move the beat box to the end position; time has run out.
@@ -36,10 +36,13 @@ void BeatBoxLogic::update(float deltaTime, float curSongTime)
     }
     else{
         // Determine if it's time to move
-        float timeToTravel = sqrt(pow((this->endPos.x - this->startPos.x)/this->velocity.x, 2) + pow((this->endPos.y - this->startPos.y)/this->velocity.y, 2));
+        float speed = sqrt(pow(this->velocity.x, 2)+pow(this->velocity.y, 2));
+        float distance = sqrt(pow(this->endPos.x - this->startPos.x, 2) + pow(this->endPos.y - this->startPos.y, 2));
+        float timeToTravel = distance / speed;
+        std::cout << timeToTravel << std::endl;
 
         if(timeUntilHit <= timeToTravel){
-            move(timeToTravel - timeUntilHit);
+            move(deltaTime);
         }
     }
 

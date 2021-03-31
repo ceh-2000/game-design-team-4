@@ -9,6 +9,8 @@ Game::Game(std::shared_ptr<Song> song)
 	// Create beat boxes for the entire song of timings from the start
 	std::vector<float> allSongTimings = song->getAllTimings();
 	beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-400.0f, -400.0f), 4.95));
+	beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-400.0f, -400.0f), 5.95));
+	beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-400.0f, -400.0f), 6.95));
 
 	// load sprite sheet for Satsana
 	if (!texture.loadFromFile("../data/art/SatsanaSheet.png"))
