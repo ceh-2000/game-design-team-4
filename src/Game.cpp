@@ -16,7 +16,7 @@ Game::Game(std::shared_ptr<Song> song)
 	rectSourceSprite.height = 128;
 
 	sprite.setTexture(texture);
-	sprite.setPosition(0, 0);  
+	sprite.setPosition(0, 0);
 	sprite.setTextureRect(rectSourceSprite);
 
 	//load in the font for result text
@@ -62,28 +62,28 @@ float Game::determineNextTap(float songTime)
 Check whether the player did not tap in previous action region
 */
 void Game::regionCheck()
-{   
+{
 	float curSongTime = song->getSongTime();
 	float nextTap = determineNextTap(curSongTime);
 	float prevTap = determinePrevTap(curSongTime);
 
 	// Kick-off an animation to show that the user missed because they never hit
-	if(!isHit && (std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)){
+	if(!isHit && std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion){
 		std::cout << "No tap in action region" << std::endl;
 		std::cout << "Miss!" << std::endl;
 		backgroundColor = 3;
 		isHit = true;
 		animate = true;
 		resultText.setString("Try Again!");
-        resetHitYet = false;
+		resetHitYet = false;
 	}
-    else if((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)){
-        resetHitYet = false;
+	else if((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)){
+		resetHitYet = false;
 	}
 	// Reset once we reenter an active region
 	else if(resetHitYet == false && std::abs(curSongTime - nextTap) < actRegion){
 		isHit = false;
-        resetHitYet = true;
+		resetHitYet = true;
 	}
 }
 
@@ -153,7 +153,7 @@ void Game::checkEvent()
 	}
 }
 
-void Game::update(float deltaTime)
+void Game::update(const float& deltaTime)
 {
 	regionCheck();
 	checkEvent();
@@ -162,10 +162,10 @@ void Game::update(float deltaTime)
 
 	// Animation logic
 	if(animate){
-		elapsedDuration += deltaTime;
+		this->elapsedDuration += deltaTime;
 
-		while(elapsedDuration > duration){
-			elapsedDuration -= duration;
+		while(this->elapsedDuration > this->duration){
+			this->elapsedDuration -= this->duration;
 
 			// cycle through 6 frames of talking
 			if(rectSourceSprite.left == 256){
@@ -186,20 +186,20 @@ void Game::update(float deltaTime)
 	}
 
 	// Draw background and animation
-	switch(backgroundColor)
+	switch(this->backgroundColor)
 	{
-		case 0: app->clear(sf::Color::Blue); break; //blue
-		case 1: app->clear(sf::Color::Green); break; //green	
-		case 2: app->clear(sf::Color::Yellow); break; // yellow
-        case 3: app->clear(sf::Color::Red); break; //red
+		case 0: this->app->clear(sf::Color::Blue); break; //blue
+		case 1: this->app->clear(sf::Color::Green); break; //green	
+		case 2: this->app->clear(sf::Color::Yellow); break; // yellow
+		case 3: this->app->clear(sf::Color::Red); break; //red
 	}
 	//Upcoming changes?
 	//if(animate)
 	//    Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite, app);
 
-	app->draw(resultText);
-	app->draw(sprite);
+	this->app->draw(resultText);
+	this->app->draw(sprite);
 
 	// Display
-	app->display();
+	this->app->display();
 }

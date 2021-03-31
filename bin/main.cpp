@@ -14,6 +14,7 @@ int main(int argc, char **argv)
 	float deltaTime = 0.0f;
 	sf::Clock clock;
 	int hitCheckfreq = 0;
+	
 	// Start main loop
 	while (game->getActive())
 	{
