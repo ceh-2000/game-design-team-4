@@ -9,6 +9,7 @@ private:
 	std::shared_ptr<MinigameLogic> minigameLogic;
 	sf::Texture background;
 	std::vector<std::string> backgroundPaths;
+	
 
 public:
 	MinigameView(std::shared_ptr<MinigameLogic> minigameLogic);
