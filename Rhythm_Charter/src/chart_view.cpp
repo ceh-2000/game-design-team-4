@@ -105,10 +105,6 @@ void Chart_View::pollInput()
 										break;
 									}
 								}
-								else
-								{
-									this->input_chart->getSelectionRect()->setSize(sf::Vector2f(0.0f, 0.0f));
-								}
 							}
 						}
 					break;
