@@ -5,7 +5,7 @@ Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, 
 	this->horiz_scrollbar = horiz_scrollbar;
 	this->mp = mp;
 }
-
+  
 //Check if a certain beat is selected
 bool Input_Chart::selected(sf::Vector2f mousePos)
 {

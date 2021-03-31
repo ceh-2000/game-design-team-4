@@ -23,7 +23,7 @@ public:
 	void play(){ music.play(); playState = true; }
 	void pause(){ music.pause(); playState = false; }
 	void stop(){ music.stop(); playState = false; }
-	void changeTrack(std::string filePath) { this->music.openFromFile(filePath); }
+	void changeTrack(std::string &filePath) { this->music.openFromFile(filePath); }
 	
 	bool isPlaying() { return playState; }
 
@@ -43,5 +43,4 @@ public:
 
 	void updateText();
 };
-
 #endif
