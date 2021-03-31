@@ -1,5 +1,5 @@
 #include "Animation.h"
-Animation::Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, sf::RenderWindow& window)
+Animation::Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window)
 {   
     this->sprite = sprite;
     this->text = text;
