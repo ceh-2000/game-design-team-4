@@ -4,6 +4,10 @@ Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, 
 {
 	this->horiz_scrollbar = horiz_scrollbar;
 	this->mp = mp;
+	this->selection = std::make_shared<sf::RectangleShape>();
+	this->selection->setFillColor(sf::Color::Transparent);
+	this->selection->setOutlineColor(sf::Color::Magenta);
+	this->selection->setOutlineThickness(5.0f);
 }
   
 //Check if a certain beat is selected
@@ -31,10 +35,10 @@ bool Input_Chart::selected(sf::Vector2f mousePos)
 	return false;
 }
 
-/*///////////////////////////
+/*//////////////////////////////////////////////////////////////////////////
 Create a new std::shared_ptr<sf::RectangleShape> and add it to the inputList
 Take in timing
-*////////////////////
+*///////////////////////////////////////////////////////////////////////////
 void Input_Chart::addInput(float x, float y, float time, sf::Font &font)
 {
 	std::cout << "P: " << x << std::endl;
@@ -48,6 +52,30 @@ void Input_Chart::addInput(float x, float y, float time, sf::Font &font)
 	input->setOutlineColor(sf::Color(187,188,188,255));
 	input->setFillColor(sf::Color::Green);
 	this->inputList.push_back(input);
+
+	if(x<this->minX)
+	{
+		this->selection->setPosition(x, this->selection->getSize().y);
+		this->selection->setSize(sf::Vector2f((x - this->minX), this->selection->getSize().y));
+		this->minX = x;
+	}
+	if(x+8.0f>this->maxX)
+	{
+		this->maxX = x+8.0f;
+		this->selection->setSize(sf::Vector2f(this->maxX, this->selection->getSize().y));
+	}
+	if(y<this->minY)
+	{
+		this->selection->setPosition(this->selection->getSize().x, y-this->selection->getSize().y/2.0f);
+		this->selection->setSize(sf::Vector2f(this->selection->getSize().x, (y-this->maxY)));
+		this->minY = y - this->selection->getSize().y/2.0f;
+	}
+
+	if(y+32.0f>this->maxY)
+	{
+		this->maxY = y+32.0f;
+		this->selection->setSize(sf::Vector2f(this->selection->getSize().x, this->maxY));
+	}
 
 	std::shared_ptr<sf::Text> beatLabel = std::make_shared<sf::Text>(std::to_string(time), font, 20);
 	beatLabel->setPosition(sf::Vector2f(x, y/2.0f+32.0f));
@@ -119,13 +147,15 @@ void Input_Chart::draw(std::shared_ptr<sf::RenderWindow> window)
 		window->draw(*input);
 	for(auto string: this->timingText)
 		window->draw(*string);
+	window->draw(*selection);
 }
 
 void Input_Chart::saveJSON()
 {
-	std::sort(this->timings.begin(), this->timings.end());
+	if(std::distance(this->timings.begin(), this->timings.end()) != 0)
+		std::sort(this->timings.begin(), this->timings.end());
 	nlohmann::json jsonfile;
-
+	
 	for(auto itr = this->timings.begin(); itr<this->timings.end(); ++itr)
 		jsonfile["test"] += *itr;
 

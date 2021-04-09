@@ -16,18 +16,19 @@ private:
 	std::vector<std::shared_ptr<sf::RectangleShape>> inputList;
 	std::vector<float> timings; //in seconds
 	std::vector<std::shared_ptr<sf::Text>> timingText;
+	std::shared_ptr<sf::RectangleShape> selection;
+	std::vector<std::vector<sf::RectangleShape>> grid;
+	
 	bool sorted = false;
 	bool isSelect = false;
 	int counter;
 
-	struct selectionBox //will modify values depending on new selection
-	{
-		int minX = 0;
-		int minY = 0;
-		int maxX = 0;
-		int maxY = 0;
-	};
-
+	//selectionBox coords
+	int minX = 0;
+	int minY = 0;
+	int maxX = 0;
+	int maxY = 0;
+	
 public:
 	Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, std::shared_ptr<Music_Player> mp, TYPE type);
 
