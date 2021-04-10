@@ -30,7 +30,8 @@ private:
 	bool animate;
 	int counter = 0;
 	bool resetHitYet = false;
-	
+	float timePerFrame;
+
 	// Act and success regions vary between songs
 	float actRegion = 0.45f; //defines entire hit action region for a given song
 	float winRegion = 0.15f; //defines successful hit time window in action region
@@ -45,5 +46,7 @@ private:
 
 	sf::Font font;
 	sf::Text resultText;
+
+	Animation* Satsana = new Animation(animate, elapsedDuration, 3, 0.75f, false, resultText, sprite, rectSourceSprite);
 };
 #endif

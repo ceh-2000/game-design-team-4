@@ -20,7 +20,7 @@ public:
 
 	sf::Vector2f getChefPos() { return chefPosition; }
 	void setChefPos(sf::Vector2f &pos) { chefPosition = pos; }
-	void setChefDim(float &a, float &b) { chefPosition = sf::Vector2f(a,b); }
+	//void setChefDim(float &a, float &b) { chefPosition = sf::Vector2f(a,b); }
 
 	float getChefSpeed() { return chefSpeed; }
 	void setChefSpeed(float s) { chefSpeed = s; }

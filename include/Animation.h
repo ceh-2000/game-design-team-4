@@ -19,8 +19,11 @@ private:
     bool animate = true;
     bool loop;
     int counter = 0;
+    int frames;
+    float timePerFrame;
 public:
-    Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window);
+    Animation(bool& animate, float& elapsedDuration, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText);
+    void animateSprite(const float& deltaTime, std::shared_ptr<sf::RenderWindow> window);
     void isLoop(bool loop) { this->loop = loop; }
     void draw(std::shared_ptr<sf::RenderWindow> window);
 };

@@ -28,6 +28,8 @@ Game::Game(std::shared_ptr<Song> song)
 	resultText.setCharacterSize(24);
 	resultText.setFillColor(sf::Color::Black);
 	resultText.setPosition(130, 40);
+
+	Animation* Satsana = new Animation(animate, elapsedDuration, 3, 0.75f, false, resultText, sprite, rectSourceSprite);
 }
 
 /*
@@ -161,29 +163,29 @@ void Game::update(const float& deltaTime)
 	// TODO: Extract all view logic to a view class
 
 	// Animation logic
-	if(animate){
-		this->elapsedDuration += deltaTime;
+	// if(animate){
+	// 	this->elapsedDuration += deltaTime;
 
-		while(this->elapsedDuration > this->duration){
-			this->elapsedDuration -= this->duration;
+	// 	while(this->elapsedDuration > this->duration){
+	// 		this->elapsedDuration -= this->duration;
 
-			// cycle through 6 frames of talking
-			if(rectSourceSprite.left == 256){
-				rectSourceSprite.left = 0;
-			}
-			else{
-				rectSourceSprite.left += 128;
-			}
-			counter++;
-			if(counter == 6){
-				animate = false;
-				backgroundColor = 0;
-				counter = 0;
-				resultText.setString("");
-		   }
-		}
-		sprite.setTextureRect(rectSourceSprite);
-	}
+	// 		// cycle through 6 frames of talking
+	// 		if(rectSourceSprite.left == 256){
+	// 			rectSourceSprite.left = 0;
+	// 		}
+	// 		else{
+	// 			rectSourceSprite.left += 128;
+	// 		}
+	// 		counter++;
+	// 		if(counter == 6){
+	// 			animate = false;
+	// 			backgroundColor = 0;
+	// 			counter = 0;
+	// 			resultText.setString("");
+	// 	   }
+	// 	}
+	// 	sprite.setTextureRect(rectSourceSprite);
+	// }
 
 	// Draw background and animation
 	switch(this->backgroundColor)
@@ -195,10 +197,10 @@ void Game::update(const float& deltaTime)
 	}
 	//Upcoming changes?
 	//if(animate)
-	//    Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite, app);
+	   Satsana->animateSprite(deltaTime, app);
 
-	this->app->draw(resultText);
-	this->app->draw(sprite);
+	//this->app->draw(resultText);
+	//this->app->draw(sprite);
 
 	// Display
 	this->app->display();

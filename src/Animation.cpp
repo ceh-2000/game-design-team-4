@@ -1,12 +1,22 @@
 #include "Animation.h"
-Animation::Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window)
+#include <iostream>
+Animation::Animation(bool& animate, float& elapsedDuration, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText)
 {   
     this->sprite = sprite;
     this->text = text;
     this->loop = loop;
     this->texture = rectText;
+    this->elapsedDuration = elapsedDuration;
+    this->frames = frames;
+    this->timePerFrame = timePerFrame;
+}
+
+void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow> window){
 
     elapsedDuration += dt;
+    std::cout << elapsedDuration << "\n";
+    std::cout << timePerFrame << "\n";
+    std::cout << "\n";
         while(elapsedDuration > timePerFrame){
             elapsedDuration -= timePerFrame;
 
@@ -26,5 +36,9 @@ Animation::Animation(const float& dt, int frames, float timePerFrame, bool loop,
                 counter++;
             }
         }
+        //window->clear(sf::Color::Blue);
         this->sprite.setTextureRect(texture);
+        window->draw(sprite);
+        window->draw(text);
+        //window->display();
 }    
