@@ -47,6 +47,6 @@ private:
 	sf::Font font;
 	sf::Text resultText;
 
-	Animation* Satsana = new Animation(animate, elapsedDuration, 3, 0.75f, false, resultText, sprite, rectSourceSprite);
+	Animation* Satsana;
 };
 #endif
