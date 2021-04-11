@@ -9,7 +9,13 @@ Game::Game(std::shared_ptr<Song> song)
 	// Create beat boxes for the entire song of timings from the start
 	std::vector<float> allSongTimings = song->getAllTimings();
 	for(float time : allSongTimings){
-		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-500.0f, -500.0f), time));
+		float LO = 0.0f;
+		float HI = 700.0f;
+		
+		float randStartX = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+		float randStartY = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+
+		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX, randStartY), sf::Vector2f(400.0f, 300.0f), sf::Vector2f(-500.0f, -500.0f), time));
 	}
 
 	// load sprite sheet for Satsana

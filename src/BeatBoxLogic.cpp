@@ -7,12 +7,23 @@ BeatBoxLogic::BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vecto
     this->velocity = velocity;
     this->songTimeHit = songTimeHit;
     this->curPos = startPos;
+    normalizeVelocity();
 }
 
-void BeatBoxLogic::setVelocity(sf::Vector2f vel)
-{
-    // At some point, set velocity so we ensure our animation will always happen as expected
-    // or we need a delay at first so user doesn't lose points when first few boxes don't make it in time
+/*
+We want the box to move in a straight line to it's destination, so let's fix the velocity vector 
+so that we have straight line movement
+*/
+void BeatBoxLogic::normalizeVelocity()
+{   
+    float theta = atan(std::abs(this->curPos.y - this->endPos.y)/std::abs(this->curPos.x - this->endPos.x));
+    float totalVelocity = sqrt(pow(this->velocity.x, 2)+pow(this->velocity.y, 2));
+    velocity.x = totalVelocity * cos(theta);
+    velocity.y = totalVelocity * sin(theta);
+
+    std::cout << velocity.x << std::endl;
+    std::cout << velocity.x << std::endl;
+
 }
 
 void BeatBoxLogic::move(float deltaTime)
@@ -76,6 +87,10 @@ bool BeatBoxLogic::update(float deltaTime, float curSongTime)
         if(timeUntilHit <= timeToTravel){
             move(deltaTime);
         }
+
+        // if(timeUntilHit <= timeToTravelY){
+        //     moveY(deltaTime);
+        // }
 
         if(timeToTravel - timeUntilHit > 0.1){
             std::cout << "Time to travel: " << timeToTravel << " Time to hit: " << timeUntilHit << std::endl;

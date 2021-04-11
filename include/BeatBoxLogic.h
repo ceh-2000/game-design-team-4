@@ -17,7 +17,7 @@ public:
     float getSongTime(){ return songTimeHit; }
 
     void setCurPos(sf::Vector2f cPos){ curPos = cPos; }
-    void setVelocity(sf::Vector2f vel); // Implement in cpp file
+    void normalizeVelocity(); 
 
     bool isAtStart(){ if(std::abs(curPos.x - startPos.x) < 0.01){return true; } return false; }
     bool isAtEnd(){ if(std::abs(curPos.x - endPos.x) < 0.01){return true; } return false; }
