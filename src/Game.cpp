@@ -177,7 +177,7 @@ void Game::checkEvent()
 	}
 }
 
-void Game::updateBeatBoxes(float deltaTime)
+void Game::updateBeatBoxes(const float& deltaTime)
 {
 	float curSongTime = song->getSongTime();
 	std::vector<BeatBoxLogic> temp;
@@ -194,7 +194,7 @@ void Game::updateBeatBoxes(float deltaTime)
 	this->beatBoxes = temp;
 }
 
-void Game::update(float deltaTime)
+void Game::update(const float& deltaTime)
 {
 	// TODO: Extract all view logic to a view class
 
@@ -205,14 +205,14 @@ void Game::update(float deltaTime)
 	regionCheck();
 	checkEvent();
 
-	// Post-hit reaction logic
-	if (animate)
-	{
-		elapsedDuration += deltaTime;
+	// TODO: Extract all view logic to a view class
 
-		while (elapsedDuration > duration)
-		{
-			elapsedDuration -= duration;
+	// Animation logic
+	if(animate){
+		this->elapsedDuration += deltaTime;
+
+		while(this->elapsedDuration > this->duration){
+			this->elapsedDuration -= this->duration;
 
 			// cycle through 6 frames of talking
 			if (rectSourceSprite.left == 256)
@@ -255,8 +255,8 @@ void Game::update(float deltaTime)
 	//if(animate)
 	//    Animation(deltaTime, 3, 0.75f, false, resultText, sprite, rectSourceSprite, app);
 
-	app->draw(resultText);
-	app->draw(sprite);
+	this->app->draw(resultText);
+	this->app->draw(sprite);
 
 	// Draw all of our beat boxes
 	for (BeatBoxLogic beatBox : beatBoxes)
@@ -269,5 +269,5 @@ void Game::update(float deltaTime)
 	}
 
 	// Display
-	app->display();
+	this->app->display();
 }

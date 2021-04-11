@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GAME_H
+#define GAME_H
 #include <iostream>
 #include <memory>
 #include "Song.h"
@@ -12,14 +14,14 @@ public:
     Game(std::shared_ptr<Song> song);
 
     bool getActive() { return isActive; }
-
-    void checkEvent();
-    void update(float deltaTime);
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
+
+    void update(const float& deltaTime);
     void tapCheck();
+	void checkEvent(); 
     void regionCheck();
-    void updateBeatBoxes(float deltaTime);
+    void updateBeatBoxes(const float& deltaTime);
 
 private:
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 600, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
@@ -51,4 +53,9 @@ private:
 
     sf::Font font;
     sf::Text resultText;
+
+	
+
 };
+#endif
+

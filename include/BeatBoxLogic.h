@@ -23,10 +23,10 @@ public:
     bool isAtEnd(){ if(std::abs(curPos.x - endPos.x) < 0.01){return true; } return false; }
 
     // Methods with logic
-    void move(float deltaTime);
-    void moveX(float deltaTime);
-    void moveY(float deltaTime);
-    bool update(float deltaTime, float curSongTime);
+    void move(const float& deltaTime);
+    void moveX(const float& deltaTime);
+    void moveY(const float& deltaTime);
+    bool update(const float& deltaTime, const float& curSongTime);
 
 private:
     sf::Vector2f startPos;

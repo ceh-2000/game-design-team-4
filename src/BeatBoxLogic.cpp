@@ -1,5 +1,11 @@
 #include "BeatBoxLogic.h"
 
+/*
+Constructor for the beat box class
+
+Handles animations that need to move before the beat
+and be at a specified position on the beat
+*/
 BeatBoxLogic::BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f velocity, float songTimeHit)
 {
     this->startPos = startPos;
@@ -11,8 +17,8 @@ BeatBoxLogic::BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vecto
 }
 
 /*
-We want the box to move in a straight line to it's destination, so let's fix the velocity vector 
-so that we have straight line movement
+We want the box to move in a straight line to it's destination, 
+so let's fix the velocity vector to ensure straight line movement
 */
 void BeatBoxLogic::normalizeVelocity()
 {   
@@ -26,7 +32,7 @@ void BeatBoxLogic::normalizeVelocity()
 
 }
 
-void BeatBoxLogic::move(float deltaTime)
+void BeatBoxLogic::move(const float& deltaTime)
 {   
     moveX(deltaTime);
     moveY(deltaTime);
@@ -35,7 +41,7 @@ void BeatBoxLogic::move(float deltaTime)
 /*
 Move our BeatBox the correct x-amount toward the target end position
 */
-void BeatBoxLogic::moveX(float deltaTime){
+void BeatBoxLogic::moveX(const float& deltaTime){
     // Move to the left to reach the end position
     if(this->curPos.x > this->endPos.x){
         this->curPos.x = this->curPos.x - std::abs(velocity.x) * deltaTime;
@@ -49,7 +55,7 @@ void BeatBoxLogic::moveX(float deltaTime){
 /*
 Move our BeatBox the correct x-amount toward the target final position
 */
-void BeatBoxLogic::moveY(float deltaTime){
+void BeatBoxLogic::moveY(const float& deltaTime){
     // Move to the left to reach the end position
     if(this->curPos.y > this->endPos.y){
         this->curPos.y = this->curPos.y - std::abs(velocity.y) * deltaTime;
@@ -65,7 +71,7 @@ Update the position of our box that will indicate the beat.
 
 Return true if we can make it to our end position before the hit and false otherwise.
 */
-bool BeatBoxLogic::update(float deltaTime, float curSongTime)
+bool BeatBoxLogic::update(const float& deltaTime, const float& curSongTime)
 {
     // How long until box needs to be at its end position
     float timeUntilHit = songTimeHit - curSongTime;

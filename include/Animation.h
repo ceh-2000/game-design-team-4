@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
@@ -19,7 +20,7 @@ private:
     bool loop;
     int counter = 0;
 public:
-    Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, sf::RenderWindow& window);
+    Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window);
     void isLoop(bool loop) { this->loop = loop; }
     void draw(std::shared_ptr<sf::RenderWindow> window);
 };
