@@ -9,7 +9,7 @@ Game::Game(std::shared_ptr<Song> song)
 	// Create beat boxes for the entire song of timings from the start
 	std::vector<float> allSongTimings = song->getAllTimings();
 	for(float time : allSongTimings){
-		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-400.0f, -400.0f), time));
+		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(500.0f, 500.0f), sf::Vector2f(0.0f, 0.0f), sf::Vector2f(-500.0f, -500.0f), time));
 	}
 
 	// load sprite sheet for Satsana
@@ -175,10 +175,15 @@ void Game::updateBeatBoxes(float deltaTime)
 {
 	float curSongTime = song->getSongTime();
 	std::vector<BeatBoxLogic> temp;
+	int count = 0;
 	for (BeatBoxLogic beatBox : beatBoxes)
 	{
-		beatBox.update(deltaTime, curSongTime);
+		bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
+		if(canWeMakeIt == false){
+			std::cout << "Beat box #: " << count << " can't make it in time :(. Consider increasing the speed of the boxes or adjusting another parameter." << std::endl;
+		}
 		temp.push_back(beatBox);
+		count ++;
 	}
 	this->beatBoxes = temp;
 }
@@ -250,15 +255,11 @@ void Game::update(float deltaTime)
 	// Draw all of our beat boxes
 	for (BeatBoxLogic beatBox : beatBoxes)
 	{
-		// if (!beatBox.isAtEnd() && !beatBox.isAtStart())
-		// {
 		sf::RectangleShape box;
 		box.setSize(sf::Vector2f(50, 50));
 		box.setFillColor(sf::Color::Magenta);
 		box.setPosition(beatBox.getCurPos());
-
 		app->draw(box);
-		// }
 	}
 
 	// Display

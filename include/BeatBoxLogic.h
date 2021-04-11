@@ -24,7 +24,9 @@ public:
 
     // Methods with logic
     void move(float deltaTime);
-    void update(float deltaTime, float curSongTime);
+    void moveX(float deltaTime);
+    void moveY(float deltaTime);
+    bool update(float deltaTime, float curSongTime);
 
 private:
     sf::Vector2f startPos;
