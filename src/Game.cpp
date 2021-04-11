@@ -29,7 +29,9 @@ Game::Game(std::shared_ptr<Song> song)
 	resultText.setFillColor(sf::Color::Black);
 	resultText.setPosition(130, 40);
 
-	Satsana = new Animation(animate, elapsedDuration, 3, 0.25f, false, resultText, sprite, rectSourceSprite);
+	Satsana = new Animation(elapsedDuration, 3, 0.25f, sprite, rectSourceSprite);
+	//sf::Vector2u dim(384, 128);
+	//Satsana = new Animation(&texture, dim, 0.25f);
 }
 
 /*
@@ -156,7 +158,8 @@ void Game::checkEvent()
 }
 
 void Game::update(const float& deltaTime)
-{
+{	
+	animate = false;
 	regionCheck();
 	checkEvent();
 
@@ -196,12 +199,14 @@ void Game::update(const float& deltaTime)
 		case 3: this->app->clear(sf::Color::Red); break; //red
 	}
 	//Upcoming changes?
-	if(animate)
-	   Satsana->animateSprite(deltaTime, app);
+	//if(animate){
+	   Satsana->animateSprite(deltaTime, app, resultText);
+	   //Satsana->Update(0, deltaTime);
+	//}
 
-	//this->app->draw(resultText);
-	//this->app->draw(sprite);
+	this->app->draw(resultText);
+	this->app->draw(sprite);
 
 	// Display
-	//this->app->display();
+	this->app->display();
 }

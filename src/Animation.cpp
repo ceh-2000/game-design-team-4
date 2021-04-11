@@ -1,16 +1,39 @@
 #include "Animation.h"
 #include <iostream>
-Animation::Animation(bool& animate, float& elapsedDuration, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText)
+Animation::Animation(float& elapsedDuration, int frames, float timePerFrame, sf::Sprite &sprite, sf::IntRect &rectText)
 {   
-    this->sprite = sprite;
-    this->text = text;
-    this->loop = loop;
+    //this->sprite = sprite;
     this->texture = rectText;
     this->elapsedDuration = elapsedDuration;
     this->frames = frames;
     this->timePerFrame = timePerFrame;
-    this->animate = animate;
 }
+
+void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow> window, sf::Text &text){
+
+    elapsedDuration += dt;
+
+        //std::cout << elapsedDuration << "\n";
+        while(elapsedDuration > timePerFrame){
+            elapsedDuration -= timePerFrame;
+            std::cout << "IN";
+            if (counter == frames){
+                this->text.setString("");
+                counter = 0;
+                texture.left = 0;
+                break;
+            }
+            else 
+            {
+                texture.left += 128;
+                counter++;
+            }
+        }
+
+        this->sprite.setTextureRect(texture);
+}    
+
+
 
 void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow> window){
 
@@ -21,14 +44,11 @@ void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow>
             // cycle through 3 frames of talking
             if(!this->loop && counter == frames){
                 std::cout << "END";
-                this->animate = false;
-                this->text.setString("");
-                elapsedDuration = timePerFrame;
                 counter = 0;
                 texture.left = 0;
                 break;
             }
-            else if (counter == frames-1){
+            else if (counter == frames){
                 counter = 0;
                 texture.left = 0;
             }
@@ -38,10 +58,6 @@ void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow>
                 counter++;
             }
         }
-        //if(animate){
+
         this->sprite.setTextureRect(texture);
-        window->draw(sprite);
-        window->draw(this->text);
-        //}
-        window->display();
 }    
