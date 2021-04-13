@@ -1,24 +1,20 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_H
 #define MINIGAME_LOGIC_H
-#include <iostream>
+
 #include <memory>
-#include "Song.h"
-#include "MinigameView.h"
 #include "BeatBoxLogic.h"
-#include "Animation.h"
-#include <SFML/Graphics.hpp>
+#include "Song.h"
+#include "MinigameLogic_1.h"
+#include "MinigameLogic_2.h"
+#include "MinigameLogic_3.h"
+#include "MinigameLogic_4.h"
 
-class MinigameLogic : std::enable_shared_from_this<MinigameLogic>
+class MinigameLogic
 {
-protected:
-    // General variables for game
+private:
     std::shared_ptr<Song> song;
-	std::shared_ptr<MinigameView> minigameView;
-
-    // Variables for before a hit occurs
     std::vector<BeatBoxLogic> beatBoxes;
-    sf::Text resultText;
 
     // Variable to detect and respond to hits
     int tapNum = 0;
@@ -36,8 +32,12 @@ protected:
     // Variables for timings
     float elapsedDuration;
     float duration = 0.075f;
+
 public:
-    MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
+    MinigameLogic(std::shared_ptr<Song> song);
+
+    std::vector<BeatBoxLogic> getbeatBoxes () { return beatBoxes; }
+    int getBackgroundColor() { return backgroundColor; }
 
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
@@ -46,7 +46,6 @@ public:
     void tapCheck();
     void regionCheck();
     void updateBeatBoxes(const float& deltaTime);
-    void update(const float& deltaTime);
     void updatePostHit(const float& deltaTime);
 };
 #endif

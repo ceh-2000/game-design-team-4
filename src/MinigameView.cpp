@@ -1,7 +1,8 @@
 #include "MinigameView.h"
 
-MinigameView::MinigameView(std::shared_ptr<sf::RenderWindow> app)
+MinigameView::MinigameView(std::shared_ptr<MinigameLogic> logic, std::shared_ptr<sf::RenderWindow> app)
 {
+    this->logic = logic;
     this->app = app;
 
     if (!texture.loadFromFile("../data/art/SatsanaSheet.png"))
@@ -19,6 +20,7 @@ MinigameView::MinigameView(std::shared_ptr<sf::RenderWindow> app)
     {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
+    this->logic->startGame();
 }
 
 /*
@@ -67,4 +69,18 @@ void MinigameView::drawSprite(int row, sf::Vector2f position, sf::Vector2f size)
 
 void MinigameView::draw(){
     this->app->display();
+}
+
+void MinigameView::update(const float& deltaTime){
+	// Pre-hit logic
+	this->logic->updateBeatBoxes(deltaTime);
+
+	// Hit logic
+    this->logic->regionCheck();
+	updateBackground(this->logic->getBackgroundColor());
+	updateBeatBoxes(this->logic->getbeatBoxes());
+
+    // Post-hit logic
+    this->logic->updatePostHit(deltaTime);
+	draw();
 }

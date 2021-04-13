@@ -1,10 +1,8 @@
 #include "MinigameLogic.h"
 
-MinigameLogic::MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app)
-{	
-	// Timings will be based 
-	this->song = song;
-	this->minigameView = std::make_shared<MinigameView>(app);
+MinigameLogic::MinigameLogic(std::shared_ptr<Song> song)
+{
+    this->song = song;
 	this->elapsedDuration = this->duration;
 
     // OVERRIDE IN INDIVIDUAL MINIGAME LOGIC
@@ -19,13 +17,14 @@ MinigameLogic::MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::Ren
 
 		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX, randStartY), sf::Vector2f(400.0f, 300.0f), sf::Vector2f(-500.0f, -500.0f), time));
 		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX+60, randStartY), sf::Vector2f(460.0f, 300.0f), sf::Vector2f(-500.0f, -500.0f), time));
-	}
+    }
 }
 
 /*
 Start the game by starting the song
 */
-void MinigameLogic::startGame(){
+void MinigameLogic::startGame()
+{
 	song->play();
 }
 
@@ -85,7 +84,7 @@ void MinigameLogic::tapCheck()
 		backgroundColor = 1;
 		isHit = true;
 		animate = true;
-		resultText.setString("Perfect!");
+		// resultText.setString("Perfect!");
 	}
 	// Current song time hit in almost range
 	else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion || std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion)
@@ -94,7 +93,7 @@ void MinigameLogic::tapCheck()
 		backgroundColor = 2;
 		isHit = true;
 		animate = true;
-		resultText.setString("Almost!");
+		// resultText.setString("Almost!");
 	}
 	// Current song time hit in fail range
 	else
@@ -103,7 +102,7 @@ void MinigameLogic::tapCheck()
 		backgroundColor = 3;
 		isHit = true;
 		animate = true;
-		resultText.setString("Try Again!");
+		// resultText.setString("Try Again!");
 	}
 }
 
@@ -124,7 +123,7 @@ void MinigameLogic::regionCheck()
 		backgroundColor = 3;
 		isHit = true;
 		animate = true;
-		resultText.setString("Try Again!");
+		// resultText.setString("Try Again!");
 		resetHitYet = false;
 	}
 	else if ((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion))
@@ -192,18 +191,4 @@ void MinigameLogic::updatePostHit(const float& deltaTime){
 		// sprite.setTextureRect(rectSourceSprite);
 	}
 
-}
-
-void MinigameLogic::update(const float& deltaTime){
-	// Pre-hit logic
-	updateBeatBoxes(deltaTime);
-
-	// Hit logic
-	regionCheck();
-	minigameView->updateBackground(backgroundColor);
-	minigameView->updateBeatBoxes(beatBoxes);
-
-    // Post-hit logic
-    updatePostHit(deltaTime);
-	minigameView->draw();
 }

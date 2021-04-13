@@ -3,15 +3,19 @@
 #define MINIGAME_VIEW_1
 #include "MinigameView.h"
 #include "MinigameLogic_1.h"
-class MinigameView_1 : public MinigameView
+class MinigameView_1
 {
 private:
-	std::shared_ptr<MinigameLogic> miniLogic;
+	std::shared_ptr<MinigameLogic_1> miniLogic;
+	std::shared_ptr<sf::RenderWindow> app;
 	sf::Sprite bowl;
 	sf::Sprite ingredient;
-	
+
+	sf::CircleShape circle = sf::CircleShape(5.0f);
+
 public:
-	MinigameView_1(std::shared_ptr<MinigameLogic> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
-	void draw(std::shared_ptr<sf::RenderWindow> window);
+	MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
+	void draw();
+	void update(const float& deltaTime);
 };
 #endif

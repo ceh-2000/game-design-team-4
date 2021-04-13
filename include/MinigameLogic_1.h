@@ -2,16 +2,17 @@
 #ifndef MINIGAME_LOGIC_1
 #define MINIGAME_LOGIC_1
 #include "MinigameLogic.h"
-class MinigameLogic_1 : public MinigameLogic
+class MinigameLogic_1
 {
 private:
+	std::shared_ptr<Song> song;
 	sf::Vector2f ingredientDim;
 	sf::Vector2f position;
 	float ingredientSpeed;
 	float distanceToBowl;
 
 public:
-	MinigameLogic_1(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
+	MinigameLogic_1(std::shared_ptr<Song> song);
 	void move(const float& dt);
 
 	sf::Vector2f getIngredDim() { return ingredientDim; }
@@ -28,5 +29,4 @@ public:
 	float getDist() { return distanceToBowl; }
 	void setDist(float d) { distanceToBowl = d; }
 };
-MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app) : MinigameLogic(song, app){}
 #endif
