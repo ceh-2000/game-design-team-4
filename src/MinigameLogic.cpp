@@ -1,9 +1,10 @@
 #include "MinigameLogic.h"
 
-MinigameLogic::MinigameLogic(std::shared_ptr<Song> song)
-{
+MinigameLogic::MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app)
+{	
+	// Timings will be based 
 	this->song = song;
-	song->play();
+	this->minigameView = MinigameView(app);
 	this->elapsedDuration = this->duration;
 
     // OVERRIDE IN INDIVIDUAL MINIGAME LOGIC
@@ -19,6 +20,13 @@ MinigameLogic::MinigameLogic(std::shared_ptr<Song> song)
 		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX, randStartY), sf::Vector2f(400.0f, 300.0f), sf::Vector2f(-500.0f, -500.0f), time));
 		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX+60, randStartY), sf::Vector2f(460.0f, 300.0f), sf::Vector2f(-500.0f, -500.0f), time));
 	}
+}
+
+/*
+Start the game by starting the song
+*/
+void MinigameLogic::startGame(){
+	song->play();
 }
 
 /*
@@ -63,14 +71,14 @@ void MinigameLogic::tapCheck()
 	std::cout << "current to nextTap: " << std::abs(curSongTime - nextTap) << std::endl;
 	std::cout << "current to prevTap: " << std::abs(curSongTime - prevTap) << std::endl;
 
-	//current song time not in any tap action regions
+	// Current song time not in any tap action regions
 	if ((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion))
 	{
 		isHit = false;
 		backgroundColor = 0;
 	}
 
-	//current song time hit in success range
+	// Current song time hit in success range
 	else if (std::abs(curSongTime - nextTap) < winRegion || std::abs(curSongTime - prevTap) < winRegion)
 	{
 		std::cout << "Hit!" << std::endl;
@@ -79,7 +87,7 @@ void MinigameLogic::tapCheck()
 		animate = true;
 		resultText.setString("Perfect!");
 	}
-	//current song time hit in almost range
+	// Current song time hit in almost range
 	else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion || std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion)
 	{
 		std::cout << "Almost!" << std::endl;
@@ -88,7 +96,7 @@ void MinigameLogic::tapCheck()
 		animate = true;
 		resultText.setString("Almost!");
 	}
-	//current song time hit in fail range
+	// Current song time hit in fail range
 	else
 	{
 		std::cout << "Miss!" << std::endl;
@@ -194,8 +202,8 @@ void MinigameLogic::update(const float& deltaTime){
 	regionCheck();
 	checkEvent();
 
-	// TODO: Call this method on MinigameView
-	updateBackground();
+	minigameView->updateBackground(backgroundColor);
+	minigameView->updateBeatBoxes(beatBoxes);
 
     // Post-hit logic
     updatePostHit(deltaTime);

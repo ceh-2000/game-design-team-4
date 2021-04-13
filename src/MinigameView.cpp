@@ -1,8 +1,8 @@
 #include "MinigameView.h"
 
-MinigameView::MinigameView()
+MinigameView::MinigameView(std::shared_ptr<sf::RenderWindow> app)
 {
-    // TODO: Pass in a shared pointer for app
+    this->app = app;
 
     if (!texture.loadFromFile("../data/art/SatsanaSheet.png"))
     {
@@ -24,7 +24,7 @@ MinigameView::MinigameView()
 /*
 Redraw the current background in response to a hit
 */
-MinigameView::updateBackground()
+MinigameView::updateBackground(int backgroundColor)
 {
     switch (backgroundColor)
     {
@@ -46,7 +46,7 @@ MinigameView::updateBackground()
 /*
 Redraw all of our current beat boxes
 */
-MinigameView::updateBeatBoxes(const std::vector<BeatBoxLogic>& beatBoxes){
+void MinigameView::updateBeatBoxes(const std::vector<BeatBoxLogic>& beatBoxes){
     for (BeatBoxLogic beatBox : beatBoxes)
 	{
 		sf::RectangleShape box;
@@ -61,10 +61,10 @@ MinigameView::updateBeatBoxes(const std::vector<BeatBoxLogic>& beatBoxes){
 Create a new sprite and add it to our canvas given a row in the sprite sheet,
 a poisiton, and a size
 */
-MinigameView::drawSprite(int row, sf::Vector2f position, sf::Vector2f size){
+void MinigameView::drawSprite(int row, sf::Vector2f position, sf::Vector2f size){
     // TODO: Write this method to draw an animation
 }
 
-MinigameView::draw(){
+void MinigameView::draw(){
     this->app->display();
 }

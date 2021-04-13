@@ -1,12 +1,20 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_H
 #define MINIGAME_LOGIC_H
-#include "Game.h"
+#include <iostream>
+#include <memory>
+#include "Song.h"
+#include "MinigameView.h"
+#include "BeatBoxLogic.h"
+#include "Animation.h"
+#include <SFML/Graphics.hpp>
+
 class MinigameLogic : std::enable_shared_from_this<MinigameLogic>
 {
 protected:
     // General variables for game
     std::shared_ptr<Song> song;
+	std::shared_ptr<MinigameView> minigameView;
 
     // Variables for before a hit occurs
     std::vector<BeatBoxLogic> beatBoxes;
@@ -28,11 +36,12 @@ protected:
     float elapsedDuration;
     float duration = 0.075f;
 public:
-    MinigameLogic(std::shared_ptr<Song> song);
+    MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
 
     float determineNextTap(float songTime);
     float determinePrevTap(float songTime);
 
+    void startGame();
     void tapCheck();
     void regionCheck();
     void updateBeatBoxes(const float& deltaTime);

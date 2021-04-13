@@ -4,9 +4,10 @@
 #include <iostream>
 #include <memory>
 #include "Song.h"
-#include "BeatBoxLogic.h"
+#include "MinigameLogic.h"
 #include "Animation.h"
 #include <SFML/Graphics.hpp>
+
 
 class Game
 {
@@ -15,11 +16,12 @@ protected:
     int difficult = 1;
     int currentGame = 1;
     bool isActive = true;
-    // Pointer to whatever the current game is
+	std::shared_ptr<MinigameLogic> minigameLogic;
+    std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 600, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
 
 public:
-    // Something to start and stop current game idk fam
     Game();
+    bool getActive() { return isActive; }
 };
 #endif
 
