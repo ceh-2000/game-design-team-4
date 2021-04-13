@@ -60,9 +60,12 @@ void Game::checkEvent()
 
 void Game::update(const float &deltaTime)
 {
+    app->clear();
 	checkEvent();
-	view->update(deltaTime);
 
 	// TODO: make a round subloop for the minigame loops
-	// view_1->update(deltaTime);
+	view->update(deltaTime);
+    view_1->update(deltaTime);
+    view->draw();
+
 }

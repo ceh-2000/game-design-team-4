@@ -10,11 +10,9 @@
 #include "MinigameLogic_3.h"
 #include "MinigameLogic_4.h"
 
-class MinigameLogic
-{
-private:
+class MinigameLogic {
+protected:
     std::shared_ptr<Song> song;
-    std::vector<BeatBoxLogic> beatBoxes;
 
     // Variable to detect and respond to hits
     int tapNum = 0;
@@ -36,16 +34,21 @@ private:
 public:
     MinigameLogic(std::shared_ptr<Song> song);
 
-    std::vector<BeatBoxLogic> getbeatBoxes () { return beatBoxes; }
     int getBackgroundColor() { return backgroundColor; }
 
     float determineNextTap(float songTime);
+
     float determinePrevTap(float songTime);
 
     void startGame();
+
     void tapCheck();
+
     void regionCheck();
-    void updateBeatBoxes(const float& deltaTime);
-    void updatePostHit(const float& deltaTime);
+
+    void updateBeatBoxes(const float &deltaTime);
+
+    void updatePostHit(const float &deltaTime);
 };
+
 #endif
