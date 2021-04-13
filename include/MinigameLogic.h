@@ -46,8 +46,5 @@ public:
     void regionCheck();
     void updateBeatBoxes(const float& deltaTime);
     void update(const float& deltaTime);
-
-    // Consider removing this?
-    virtual void move(const float& dt) = 0;
 };
 #endif

@@ -4,7 +4,7 @@ MinigameLogic::MinigameLogic(std::shared_ptr<Song> song, std::shared_ptr<sf::Ren
 {	
 	// Timings will be based 
 	this->song = song;
-	this->minigameView = MinigameView(app);
+	this->minigameView = std::make_shared<MinigameView>(app);
 	this->elapsedDuration = this->duration;
 
     // OVERRIDE IN INDIVIDUAL MINIGAME LOGIC

@@ -8,7 +8,7 @@ Game::Game()
 	songList.push_back("../data/music/Sixty_BPM.wav");
 
 	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
-	this->minigameLogic = MinigameLogic(song, app);
+	this->minigameLogic = std::make_shared<MinigameLogic>(song, app);
 }
 
 // General game loop stays
@@ -41,6 +41,6 @@ void Game::checkEvent()
 
 void Game::update(const float &deltaTime)
 {
-	// TODO: Call this update on individual minigame class
-	update(deltaTime)
+	checkEvent();
+	minigameLogic->update(deltaTime);
 }

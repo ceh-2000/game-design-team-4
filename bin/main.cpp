@@ -12,11 +12,11 @@ int main(int argc, char **argv)
 	int hitCheckfreq = 0;
 	
 	// Start main loop
-	while (game->getActive())
+	while (game.getActive())
 	{
 		deltaTime = clock.restart().asSeconds();
 
-		game->update(deltaTime);
+		game.update(deltaTime);
 	}
 // Done.
 return 0;
