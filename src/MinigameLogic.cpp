@@ -200,11 +200,10 @@ void MinigameLogic::update(const float& deltaTime){
 
 	// Hit logic
 	regionCheck();
-	checkEvent();
-
 	minigameView->updateBackground(backgroundColor);
 	minigameView->updateBeatBoxes(beatBoxes);
 
     // Post-hit logic
     updatePostHit(deltaTime);
+	minigameView->draw();
 }

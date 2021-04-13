@@ -11,12 +11,12 @@ private:
 	std::vector<std::vector<float>> arrowKeys;
 
 public:
-	MinigameLogic_4(/* args */);
+	MinigameLogic_4(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
 	void move(const float& dt);
 
 	sf::Vector2f getChefDim() { return chefDim; }
 	void setChefDim(sf::Vector2f& dim) { chefDim = dim;}
-	void setChefDim(float& a, float& b) { chefDim = sf::Vector2f(a,b); }
+	// void setChefDim(float& a, float& b) { chefDim = sf::Vector2f(a,b); }
 
 	sf::Vector2f getChefPos() { return chefPosition; }
 	void setChefPos(sf::Vector2f &pos) { chefPosition = pos; }
@@ -27,5 +27,5 @@ public:
 
 	std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
 };
-MinigameLogic_4::MinigameLogic_4(/* args */){}
+MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app) : MinigameLogic(song, app){}
 #endif

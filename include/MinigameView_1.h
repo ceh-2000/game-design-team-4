@@ -11,7 +11,7 @@ private:
 	sf::Sprite ingredient;
 	
 public:
-	MinigameView_1(std::shared_ptr<MinigameLogic> MinigameLogic_1);
+	MinigameView_1(std::shared_ptr<MinigameLogic> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 };
 #endif

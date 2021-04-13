@@ -12,10 +12,10 @@ private:
 	std::vector<sf::RectangleShape> playerCuts;
 	
 public:
-	MinigameView_3(std::shared_ptr<MinigameLogic> MinigameLogic_3);
+	MinigameView_3(std::shared_ptr<MinigameLogic> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 };
-MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic> MinigameLogic_3) : MinigameView(MinigameLogic_3)
+MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic> MinigameLogic_3, std::shared_ptr<sf::RenderWindow> app) : MinigameView(app)
 {
 	this->miniLogic = MinigameLogic_3;
 }

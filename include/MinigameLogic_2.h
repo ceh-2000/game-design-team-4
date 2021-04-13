@@ -12,7 +12,7 @@ private:
 	sf::Vector2f position;
 
 public:
-	MinigameLogic_2(/* args */);
+	MinigameLogic_2(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
 	void move(const float& dt);
 
 	sf::Vector2f getChefPos() { return position; }
@@ -29,5 +29,5 @@ public:
 	std::vector<float> getPlayerAngles() { return playerAngles; }
 
 };
-MinigameLogic_2::MinigameLogic_2(/* args */){}
+MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app) : MinigameLogic(song, app){}
 #endif

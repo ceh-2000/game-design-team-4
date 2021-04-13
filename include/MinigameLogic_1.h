@@ -11,7 +11,7 @@ private:
 	float distanceToBowl;
 
 public:
-	MinigameLogic_1(/* args */);
+	MinigameLogic_1(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
 	void move(const float& dt);
 
 	sf::Vector2f getIngredDim() { return ingredientDim; }
@@ -28,5 +28,5 @@ public:
 	float getDist() { return distanceToBowl; }
 	void setDist(float d) { distanceToBowl = d; }
 };
-MinigameLogic_1::MinigameLogic_1(/* args */){}
+MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app) : MinigameLogic(song, app){}
 #endif

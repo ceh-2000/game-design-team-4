@@ -24,7 +24,7 @@ MinigameView::MinigameView(std::shared_ptr<sf::RenderWindow> app)
 /*
 Redraw the current background in response to a hit
 */
-MinigameView::updateBackground(int backgroundColor)
+void MinigameView::updateBackground(int backgroundColor)
 {
     switch (backgroundColor)
     {

@@ -9,6 +9,7 @@ Game::Game()
 
 	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
 	this->minigameLogic = std::make_shared<MinigameLogic>(song, app);
+	minigameLogic->startGame();
 }
 
 // General game loop stays

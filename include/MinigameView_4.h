@@ -14,10 +14,10 @@ private:
 	sf::Sprite stove;
 	
 public:
-	MinigameView_4(std::shared_ptr<MinigameLogic> MinigameLogic_4);
+	MinigameView_4(std::shared_ptr<MinigameLogic> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 };
-MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic> MinigameLogic_4) : MinigameView(MinigameLogic_4)
+MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app) : MinigameView(app)
 {
 	this->miniLogic = MinigameLogic_4;
 }

@@ -12,7 +12,7 @@ private:
 	std::vector<float> playerCuts;
 
 public:
-	MinigameLogic_3(/* args */);
+	MinigameLogic_3(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app);
 	void move(const float& dt);
 
 	sf::Vector2f getIngredDim() { return ingredientDim; }
@@ -31,5 +31,5 @@ public:
 
 
 };
-MinigameLogic_3::MinigameLogic_3(/* args */){}
+MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, std::shared_ptr<sf::RenderWindow> app) : MinigameLogic(song, app){}
 #endif

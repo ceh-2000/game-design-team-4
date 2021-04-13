@@ -18,6 +18,7 @@ protected:
 
     // Variables for before a hit occurs
     std::vector<BeatBoxLogic> beatBoxes;
+    sf::Text resultText;
 
     // Variable to detect and respond to hits
     int tapNum = 0;
@@ -46,5 +47,6 @@ public:
     void regionCheck();
     void updateBeatBoxes(const float& deltaTime);
     void update(const float& deltaTime);
+    void updatePostHit(const float& deltaTime);
 };
 #endif
