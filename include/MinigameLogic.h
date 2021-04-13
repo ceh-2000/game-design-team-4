@@ -1,20 +1,51 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_H
 #define MINIGAME_LOGIC_H
-#include "Game.h"
-class MinigameLogic : std::enable_shared_from_this<MinigameLogic>
+
+#include <memory>
+#include "BeatBoxLogic.h"
+#include "Song.h"
+#include "MinigameLogic_1.h"
+#include "MinigameLogic_2.h"
+#include "MinigameLogic_3.h"
+#include "MinigameLogic_4.h"
+
+class MinigameLogic
 {
 private:
-    int currentGame;
     std::shared_ptr<Song> song;
-    std::vector<float> userTimings;
-    int score;
-    int correctTimingPos;
-    int difficult;
+    std::vector<BeatBoxLogic> beatBoxes;
+
+    // Variable to detect and respond to hits
+    int tapNum = 0;
+    int backgroundColor = 0;
+    bool isHit = false;
+    bool animate;
+    int counter = 0;
+    bool resetHitYet = false;
+
+    // Act and success regions (TODO: vary between songs?)
+    float actRegion = 0.45f;   //defines entire hit action region for a given song
+    float winRegion = 0.15f;   //defines successful hit time window in action region
+    float almostRegion = 0.3f; //defines near hit / near miss time window in action region
+
+    // Variables for timings
+    float elapsedDuration;
+    float duration = 0.075f;
+
 public:
-    MinigameLogic(/* args */);
-    int determineHitAccuracy();
-    std::vector<float> computerNextInt(float& time);
-    virtual void move(const float& dt) = 0;
+    MinigameLogic(std::shared_ptr<Song> song);
+
+    std::vector<BeatBoxLogic> getbeatBoxes () { return beatBoxes; }
+    int getBackgroundColor() { return backgroundColor; }
+
+    float determineNextTap(float songTime);
+    float determinePrevTap(float songTime);
+
+    void startGame();
+    void tapCheck();
+    void regionCheck();
+    void updateBeatBoxes(const float& deltaTime);
+    void updatePostHit(const float& deltaTime);
 };
 #endif
