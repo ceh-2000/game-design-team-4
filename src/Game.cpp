@@ -13,14 +13,17 @@ Game::Game()
     view = std::make_shared<MinigameView>(logic, app);
 
 
-	// logic_3 = std::make_shared<MinigameLogic_3>(song);
-	// std::shared_ptr<MinigameLogic_2> logic_2 = std::make_shared<MinigameLogic_2>(song);
-	// std::shared_ptr<MinigameLogic_3> logic_3 = std::make_shared<MinigameLogic_3>(song);
+
+	logic_1 = std::make_shared<MinigameLogic_1>(song);
+	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
+	logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
+	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	logic_4 = std::make_shared<MinigameLogic_4>(song);
 
-	// view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-	// std::shared_ptr<MinigameView_2> view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-	// std::shared_ptr<MinigameView_3> view_3 = std::make_shared<MinigameView_3>(logic_3, app);
+
+	view_1 = std::make_shared<MinigameView_1>(logic_1, app);
+	view_2 = std::make_shared<MinigameView_2>(logic_2, app);
+	view_3 = std::make_shared<MinigameView_3>(logic_3, app);
 	view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 }
 
@@ -41,7 +44,8 @@ void Game::checkEvent(const float &deltaTime)
 			{
 			case sf::Keyboard::Space:
 				// TODO: Call tapCheck on individual minigame logic
-				logic->tapCheck();
+				//logic->tapCheck();
+				logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
 				break;
 			default:
 				break;
@@ -54,12 +58,23 @@ void Game::checkEvent(const float &deltaTime)
 
 void Game::update(const float &deltaTime)
 {
-    app->clear();
+  app->clear();
 	checkEvent(deltaTime);
 
 	// TODO: make a round subloop for the minigame loops
 	view->update(deltaTime);
-    view_4->update(deltaTime);
-    view->draw();
+	//view->update(deltaTime);
 
+// 	// TODO: make a round subloop for the minigame loops
+//   view->update(deltaTime);
+//     view_1->update(deltaTime);
+
+// 	//UNCOMMENT FOLLOWING TWO LINES TO RUN PIZZA GAME
+// 	logic_2->update(deltaTime);
+// 	view_2->update(deltaTime);
+  
+  
+  //DDR-themed game
+  view_4->update(deltaTime);
+  view->draw();
 }
