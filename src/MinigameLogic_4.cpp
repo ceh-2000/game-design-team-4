@@ -8,7 +8,8 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song)
 	// Create default beat boxes for the entire song of timings from the start
 	timings = song->getAllTimings();
 
-	for (float time : timings) {
+	for (float time : timings)
+	{
 		if(iter==1.25f)
 			iter = 0.25f;
 		if(iter==0.75f)
@@ -25,7 +26,8 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song)
 
 }
 
-void MinigameLogic_4::updateBeatBoxes(const float &deltaTime) {
+void MinigameLogic_4::updateBeatBoxes(const float &deltaTime)
+{
 	float curSongTime = song->getSongTime();
 	std::vector<BeatBoxLogic> temp;
 	int count = 0;

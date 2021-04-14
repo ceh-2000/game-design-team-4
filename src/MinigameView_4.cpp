@@ -13,7 +13,12 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	}
 }
 
-void MinigameView_4::draw(){
+//TODO: Add 4 squares in a cross with the chef in the middle
+//have the chef move to a designated input's direction (LEFT, RIGHT, UP, DOWN)
+
+//draws squares to show when inputs reach endpoints
+void MinigameView_4::draw()
+{
 
 	for(int i = 0; i < 4; i++)
 	{
@@ -22,7 +27,8 @@ void MinigameView_4::draw(){
 	}
 }
 
-void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
+void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) 
+{
     for (BeatBoxLogic beatBox : beatBoxes) {
         sf::RectangleShape box;
         box.setSize(sf::Vector2f(50.0f, 50.0f));
@@ -34,10 +40,9 @@ void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
 
 
 
-void MinigameView_4::update(const float& deltaTime){
-
+void MinigameView_4::update(const float& deltaTime)
+{
 	this->miniLogic->updateBeatBoxes(deltaTime);
     updateBeatBoxes(this->miniLogic->getBeatBoxes());
 	draw();
-
 }
