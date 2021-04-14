@@ -49,6 +49,8 @@ public:
     void updateBeatBoxes(const float &deltaTime);
 
     void updatePostHit(const float &deltaTime);
+
+    std::shared_ptr<Song> getSong() { return song; }
 };
 
 #endif

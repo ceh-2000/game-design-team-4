@@ -8,6 +8,9 @@ public:
     // Constructor
     Song(std::vector<std::string> filePaths);
 
+    // Destructor
+    ~Song() {}
+
     // Getters, setters, and other short methods
     void play() { music.play(); }
     void pause() { music.pause(); }

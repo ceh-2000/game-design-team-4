@@ -32,6 +32,7 @@ void Game::switchToNewGame()
 {
 	std::vector<std::string> songList;
 	songList.push_back("../data/music/Sixty_BPM.wav");
+	logic->getSong()->stop();
 	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
 
 	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
