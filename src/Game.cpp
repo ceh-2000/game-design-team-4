@@ -28,7 +28,7 @@ Game::Game()
 }
 
 // General game loop stays
-void Game::checkEvent(const float &deltaTime)
+void Game::checkEvent(const float& deltaTime)
 {
 	// Process events
 	sf::Event event;
@@ -44,8 +44,8 @@ void Game::checkEvent(const float &deltaTime)
 			{
 			case sf::Keyboard::Space:
 				// TODO: Call tapCheck on individual minigame logic
-				//logic->tapCheck();
-				logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+				logic->tapCheck();
+				view_3->splitBox();
 				break;
 			default:
 				break;
@@ -72,8 +72,8 @@ void Game::update(const float &deltaTime)
 // 	//UNCOMMENT FOLLOWING TWO LINES TO RUN PIZZA GAME
 // 	logic_2->update(deltaTime);
 // 	view_2->update(deltaTime);
-  
-  
+
+
   //DDR-themed game
   view_4->update(deltaTime);
   view->draw();
