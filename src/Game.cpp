@@ -45,7 +45,7 @@ void Game::checkEvent(const float& deltaTime)
 			case sf::Keyboard::Space:
 				// TODO: Call tapCheck on individual minigame logic
 				logic->tapCheck();
-				view_3->splitBox();
+				view_3->splitBox(deltaTime);
 				break;
 			default:
 				break;
