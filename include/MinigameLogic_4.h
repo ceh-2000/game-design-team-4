@@ -10,10 +10,14 @@ private:
 	sf::Vector2f chefPosition;
 	float chefSpeed;
 	std::vector<std::vector<float>> arrowKeys;
+	std::vector<BeatBoxLogic> beatBoxes;
+	std::vector<float> timings;
+
 
 public:
 	MinigameLogic_4(std::shared_ptr<Song> song);
-	void move(const float& dt);
+	std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
+	void updateBeatBoxes(const float &deltaTime);
 
 	sf::Vector2f getChefDim() { return chefDim; }
 	void setChefDim(sf::Vector2f& dim) { chefDim = dim;}
@@ -27,5 +31,6 @@ public:
 	void setChefSpeed(float s) { chefSpeed = s; }
 
 	std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
+
 };
 #endif
