@@ -13,7 +13,6 @@ MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
 void MinigameLogic_2::pushNewCut()
 {
   //Add cut into the vector
-  //std::cout << "Cut made at angle: " << pizzaAngle << "\n";
   if(cutAngles.size() == 0){
     cutAngles.push_back(0.0f);
   }
@@ -33,7 +32,6 @@ void MinigameLogic_2::update(float deltaTime)
   if(cutAngles.size() > 0 && cutAngles.size() < maxCuts){
     rotTime += deltaTime;
     pizzaAngle = angleSpeed * rotTime;
-    //std::cout << "Current Pizza Angle: " << logic.getPAngle() << "\n";
   }
 
   //If player ran out of cuts or made one revolution, calculate score
@@ -51,10 +49,10 @@ float MinigameLogic_2::calcScore()
   //calculate the total error for each pizza slice
   if(cutAngles.size() != 1){
     for(int i=1; i < cutAngles.size() ; i++){
-      //std::cout << i + 1 << "th cut: " << cutAngles[i] - cutAngles[i-1] - goalAngle << "\n";
       score += abs(cutAngles[i] - cutAngles[i-1] - goalAngle); //slice angle - expected angle
     }
   }
+
   //if there are less than requisite cuts error added is size of missed slices
   if(cutAngles.size() < maxCuts){
     score += (maxCuts - cutAngles.size()) * goalAngle;
