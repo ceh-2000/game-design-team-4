@@ -6,32 +6,29 @@ class MinigameLogic_1
 {
 private:
 	std::shared_ptr<Song> song;
-	sf::Vector2f ingredientDim;
-	sf::Vector2f position;
-	float ingredientSpeed;
-	float distanceToBowl;
+	sf::Vector2f ingredientDim = sf::Vector2f(50.0f, 50.0f);
+	float ingredientSpeed = 500.0f;
+	float distanceToBowl = 400.0f;
     std::vector<BeatBoxLogic> beatBoxes;
+    std::vector<bool> isGoodVector;
+
+    sf::Vector2f bowlPosition;
 
 public:
 	MinigameLogic_1(std::shared_ptr<Song> song);
     std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
+    std::vector<bool> getIsGoodVector() { return isGoodVector; }
+
+
     void updateBeatBoxes(const float &deltaTime);
 
     void move(const float& dt);
 
-
     sf::Vector2f getIngredDim() { return ingredientDim; }
 	void setIngredDim(sf::Vector2f& dim) { ingredientDim = dim;}
-	void setIngredDim(float& a, float& b) { ingredientDim = sf::Vector2f(a,b); }
 
-	sf::Vector2f getChefPos() { return position; }
-	void setChefPos(sf::Vector2f &pos) { position = pos; }
-	void setingredientDim(float &a, float &b) { position = sf::Vector2f(a,b); }
+	sf::Vector2f getChefPos() { return bowlPosition; }
+	void setChefPos(sf::Vector2f &pos) { bowlPosition = pos; }
 
-	float getIngredSpeed() { return ingredientSpeed; }
-	void setIngredSpeed(float s) { ingredientSpeed = s; }
-
-	float getDist() { return distanceToBowl; }
-	void setDist(float d) { distanceToBowl = d; }
 };
 #endif

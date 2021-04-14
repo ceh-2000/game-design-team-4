@@ -12,8 +12,7 @@ private:
     sf::Sprite bowl;
     sf::Sprite ingredient;
 
-    sf::CircleShape circle = sf::CircleShape(5.0f);
-
+    sf::CircleShape circle = sf::CircleShape(100.0f);
 public:
     MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 

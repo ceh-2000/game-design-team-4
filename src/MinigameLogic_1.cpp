@@ -1,19 +1,33 @@
 #include "MinigameLogic_1.h"
 
-MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song)
-{
+MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song) {
     this->song = song;
 
     // Create default beat boxes for the entire song of timings from the start
     std::vector<float> allSongTimings = song->getAllTimings();
     for (float time : allSongTimings) {
         float LO = 0.0f;
-        float HI = 700.0f;
+        float HI = 1.0f;
+        float randomNum1 = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
+        float randomNum2 = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
 
-        float randStartX = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
+        float startX = 500;
+        if(randomNum1 < 0.5){
+            startX = 300;
+        }
 
-        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(randStartX, -50), sf::Vector2f(randStartX, 400),
-                                         sf::Vector2f(-500.0f, -500.0f), time));
+        if(randomNum2 < 0.5){
+            isGoodVector.push_back(false);
+        }
+        else{
+            isGoodVector.push_back(true);
+        }
+
+        beatBoxes.push_back(
+                BeatBoxLogic(sf::Vector2f(startX, -ingredientDim.y),
+                             sf::Vector2f(startX, distanceToBowl),
+                             sf::Vector2f(ingredientSpeed, ingredientSpeed),
+                             time));
     }
 }
 
