@@ -10,12 +10,17 @@ private:
 	sf::Vector2f position;
 	float ingredientSpeed;
 	float distanceToBowl;
+    std::vector<BeatBoxLogic> beatBoxes;
 
 public:
 	MinigameLogic_1(std::shared_ptr<Song> song);
-	void move(const float& dt);
+    std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
+    void updateBeatBoxes(const float &deltaTime);
 
-	sf::Vector2f getIngredDim() { return ingredientDim; }
+    void move(const float& dt);
+
+
+    sf::Vector2f getIngredDim() { return ingredientDim; }
 	void setIngredDim(sf::Vector2f& dim) { ingredientDim = dim;}
 	void setIngredDim(float& a, float& b) { ingredientDim = sf::Vector2f(a,b); }
 
