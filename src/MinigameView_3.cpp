@@ -27,15 +27,15 @@ void MinigameView_3::draw(){
 
 void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
     for (BeatBoxLogic beatBox : beatBoxes) {
-        sf::RectangleShape box;
-        box.setSize(this->miniLogic->getIngredientDim());
-        box.setFillColor(sf::Color::White);
-        box.setPosition(beatBox.getCurPos());
-        app->draw(box);
+            sf::RectangleShape box;
+            box.setSize(this->miniLogic->getIngredientDim());
+            box.setFillColor(sf::Color::White);
+            box.setPosition(beatBox.getCurPos());
+            app->draw(box);
     }
 }
 
-void MinigameView_3::splitBox(const float& deltaTime){
+void MinigameView_3::splitBox(){
 
     move = true;
 
@@ -52,18 +52,20 @@ void MinigameView_3::update(const float& deltaTime){
      float x = this->miniLogic->getKnifePos().x;
      float y = this->miniLogic->getKnifePos().y;
 
+    //if we need to move up
     if(move){
         if(this->miniLogic->getKnifePos().y >= 150){
             sf::Vector2f up(x, y - this->miniLogic->getKnifeSpeed() * deltaTime);
             this->miniLogic->setKnifePos(up);
+            //if we reach the peak set move = false so knife goes down
             if(this->miniLogic->getKnifePos().y <= 150){
                 move = false;
-                std::cout << "ITS FALSE";
             }
         }
     }
 
-    if(!move){
+    //we need to move down
+    else{
         if(this->miniLogic->getKnifePos().y < 600){
              sf::Vector2f down(x, y + this->miniLogic->getKnifeSpeed() * deltaTime);
             this->miniLogic->setKnifePos(down);

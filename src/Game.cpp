@@ -31,7 +31,7 @@ Game::Game()
 }
 
 // General game loop stays
-void Game::checkEvent(const float &deltaTime)
+void Game::checkEvent()
 {
 	// Process events
 	sf::Event event;
@@ -48,7 +48,7 @@ void Game::checkEvent(const float &deltaTime)
 			case sf::Keyboard::Space:
 				// TODO: Call tapCheck on individual minigame logic
 				logic->tapCheck();
-				view_3->splitBox(deltaTime);
+				view_3->splitBox();
 				break;
 			default:
 				break;
@@ -62,7 +62,7 @@ void Game::checkEvent(const float &deltaTime)
 void Game::update(const float &deltaTime)
 {
     app->clear();
-	checkEvent(deltaTime);
+	checkEvent();
 
 	// TODO: make a round subloop for the minigame loops
 	view->update(deltaTime);
