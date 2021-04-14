@@ -35,7 +35,7 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
     }
 }
 
-void MinigameView_3::splitBox(){
+void MinigameView_3::splitBox(const float& deltaTime){
 
     move = true;
 

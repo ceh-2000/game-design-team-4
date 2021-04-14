@@ -26,7 +26,7 @@ public:
 	void draw();
 	void update(const float& deltaTime);
 	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
-	void splitBox();
+	void splitBox(const float& deltaTime);
 };
 
 #endif
