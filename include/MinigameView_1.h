@@ -16,9 +16,9 @@ private:
 public:
     MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 
-    void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
+    void drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
 
-    void draw();
+    void drawBowl();
 
     void update(const float &deltaTime);
 };

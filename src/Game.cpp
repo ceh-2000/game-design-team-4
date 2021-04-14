@@ -12,9 +12,7 @@ Game::Game()
 	logic = std::make_shared<MinigameLogic>(song);
     view = std::make_shared<MinigameView>(logic, app);
 
-
-
-	logic_1 = std::make_shared<MinigameLogic_1>(song);
+	logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
 	logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
 	logic_3 = std::make_shared<MinigameLogic_3>(song);
@@ -47,6 +45,18 @@ void Game::checkEvent(const float& deltaTime)
 				logic->tapCheck();
 				view_3->splitBox(deltaTime);
 				break;
+			case sf::Keyboard::Left:
+			    if(this->currentGame==1){
+                    int hitOutcome = logic->tapCheck();
+                    logic_1->reactTap(hitOutcome, false);
+                }
+			    break;
+			case sf::Keyboard::Right:
+                if(this->currentGame==1){
+                    int hitOutcome = logic->tapCheck();
+                    logic_1->reactTap(hitOutcome, true);
+                }
+                break;
 			default:
 				break;
 			}
@@ -58,7 +68,8 @@ void Game::checkEvent(const float& deltaTime)
 
 void Game::update(const float &deltaTime)
 {
-  app->clear();
+    this->currentGame = 1;
+    app->clear();
 	checkEvent(deltaTime);
 
 	// TODO: make a round subloop for the minigame loops
@@ -75,6 +86,6 @@ void Game::update(const float &deltaTime)
 
 
   //DDR-themed game
-  view_4->update(deltaTime);
+  view_1->update(deltaTime);
   view->draw();
 }

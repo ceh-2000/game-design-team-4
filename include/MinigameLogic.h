@@ -42,7 +42,7 @@ public:
 
     void startGame();
 
-    void tapCheck();
+    int tapCheck();
 
     void regionCheck();
 
