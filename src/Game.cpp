@@ -13,12 +13,12 @@ Game::Game()
     view = std::make_shared<MinigameView>(logic, app);
 
 
-	logic_1 = std::make_shared<MinigameLogic_1>(song);
+	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	// std::shared_ptr<MinigameLogic_2> logic_2 = std::make_shared<MinigameLogic_2>(song);
 	// std::shared_ptr<MinigameLogic_3> logic_3 = std::make_shared<MinigameLogic_3>(song);
 	// std::shared_ptr<MinigameLogic_4> logic_4 = std::make_shared<MinigameLogic_4>(song);
 
-	view_1 = std::make_shared<MinigameView_1>(logic_1, app);
+	view_3 = std::make_shared<MinigameView_3>(logic_3, app);
 	// std::shared_ptr<MinigameView_2> view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	// std::shared_ptr<MinigameView_3> view_3 = std::make_shared<MinigameView_3>(logic_3, app);
 	// std::shared_ptr<MinigameView_4> view_4 = std::make_shared<MinigameView_4>(logic_4, app);
@@ -31,7 +31,7 @@ Game::Game()
 }
 
 // General game loop stays
-void Game::checkEvent()
+void Game::checkEvent(const float &deltaTime)
 {
 	// Process events
 	sf::Event event;
@@ -48,6 +48,7 @@ void Game::checkEvent()
 			case sf::Keyboard::Space:
 				// TODO: Call tapCheck on individual minigame logic
 				logic->tapCheck();
+				view_3->splitBox(deltaTime);
 				break;
 			default:
 				break;
@@ -61,11 +62,11 @@ void Game::checkEvent()
 void Game::update(const float &deltaTime)
 {
     app->clear();
-	checkEvent();
+	checkEvent(deltaTime);
 
 	// TODO: make a round subloop for the minigame loops
 	view->update(deltaTime);
-    view_1->update(deltaTime);
+    view_3->update(deltaTime);
     view->draw();
 
 }
