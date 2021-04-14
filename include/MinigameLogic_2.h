@@ -23,6 +23,9 @@ private:
 	float gameScore;
 	float revTime = 10.0f; //total time call beats played
 
+	sf::Vector2f knifePos;
+	float knifeSpeed = 2500;
+
 public:
 	MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts);
 	void move(const float& dt);
@@ -51,6 +54,9 @@ public:
 	void update(float deltaTime);
 
 	void pushNewCut();
+	sf::Vector2f getKnifePos(){ return knifePos; }
+	float getKnifeSpeed(){ return knifeSpeed; }
+	void setKnifePos(sf::Vector2f pos){ knifePos = pos; }
 
 	sf::Time playBeat();
 

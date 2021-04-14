@@ -18,6 +18,7 @@ Game::Game()
 	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
 	//Position setting should be refactored
 	logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
+	logic_2->setKnifePos(sf::Vector2f(logic_2->getPosition().x + 1.5 * logic_2->getPRadius(), logic_2->getPosition().y));
 	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	logic_4 = std::make_shared<MinigameLogic_4>(song);
 
@@ -54,6 +55,7 @@ void Game::switchToNewGame()
 		//INSTANTIATE PIZZA GAME
 		logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
 		logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
+		logic_2->setKnifePos(sf::Vector2f(logic_2->getPosition().x + 1.5 * logic_2->getPRadius(), logic_2->getPosition().y));
 		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	}
 	else if(currentGame == 3)
@@ -88,46 +90,50 @@ void Game::checkEvent(const float &deltaTime)
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
-			case sf::Keyboard::Num1:
-				currentGame = 1;
-				switchToNewGame();
-				break;
-			case sf::Keyboard::Num2:
-				currentGame = 2;
-				switchToNewGame();
-				break;
-			case sf::Keyboard::Num3:
-				currentGame = 3;
-				switchToNewGame();
-				break;
-			case sf::Keyboard::Num4:
-				currentGame = 4;
-				switchToNewGame();
-				break;
-			case sf::Keyboard::Space:
-				// TODO: Call tapCheck on individual minigame logic
-				switch(currentGame)
-				{
-					case 1:
-						logic->tapCheck();
+				case sf::Keyboard::Q:
+					this->isActive = false;
+					break; // Exit
+				case sf::Keyboard::Num1:
+					currentGame = 1;
+					switchToNewGame();
 					break;
-					case 2:
-						logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+				case sf::Keyboard::Num2:
+					currentGame = 2;
+					switchToNewGame();
 					break;
-					case 3:
-						logic->tapCheck();
-						view_3->splitBox(deltaTime);
+				case sf::Keyboard::Num3:
+					currentGame = 3;
+					switchToNewGame();
 					break;
-					case 4:
-						//INCLUDE INPUT LOGIC FOR DDR-MINIGAME
+				case sf::Keyboard::Num4:
+					currentGame = 4;
+					switchToNewGame();
 					break;
-					default:
+				case sf::Keyboard::Space:
+					// TODO: Call tapCheck on individual minigame logic
+					switch(currentGame)
+					{
+						case 1:
+							logic->tapCheck();
+						break;
+						case 2:
+							logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+							view_2->cutPizza(deltaTime);
+						break;
+						case 3:
+							logic->tapCheck();
+							view_3->splitBox(deltaTime);
+						break;
+						case 4:
+							//INCLUDE INPUT LOGIC FOR DDR-MINIGAME
+						break;
+						default:
+						break;
+					}
+					//logic->tapCheck();
 					break;
-				}
-				//logic->tapCheck();
-				break;
-			default:
-				break;
+				default:
+					break;
 			}
 		default:
 			break;
