@@ -4,13 +4,13 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
 {
     this->app = app;
     this->miniLogic = miniLogic;
-    this->circle.setPosition(app->getSize().x / 2.0f, app->getSize().y / 2.0f);
+    //this->circle.setPosition(app->getSize().x / 2.0f, app->getSize().y / 2.0f);
 
 }
 
 void MinigameView_1::draw()
 {
-    app->draw(this->circle);
+    //app->draw(this->circle);
 }
 
 /*
