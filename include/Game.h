@@ -19,7 +19,7 @@ protected:
     bool isActive = true;
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
-    std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 600, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
+    std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
 
     std::shared_ptr<MinigameView_1> view_1;
     std::shared_ptr<MinigameView_2> view_2;
@@ -35,6 +35,6 @@ public:
     Game();
     bool getActive() { return isActive; }
     void update(const float &deltaTime);
-    void checkEvent();
+    void checkEvent(const float& deltaTime);
 };
 #endif

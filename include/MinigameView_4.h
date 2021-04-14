@@ -6,7 +6,9 @@
 class MinigameView_4
 {
 private:
+	std::shared_ptr<sf::RenderWindow> app;
 	std::shared_ptr<MinigameLogic_4> miniLogic;
+	std::vector<sf::RectangleShape> endPoints;
 	sf::Sprite chef;
 	sf::Sprite oven;
 	sf::Sprite refrigerator;
@@ -15,6 +17,8 @@ private:
 	
 public:
 	MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
-	void draw(std::shared_ptr<sf::RenderWindow> window);
+	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
+	void draw();
+	void update(const float& dt);
 };
 #endif
