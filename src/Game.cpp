@@ -21,7 +21,6 @@ Game::Game()
 	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	logic_4 = std::make_shared<MinigameLogic_4>(song);
 
-
 	view_1 = std::make_shared<MinigameView_1>(logic_1, app);
 	view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	view_3 = std::make_shared<MinigameView_3>(logic_3, app);
