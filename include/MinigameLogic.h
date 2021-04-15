@@ -18,7 +18,7 @@ protected:
     int tapNum = 0;
     int backgroundColor = 0;
     bool isHit = false;
-    bool animate;
+    bool animate = false;
     int counter = 0;
     bool resetHitYet = false;
 
@@ -46,9 +46,8 @@ public:
 
     void regionCheck();
 
-    void updateBeatBoxes(const float &deltaTime);
-
     void updatePostHit(const float &deltaTime);
-};
 
+    void stopGame(){this->song->stop(); };
+};
 #endif
