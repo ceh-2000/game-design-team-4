@@ -62,30 +62,26 @@ void Game::checkEvent(const float &deltaTime) {
 }
 
 void Game::update(const float &deltaTime) {
-    this->currentGame = 1;
+    this->currentGame = 3;
     app->clear();
 
     checkEvent(deltaTime);
 
-    // TODO: make a round subloop for the minigame loops
-//    view->update(deltaTime);
-    //view->update(deltaTime);
-
-// 	// TODO: make a round subloop for the minigame loops
-//   view->update(deltaTime);
-//     view_1->update(deltaTime);
-
     // Sous Chef game
-//     view->update(deltaTime);
-     view_1->update(deltaTime);
+    view_1->update(deltaTime);
 
-// 	// Pizza Game
-// 	logic_2->update(deltaTime);
-// 	view_2->update(deltaTime);
+    // 	// Pizza Game
+    // 	logic_2->update(deltaTime);
+    // 	view_2->update(deltaTime);
 
+
+    // Cut til you drop
+    // view->update(deltaTime);
+    // view_3->update(deltaTime);
 
     //  // DDR-themed game
     // view->update(deltaTime);
-    //  view_4->update(deltaTime);
-      view->draw();
+    // view_4->update(deltaTime);
+
+    view->draw();
 }
