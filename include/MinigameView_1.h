@@ -20,6 +20,8 @@ public:
 
     void drawBowl();
 
+    void drawStatic();
+
     void update(const float &deltaTime);
 };
 

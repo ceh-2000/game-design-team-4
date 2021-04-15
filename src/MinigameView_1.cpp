@@ -40,11 +40,20 @@ void MinigameView_1::drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
     }
 }
 
+void MinigameView_1::drawStatic(){
+    float beatBoxEnd = this->miniLogic->getBeatBoxes().at(0).getEndPos().y + this->miniLogic->getIngredDim().y/2.0f;
+    sf::RectangleShape line(sf::Vector2f(app->getSize().x, 2.0f));
+    line.setPosition(sf::Vector2f(0.0f, beatBoxEnd));
+    line.setFillColor(sf::Color::Black);
+    app->draw(line);
+}
+
 void MinigameView_1::update(const float& deltaTime)
 {
+    app->clear(sf::Color(255, 165, 0, 1));
     this->miniLogic->updateBeatBoxes(deltaTime);
     this->miniLogic->updateBowl(deltaTime);
     drawBowl();
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
-
+    drawStatic();
 }

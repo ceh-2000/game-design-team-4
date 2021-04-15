@@ -29,6 +29,7 @@ MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song, float x, float y) {
 
         beatBoxes.push_back(
                 BeatBoxLogic(sf::Vector2f(startX, -ingredientDim.y),
+                             sf::Vector2f(startX, distanceToBowl - bowlSize.y*2),
                              sf::Vector2f(startX, distanceToBowl),
                              sf::Vector2f(ingredientSpeed, ingredientSpeed),
                              time));
@@ -95,6 +96,20 @@ void MinigameLogic_1::updateBowl(const float &deltaTime){
  React to user tap if they hit the left or right arrow keys
  */
 void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap){
+    // Set the amount to move the bowl (better hits moves the bowl farther
+    if(hitOutcome == 0){
+        this->maxAmountToMoveBowl = 0;
+    }
+    else if(hitOutcome == 1 and moveBowl == 0){
+        this->maxAmountToMoveBowl = 300.0f;
+    }
+    else if(hitOutcome == 2 and moveBowl == 0){
+        this->maxAmountToMoveBowl = 150.0f;
+    }
+    else if(hitOutcome == 3 and moveBowl == 0){
+        this->maxAmountToMoveBowl = 50.0f;
+    }
+
     // Set the direction to move the bowl
     if(isRightTap){
         // moveBowl set to one means move the bowl right and then back to center
@@ -105,17 +120,5 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap){
         this->moveBowl = 2;
     }
 
-    // Set the amount to move the bowl (better hits moves the bowl farther
-    if(hitOutcome == 0){
-        this->maxAmountToMoveBowl = 0;
-    }
-    else if(hitOutcome == 1){
-        this->maxAmountToMoveBowl = 300.0f;
-    }
-    else if(hitOutcome == 2){
-        this->maxAmountToMoveBowl = 150.0f;
-    }
-    else{
-        this->maxAmountToMoveBowl = 50.0f;
-    }
+
 }
