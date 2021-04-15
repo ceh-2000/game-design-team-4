@@ -12,14 +12,15 @@ private:
     sf::Sprite bowl;
     sf::Sprite ingredient;
 
-    //sf::CircleShape circle = sf::CircleShape(5.0f);
-
+    sf::CircleShape circle = sf::CircleShape(100.0f);
 public:
     MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 
-    void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
+    void drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
 
-    void draw();
+    void drawBowl();
+
+    void drawStatic();
 
     void update(const float &deltaTime);
 };

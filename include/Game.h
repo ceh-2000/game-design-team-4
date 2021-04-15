@@ -36,6 +36,6 @@ public:
     bool getActive() { return isActive; }
     void update(const float &deltaTime);
     void checkEvent(const float& deltaTime);
-		void switchToNewGame();
+    void switchToNewGame();
 };
 #endif
