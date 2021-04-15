@@ -8,7 +8,9 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song)
     std::vector<float> trueCuts = song->getAllTimings();
 
     for (float time : trueCuts) {
-        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-150, 400), sf::Vector2f(525, 400),
+        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-150, 400),
+                                         sf::Vector2f(525, 400),
+                                         sf::Vector2f(525, 400),
                                          sf::Vector2f(-500.0f, -500.0f), time));
     }
 

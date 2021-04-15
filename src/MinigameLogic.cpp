@@ -40,7 +40,7 @@ float MinigameLogic::determineNextTap(float songTime) {
 /*
 Check whether or not user tapped at all
 */
-void MinigameLogic::tapCheck() {
+int MinigameLogic::tapCheck() {
     float curSongTime = song->getSongTime();
     float nextTap = determineNextTap(curSongTime);
     float prevTap = determinePrevTap(curSongTime);
@@ -54,7 +54,7 @@ void MinigameLogic::tapCheck() {
         backgroundColor = 0;
     }
 
-        // Current song time hit in success range
+    // Current song time hit in success range
     else if (std::abs(curSongTime - nextTap) < winRegion || std::abs(curSongTime - prevTap) < winRegion) {
         std::cout << "Hit!" << std::endl;
         backgroundColor = 1;
@@ -62,7 +62,8 @@ void MinigameLogic::tapCheck() {
         animate = true;
         // resultText.setString("Perfect!");
     }
-        // Current song time hit in almost range
+
+    // Current song time hit in almost range
     else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion ||
              std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion) {
         std::cout << "Almost!" << std::endl;
@@ -71,7 +72,8 @@ void MinigameLogic::tapCheck() {
         animate = true;
         // resultText.setString("Almost!");
     }
-        // Current song time hit in fail range
+
+    // Current song time hit in fail range
     else {
         std::cout << "Miss!" << std::endl;
         backgroundColor = 3;
@@ -79,6 +81,8 @@ void MinigameLogic::tapCheck() {
         animate = true;
         // resultText.setString("Try Again!");
     }
+
+    return backgroundColor;
 }
 
 /*

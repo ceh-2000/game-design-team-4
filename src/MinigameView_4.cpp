@@ -19,25 +19,37 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	refrigerator.setPosition(0, 1*blockSize.y);
 	counter.setPosition(1*blockSize.x, 2*blockSize.y);
 	stove.setPosition(2*blockSize.x, 1*blockSize.y);
+
+	tables.push_back(refrigerator);
+	tables.push_back(counter);
+	tables.push_back(oven);
+	tables.push_back(stove);
 }
 
 //TODO: Add 4 squares in a cross with the chef in the middle
 //have the chef move to a designated input's direction (LEFT, RIGHT, UP, DOWN)
 
-//draws squares to show when inputs reach endpoints
-void MinigameView_4::draw()
-{
-	for(int i = 0; i < 4; i++)
+void MinigameView_4::reachInput(int input)
+{		
+	for (int i = 0; i<4; i++)
+		tables.at(i).setFillColor(sf::Color::White);
+	switch(input)
 	{
-		endPoints.at(i).setFillColor(sf::Color(i*16));
-		app->draw(endPoints.at(i));
+		case 0: //Left
+			tables.at(0).setFillColor(sf::Color::Magenta);
+			break;
+		case 1:
+			tables.at(1).setFillColor(sf::Color::Magenta);
+			break;
+		case 2:
+			tables.at(2).setFillColor(sf::Color::Magenta);
+			break;
+		case 3:
+			tables.at(3).setFillColor(sf::Color::Magenta);
+			break;
 	}
-
-	app->draw(oven);
-	app->draw(refrigerator);
-	app->draw(counter);
-	app->draw(stove);	
 }
+
 
 void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) 
 {
@@ -64,9 +76,20 @@ void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
 }
 
 
+//draws squares to show when inputs reach endpoints
+void MinigameView_4::draw()
+{
+	for(int i = 0; i < 4; i++)
+	{
+		endPoints.at(i).setFillColor(sf::Color(i*16));
+		app->draw(endPoints.at(i));
+		app->draw(tables.at(i));
+	}
+}
 
 void MinigameView_4::update(const float& deltaTime)
 {
+
 	this->miniLogic->updateBeatBoxes(deltaTime);
 	draw();
     updateBeatBoxes(this->miniLogic->getBeatBoxes());

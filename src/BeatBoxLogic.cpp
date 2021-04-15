@@ -6,9 +6,11 @@ Constructor for the beat box class
 Handles animations that need to move before the beat
 and be at a specified position on the beat
 */
-BeatBoxLogic::BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f velocity, float songTimeHit) {
+BeatBoxLogic::BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f postHitPos, sf::Vector2f velocity,
+                           float songTimeHit) {
     this->startPos = startPos;
     this->endPos = endPos;
+    this->postHitPos = postHitPos;
     this->velocity = velocity;
     this->songTimeHit = songTimeHit;
     this->curPos = startPos;
@@ -30,11 +32,6 @@ void BeatBoxLogic::normalizeVelocity() {
 
 }
 
-void BeatBoxLogic::move(const float &deltaTime) {
-    moveX(deltaTime);
-    moveY(deltaTime);
-}
-
 /*
 Move our BeatBox the correct x-amount toward the target end position
 */
@@ -50,7 +47,7 @@ void BeatBoxLogic::moveX(const float &deltaTime) {
 }
 
 /*
-Move our BeatBox the correct x-amount toward the target final position
+Move our BeatBox the correct y-amount toward the target final position
 */
 void BeatBoxLogic::moveY(const float &deltaTime) {
     // Move to the left to reach the end position
@@ -58,6 +55,38 @@ void BeatBoxLogic::moveY(const float &deltaTime) {
         this->curPos.y = this->curPos.y - std::abs(velocity.y) * deltaTime;
     }
         // Move to the right to reach the end position
+    else {
+        this->curPos.y = this->curPos.y + std::abs(velocity.y) * deltaTime;
+    }
+}
+
+/*
+Move our BeatBox the correct x-amount toward the target post-hit position
+
+Allows us to keep moving the block even after the "hit"
+*/
+void BeatBoxLogic::moveXAfter(const float &deltaTime) {
+    // Move to the left to reach the end position
+    if (this->curPos.x > this->postHitPos.x) {
+        this->curPos.x = this->curPos.x - std::abs(velocity.x) * deltaTime;
+    }
+        // Move to the right to reach the end position
+    else {
+        this->curPos.x = this->curPos.x + std::abs(velocity.x) * deltaTime;
+    }
+}
+
+/*
+Move our BeatBox the correct y-amount toward the target post-hit position
+
+Allows us to keep moving the block even after the "hit"
+*/
+void BeatBoxLogic::moveYAfter(const float &deltaTime) {
+    // Move to the left to reach the post hit position
+    if (this->curPos.y > this->postHitPos.y) {
+        this->curPos.y = this->curPos.y - std::abs(velocity.y) * deltaTime;
+    }
+        // Move to the right to reach the post hit position
     else {
         this->curPos.y = this->curPos.y + std::abs(velocity.y) * deltaTime;
     }
@@ -73,9 +102,17 @@ bool BeatBoxLogic::update(const float &deltaTime, const float &curSongTime) {
     float timeUntilHit = songTimeHit - curSongTime;
 
     // Move the beat box to the end position; time has run out.
-    if (timeUntilHit <= 0) {
+    if (timeUntilHit <= 0 && !postHitMove) {
         this->curPos = this->endPos;
-    } else {
+        this->postHitMove = true;
+    } else if (postHitMove && this->curPos.x - this->postHitPos.x < 0.1 && this->curPos.y - this->postHitPos.y < 0.1) {
+        moveXAfter(deltaTime);
+        moveYAfter(deltaTime);
+    }
+    else if(postHitMove){
+        this->curPos = this->postHitPos;
+    }
+    else {
         // Determine if it's time to move
         float timeToTravelX = std::abs(this->endPos.x - this->curPos.x) / std::abs(this->velocity.x);
         float timeToTravelY = std::abs(this->endPos.y - this->curPos.y) / std::abs(this->velocity.y);
@@ -86,7 +123,8 @@ bool BeatBoxLogic::update(const float &deltaTime, const float &curSongTime) {
         // float timeToTravel = distance / speed;
 
         if (timeUntilHit <= timeToTravel) {
-            move(deltaTime);
+            moveX(deltaTime);
+            moveY(deltaTime);
         }
 
         // if(timeUntilHit <= timeToTravelY){
