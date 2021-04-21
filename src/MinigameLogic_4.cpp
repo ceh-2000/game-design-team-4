@@ -18,13 +18,13 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song)
 			iter = 0.25f;
 		if(iter==0.75f)
 		{
-				beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f),
-										 sf::Vector2f(1200.0f, 1200.0f), time));
-				beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*(iter+0.25f)+750.0f, 800.0f), sf::Vector2f(300.0f*(iter+0.25f) + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f),
-										 sf::Vector2f(1200.0f, 1200.0f), time));
+			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
+										sf::Vector2f(1200.0f, 1200.0f), time));
+			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*(iter+0.25f)+750.0f, 800.0f), sf::Vector2f(300.0f*(iter+0.25f) + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
+										sf::Vector2f(1200.0f, 1200.0f), time));
 		}
 		else
-			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f),
+			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
 							sf::Vector2f(1200.0f, 1200.0f), time));
 		iter+=0.25f;
 	}

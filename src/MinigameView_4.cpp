@@ -28,37 +28,46 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 
 //TODO: Add 4 squares in a cross with the chef in the middle
 //have the chef move to a designated input's direction (LEFT, RIGHT, UP, DOWN)
+void MinigameView_4::reachInput(int input, int tapOutcome)
+{	
+	switch(tapOutcome) // set what sprite is done and where the chef is
+	{
+		case 3: //miss
+		break;
 
-void MinigameView_4::reachInput(int input)
-{		
-	for (int i = 0; i<4; i++)
+		case 2: //almost
+		break;
+
+		case 1: //perfect
+		break;
+	}
+	for (int i = 0; i<4; i++) //reset all inputs again
 		tables.at(i).setFillColor(sf::Color::White);
 	switch(input)
 	{
 		case 0: //Left
 			tables.at(0).setFillColor(sf::Color::Magenta);
 			break;
-		case 1:
+		case 1: //Down
 			tables.at(1).setFillColor(sf::Color::Magenta);
 			break;
-		case 2:
+		case 2: //Up
 			tables.at(2).setFillColor(sf::Color::Magenta);
 			break;
-		case 3:
+		case 3: //Right
 			tables.at(3).setFillColor(sf::Color::Magenta);
 			break;
 	}
 }
 
-
 void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) 
 {
 	sf::RectangleShape box;
-    for (BeatBoxLogic beatBox : beatBoxes) 
+	for (BeatBoxLogic beatBox : beatBoxes) 
 	{        
-        box.setSize(sf::Vector2f(50.0f, 50.0f));
-        box.setFillColor(sf::Color::White);
-        box.setPosition(beatBox.getCurPos());
+		box.setSize(sf::Vector2f(50.0f, 50.0f));
+		box.setFillColor(sf::Color::White);
+		box.setPosition(beatBox.getCurPos());
 		if(box.getPosition().y == 100.0f)
 		{
 			for(auto end : endPoints)
@@ -66,13 +75,24 @@ void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
 				{
 					box.setFillColor(sf::Color::Transparent);
 					switch(int(end.getPosition().x))
-					case 825:
-					break;
+					{
+						case 825:
+						break;
+						
+						case 900:
+						break;
 
+						case 975:
+						break;
+
+						case 1050:
+						break;
+
+					}
 				}
 		}
 		app->draw(box);
-    }
+	}
 }
 
 
@@ -92,6 +112,6 @@ void MinigameView_4::update(const float& deltaTime)
 
 	this->miniLogic->updateBeatBoxes(deltaTime);
 	draw();
-    updateBeatBoxes(this->miniLogic->getBeatBoxes());
+	updateBeatBoxes(this->miniLogic->getBeatBoxes());
 
 }

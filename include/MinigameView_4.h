@@ -26,7 +26,7 @@ private:
 	
 public:
 	MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
-	void reachInput(int input);
+	void reachInput(int input, int tapOutcome);
 	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
 	void draw();
 	void update(const float& dt);
