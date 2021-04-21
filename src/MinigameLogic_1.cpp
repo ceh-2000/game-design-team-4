@@ -95,16 +95,55 @@ void MinigameLogic_1::updateBowl(const float &deltaTime) {
  React to user tap if they hit the left or right arrow keys
  */
 void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
+
+    // Determine whether the user should tap right or left
+    BeatBoxLogic currentBeatBox = beatBoxes.at(curBeatBoxIndex);
+    bool isRightCorrect = true;
+    if(currentBeatBox.getStartPos().x > windowSize.x){
+        isRightCorrect = false;
+    }
+
+    // Determine whether the ingredient is good or not
+    bool isGood = true;
+    if(!isGoodVector.at(curBeatBoxIndex)){
+        isGood = false;
+    }
+
+    int goodTapBoost = 300;
+    int almostTapBoost = 150;
+    int badTapBoost = -50;
+
     // Set the amount to move the bowl (better hits moves the bowl farther
     if (hitOutcome == 0) {
         this->maxAmountToMoveBowl = 0;
     } else if (hitOutcome == 1 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 300.0f;
+        // Case where we move the right direction out of the way of a bad ingredient
+        if(!isGood && (isRightCorrect == isRightTap)){
+            this->score+=goodTapBoost;
+        }
+        // Case where we move the wrong direction out of the way of a bad ingredient
+        else if(!isGood){
+            this->score+=badTapBoost;
+        }
+        // Do nothing if they move out of the way of a good ingredient
     } else if (hitOutcome == 2 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 150.0f;
+        // Regardless of good or bad ingredient just provide the almost tap boost
+        this->score+=almostTapBoost;
     } else if (hitOutcome == 3 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 50.0f;
+        // Case where we want to accept a good ingredient, so we get bonus points for a miss :)
+        if(isGood){
+            this->score+=goodTapBoost;
+        }
+        // Case where we missed an accepted a bad ingredient
+        else{
+            this->score+=badTapBoost;
+        }
     }
+
+    std::cout << "Current score: " << score << std::endl;
 
     // Set the direction to move the bowl
     if (isRightTap) {

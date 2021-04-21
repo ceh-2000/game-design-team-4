@@ -156,6 +156,7 @@ void Game::checkEvent(const float &deltaTime)
 
 void Game::update(const float &deltaTime)
 {
+    // TODO: move this call into the individual view updates
     app->clear();
 	checkEvent(deltaTime);
 
