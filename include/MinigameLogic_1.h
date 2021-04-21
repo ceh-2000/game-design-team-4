@@ -10,6 +10,9 @@ private:
     std::shared_ptr<Song> song;
     sf::Vector2f windowSize;
     int score = 0;
+    int goodTapBoost = 300;
+    int almostTapBoost = 150;
+    int badTapBoost = -50;
 
     // Dropping ingredients variables
     sf::Vector2f ingredientDim = sf::Vector2f(50.0f, 50.0f);
@@ -50,7 +53,9 @@ public:
 
     void reactTap(const int &hitOutcome, const bool &isRightTap);
 
-    void update(const float &deltaTime);
+    void noTap(const bool &didHit);
+
+    void update(const float &deltaTime, const bool &didHit);
 
 };
 

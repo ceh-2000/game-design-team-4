@@ -43,12 +43,8 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
     std::vector<BeatBoxLogic> temp;
     int count = 0;
     for (BeatBoxLogic beatBox : beatBoxes) {
+        // TODO: Handle case and improve detection for when beat box can't make it :(
         bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
-        if (canWeMakeIt == false) {
-            std::cout << "Beat box #: " << count
-                      << " can't make it in time :(. Consider increasing the speed of the boxes or adjusting another parameter."
-                      << std::endl;
-        }
 
         bool isAtEnd = beatBox.isAtEnd();
         if (isAtEnd) {
@@ -109,9 +105,7 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
         isGood = false;
     }
 
-    int goodTapBoost = 300;
-    int almostTapBoost = 150;
-    int badTapBoost = -50;
+
 
     // Set the amount to move the bowl (better hits moves the bowl farther
     if (hitOutcome == 0) {
@@ -120,22 +114,22 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
         this->maxAmountToMoveBowl = 300.0f;
         // Case where we move the right direction out of the way of a bad ingredient
         if(!isGood && (isRightCorrect == isRightTap)){
-            this->score+=goodTapBoost;
+            this->score+=this->goodTapBoost;
         }
         // Case where we move the wrong direction out of the way of a bad ingredient
         else if(!isGood){
-            this->score+=badTapBoost;
+            this->score+=this->badTapBoost;
         }
         // Do nothing if they move out of the way of a good ingredient
     } else if (hitOutcome == 2 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 150.0f;
         // Regardless of good or bad ingredient just provide the almost tap boost
-        this->score+=almostTapBoost;
+        this->score+=this->almostTapBoost;
     } else if (hitOutcome == 3 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 50.0f;
         // Case where we want to accept a good ingredient, so we get bonus points for a miss :)
         if(isGood){
-            this->score+=goodTapBoost;
+            this->score+=this->goodTapBoost;
         }
         // Case where we missed an accepted a bad ingredient
         else{
@@ -156,7 +150,21 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
 
 }
 
-void MinigameLogic_1::update(const float &deltaTime) {
+void MinigameLogic_1::noTap(const bool &didHit){
+    if(didHit==false){
+        if(isGoodVector.at(curBeatBoxIndex)){
+            score += this->goodTapBoost;
+        }
+        else{
+            score += this->badTapBoost;
+        }
+        std::cout << "Current score: " << score << std::endl;
+    }
+}
+
+
+void MinigameLogic_1::update(const float &deltaTime, const bool &didHit) {
+    this->noTap(didHit);
     this->updateBeatBoxes(deltaTime);
     this->updateBowl(deltaTime);
 }

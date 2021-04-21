@@ -88,7 +88,7 @@ int MinigameLogic::tapCheck() {
 /*
 Check whether the player did not tap in previous action region
 */
-void MinigameLogic::regionCheck() {
+bool MinigameLogic::regionCheck() {
     float curSongTime = song->getSongTime();
     float nextTap = determineNextTap(curSongTime);
     float prevTap = determinePrevTap(curSongTime);
@@ -96,12 +96,12 @@ void MinigameLogic::regionCheck() {
     // Kick-off an animation to show that the user missed because they never hit
     if (!isHit && (std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)) {
         std::cout << "No tap in action region" << std::endl;
-        std::cout << "Miss!" << std::endl;
         backgroundColor = 3;
         isHit = true;
         animate = true;
         // resultText.setString("Try Again!");
         resetHitYet = false;
+        return false;
     } else if ((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)) {
         resetHitYet = false;
     }
@@ -110,6 +110,7 @@ void MinigameLogic::regionCheck() {
         isHit = false;
         resetHitYet = true;
     }
+    return true;
 }
 
 // Handle animations changes post hit
