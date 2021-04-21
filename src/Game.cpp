@@ -165,6 +165,7 @@ void Game::update(const float &deltaTime)
 	{
 		case 1:
 			//INSERT GAME LOOP FOR MINIGAME_1
+			logic_1->update(deltaTime);
 		    view_1->update(deltaTime);
 		    view->draw();
 			break;

@@ -51,8 +51,7 @@ void MinigameView_1::drawStatic(){
 void MinigameView_1::update(const float& deltaTime)
 {
     app->clear(sf::Color(255, 165, 0, 1));
-    this->miniLogic->updateBeatBoxes(deltaTime);
-    this->miniLogic->updateBowl(deltaTime);
+
     drawBowl();
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
     drawStatic();

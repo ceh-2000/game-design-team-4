@@ -14,6 +14,7 @@ private:
 	float ingredientSpeed = 500.0f;
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<bool> isGoodVector;
+    float curBeatBoxIndex = 0;
 
     // Bowl variables
     float distanceToBowl;
@@ -25,6 +26,7 @@ private:
     int moveBowl = 0;
     float maxAmountToMoveBowl = 0;
 
+
 public:
 	MinigameLogic_1(std::shared_ptr<Song> song, float x, float y);
     std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
@@ -34,6 +36,8 @@ public:
     void updateBowl(const float &deltaTime);
 
     void reactTap(const int &hitOutcome, const bool &isRightTap);
+
+    void update(const float &deltaTime);
 
     sf::Vector2f getBowlSize(){ return bowlSize; }
 

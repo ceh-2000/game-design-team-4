@@ -35,12 +35,12 @@ public:
     void normalizeVelocity();
 
     bool isAtStart() {
-        if (std::abs(curPos.x - startPos.x) < 0.01) { return true; }
+        if (std::abs(curPos.x - startPos.x) < 0.01 and std::abs(curPos.y - startPos.y) < 0.01) { return true; }
         return false;
     }
 
     bool isAtEnd() {
-        if (std::abs(curPos.x - endPos.x) < 0.01) { return true; }
+        if (std::abs(curPos.x - endPos.x) < 0.01 and std::abs(curPos.y - endPos.y) < 0.01) { return true; }
         return false;
     }
 
