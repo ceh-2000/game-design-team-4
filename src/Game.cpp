@@ -118,10 +118,6 @@ void Game::checkEvent(const float &deltaTime)
 							logic->tapCheck();
 							view_3->splitBox(deltaTime);
 						break;
-						case 4:
-							// TODO: INCLUDE INPUT LOGIC FOR DDR-MINIGAME
-                            logic->tapCheck();
-						break;
 						default:
 						break;
 					}
@@ -132,6 +128,8 @@ void Game::checkEvent(const float &deltaTime)
                         case 1:
                             logic_1->reactTap(logic->tapCheck(), false);
                             break;
+						case 4:
+							view_4->reachInput(0);
                         default:
                             break;
                     }
@@ -142,9 +140,30 @@ void Game::checkEvent(const float &deltaTime)
                         case 1:
                             logic_1->reactTap(logic->tapCheck(), true);
                             break;
+						case 4:
+							view_4->reachInput(3);
+						break;
                         default:
                             break;
                     }
+					break;
+				case sf::Keyboard::Up:
+					switch(currentGame)
+					{
+						case 4: 
+							view_4->reachInput(2);
+						break;
+					}
+					break;
+
+				case sf::Keyboard::Down:
+					switch(currentGame)
+					{
+						case 4: 
+							view_4->reachInput(1);
+						break;
+					}
+					break;
                 default:
                     break;
 			}

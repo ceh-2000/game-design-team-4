@@ -12,6 +12,7 @@ private:
 	std::vector<std::vector<float>> arrowKeys;
 	std::vector<BeatBoxLogic> beatBoxes;
 	std::vector<float> timings;
+	enum ARROWS {LEFT, RIGHT, UP, DOWN};
 
 
 public:
