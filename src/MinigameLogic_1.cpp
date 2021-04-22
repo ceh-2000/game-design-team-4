@@ -49,7 +49,6 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
         bool isAtEnd = beatBox.isAtEnd();
         if (isAtEnd) {
             curBeatBoxIndex = count;
-            std::cout << "Beat box #: " << count << " just hit!" << std::endl;
         }
         temp.push_back(beatBox);
         count++;
@@ -59,28 +58,42 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
 
 void MinigameLogic_1::updateBowl(const float &deltaTime) {
     float bowlDisplacement = std::abs(bowlPosition.x - bowlStartPosition.x);
-    if (bowlMovingOut && bowlDisplacement < maxAmountToMoveBowl && moveBowl == 1) {
+
+    float bowl_start_pos = bowlStartPosition.x;
+    float bowl_cur_pos = bowlPosition.x;
+    float bowl_end_pos = bowlStartPosition.x + maxAmountToMoveBowl;
+    if(moveBowl == 2){
+        bowl_end_pos = bowlStartPosition.x - maxAmountToMoveBowl;
+    }
+
+    // Moving bowl out and to the right; less than max
+    if (bowlMovingOut && bowl_cur_pos >= bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
         bowlPosition.x += bowlSpeed * deltaTime;
-    } else if (bowlMovingOut && bowlDisplacement < maxAmountToMoveBowl && moveBowl == 2) {
+    }
+    // Moving bowl out and to the left; less than max
+    else if (bowlMovingOut && bowl_cur_pos <= bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
         bowlPosition.x -= bowlSpeed * deltaTime;
-    } else if (bowlDisplacement >= maxAmountToMoveBowl && moveBowl == 1) {
+    } else if (!bowlMovingOut && bowl_cur_pos > bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
+        bowlPosition.x -= bowlSpeed * deltaTime;
+//        std::cout << "Moving bowl in and and from the right; less than max" << std::endl;
+    } else if (!bowlMovingOut && bowl_cur_pos < bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
+        bowlPosition.x += bowlSpeed * deltaTime;
+//        std::cout << "Moving bowl in and and from the left; less than max" << std::endl;
+    } else if (bowl_cur_pos >= bowl_end_pos && moveBowl == 1) {
         bowlMovingOut = false;
         bowlPosition.x -= bowlSpeed * deltaTime;
-    } else if (bowlDisplacement >= maxAmountToMoveBowl && moveBowl == 2) {
+//        std::cout << "Moving bowl in and and from the right; beyond max" << std::endl;
+    } else if (bowl_cur_pos <= bowl_end_pos && moveBowl == 2) {
         bowlMovingOut = false;
         bowlPosition.x += bowlSpeed * deltaTime;
-    } else if (bowlDisplacement < maxAmountToMoveBowl && bowlPosition.x > bowlStartPosition.x && moveBowl == 1) {
-        bowlPosition.x -= bowlSpeed * deltaTime;
-    } else if (bowlDisplacement < maxAmountToMoveBowl && bowlPosition.x < bowlStartPosition.x && moveBowl == 2) {
-        bowlPosition.x += bowlSpeed * deltaTime;
+//        std::cout << "Moving bowl in and and from the left; beyond max" << std::endl;
     } else {
         bowlPosition.x = bowlStartPosition.x;
         maxAmountToMoveBowl = 0.0f;
         moveBowl = 0;
         bowlMovingOut = true;
+//        std::cout << "Don't move bowl." << std::endl;
     }
-
-
 
     // Reset maxAmountToMoveBowl and moveBowl both to 0
     // Reset moveBowlOut to true
@@ -95,17 +108,15 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
     // Determine whether the user should tap right or left
     BeatBoxLogic currentBeatBox = beatBoxes.at(curBeatBoxIndex);
     bool isRightCorrect = true;
-    if(currentBeatBox.getStartPos().x > windowSize.x){
+    if (currentBeatBox.getStartPos().x > windowSize.x) {
         isRightCorrect = false;
     }
 
     // Determine whether the ingredient is good or not
     bool isGood = true;
-    if(!isGoodVector.at(curBeatBoxIndex)){
+    if (!isGoodVector.at(curBeatBoxIndex)) {
         isGood = false;
     }
-
-
 
     // Set the amount to move the bowl (better hits moves the bowl farther
     if (hitOutcome == 0) {
@@ -113,31 +124,29 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
     } else if (hitOutcome == 1 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 300.0f;
         // Case where we move the right direction out of the way of a bad ingredient
-        if(!isGood && (isRightCorrect == isRightTap)){
-            this->score+=this->goodTapBoost;
+        if (!isGood && (isRightCorrect == isRightTap)) {
+            this->score += this->goodTapBoost;
         }
-        // Case where we move the wrong direction out of the way of a bad ingredient
-        else if(!isGood){
-            this->score+=this->badTapBoost;
+            // Case where we move the wrong direction out of the way of a bad ingredient
+        else if (!isGood) {
+            this->score += this->badTapBoost;
         }
         // Do nothing if they move out of the way of a good ingredient
     } else if (hitOutcome == 2 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 150.0f;
         // Regardless of good or bad ingredient just provide the almost tap boost
-        this->score+=this->almostTapBoost;
+        this->score += this->almostTapBoost;
     } else if (hitOutcome == 3 and moveBowl == 0) {
         this->maxAmountToMoveBowl = 50.0f;
         // Case where we want to accept a good ingredient, so we get bonus points for a miss :)
-        if(isGood){
-            this->score+=this->goodTapBoost;
+        if (isGood) {
+            this->score += this->goodTapBoost;
         }
-        // Case where we missed an accepted a bad ingredient
-        else{
-            this->score+=badTapBoost;
+            // Case where we missed an accepted a bad ingredient
+        else {
+            this->score += badTapBoost;
         }
     }
-
-    std::cout << "Current score: " << score << std::endl;
 
     // Set the direction to move the bowl
     if (isRightTap) {
@@ -150,16 +159,18 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
 
 }
 
-void MinigameLogic_1::noTap(const bool &didHit){
-    if(didHit==false){
-        if(isGoodVector.at(curBeatBoxIndex)){
+void MinigameLogic_1::noTap(const bool &didHit) {
+    // Determine if it's ok that user didn't tap or they should have...
+    if (!didHit && !firstTapScore) {
+        if (isGoodVector.at(curBeatBoxIndex)) {
             score += this->goodTapBoost;
-        }
-        else{
+        } else {
             score += this->badTapBoost;
         }
-        std::cout << "Current score: " << score << std::endl;
     }
+
+    // Handle problem double-scoring the first box if no tap in action region
+    firstTapScore = false;
 }
 
 

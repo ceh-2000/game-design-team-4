@@ -20,6 +20,7 @@ private:
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<bool> isGoodVector;
     float curBeatBoxIndex = 0;
+    bool firstTapScore = true;
 
     // Bowl variables
     float distanceToBowl;

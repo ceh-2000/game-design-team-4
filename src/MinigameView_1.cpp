@@ -8,6 +8,23 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     this->circle.setScale(scale, 1);
     this->circle.setPosition(this->miniLogic->getBowlPosition());
 
+//    if (!texture.loadFromFile("../data/art/SatsanaSheet.png")) {
+//        std::cout << "Could not load Satsana sprite sheet." << std::endl;
+//    }
+//
+//    rectSourceSprite.left = 0;
+//    rectSourceSprite.top = 0;
+//    rectSourceSprite.width = 128;
+//    rectSourceSprite.height = 128;
+
+    //load in the font for result text
+    if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
+        std::cout << "Could not load orange_kid.ttf." << std::endl;
+    }
+    this->scoreText.setFont(font);
+    this->scoreText.setCharacterSize(50);
+    this->scoreText.setFillColor(sf::Color::Red);
+
 }
 
 void MinigameView_1::drawBowl()
@@ -48,11 +65,19 @@ void MinigameView_1::drawStatic(){
     app->draw(line);
 }
 
+void MinigameView_1::drawScore(int score) {
+    this->scoreText.setString("Score: "+std::to_string(score));
+    app->draw(scoreText);
+}
+
 void MinigameView_1::update(const float& deltaTime)
 {
     app->clear(sf::Color(255, 165, 0, 1));
 
     drawBowl();
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
+    drawScore(this->miniLogic->getScore());
     drawStatic();
 }
+
+

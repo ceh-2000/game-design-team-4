@@ -27,9 +27,6 @@ void BeatBoxLogic::normalizeVelocity() {
     velocity.x = totalVelocity * cos(theta);
     velocity.y = totalVelocity * sin(theta);
 
-    std::cout << velocity.x << std::endl;
-    std::cout << velocity.x << std::endl;
-
 }
 
 /*
@@ -118,21 +115,12 @@ bool BeatBoxLogic::update(const float &deltaTime, const float &curSongTime) {
         float timeToTravelY = std::abs(this->endPos.y - this->curPos.y) / std::abs(this->velocity.y);
         float timeToTravel = std::max(timeToTravelX, timeToTravelY);
 
-        // float speed = sqrt(pow(this->velocity.x, 2)+pow(this->velocity.y, 2));
-        // float distance = sqrt(pow(this->endPos.x - this->curPos.x, 2) + pow(this->endPos.y - this->curPos.y, 2));
-        // float timeToTravel = distance / speed;
-
         if (timeUntilHit <= timeToTravel) {
             moveX(deltaTime);
             moveY(deltaTime);
         }
 
-        // if(timeUntilHit <= timeToTravelY){
-        //     moveY(deltaTime);
-        // }
-
         if (timeToTravel - timeUntilHit > 0.1) {
-            std::cout << "Time to travel: " << timeToTravel << " Time to hit: " << timeUntilHit << std::endl;
             return false;
         }
     }

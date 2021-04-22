@@ -45,9 +45,6 @@ int MinigameLogic::tapCheck() {
     float nextTap = determineNextTap(curSongTime);
     float prevTap = determinePrevTap(curSongTime);
 
-    std::cout << "current to nextTap: " << std::abs(curSongTime - nextTap) << std::endl;
-    std::cout << "current to prevTap: " << std::abs(curSongTime - prevTap) << std::endl;
-
     // Current song time not in any tap action regions
     if ((std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)) {
         isHit = false;
@@ -56,7 +53,6 @@ int MinigameLogic::tapCheck() {
 
     // Current song time hit in success range
     else if (std::abs(curSongTime - nextTap) < winRegion || std::abs(curSongTime - prevTap) < winRegion) {
-        std::cout << "Hit!" << std::endl;
         backgroundColor = 1;
         isHit = true;
         animate = true;
@@ -66,7 +62,6 @@ int MinigameLogic::tapCheck() {
     // Current song time hit in almost range
     else if (std::abs(curSongTime - nextTap) > winRegion && std::abs(curSongTime - prevTap) < almostRegion ||
              std::abs(curSongTime - nextTap) < winRegion && std::abs(curSongTime - prevTap) > almostRegion) {
-        std::cout << "Almost!" << std::endl;
         backgroundColor = 2;
         isHit = true;
         animate = true;
@@ -75,7 +70,6 @@ int MinigameLogic::tapCheck() {
 
     // Current song time hit in fail range
     else {
-        std::cout << "Miss!" << std::endl;
         backgroundColor = 3;
         isHit = true;
         animate = true;
@@ -95,7 +89,6 @@ bool MinigameLogic::regionCheck() {
 
     // Kick-off an animation to show that the user missed because they never hit
     if (!isHit && (std::abs(curSongTime - nextTap) > actRegion && std::abs(curSongTime - prevTap) > actRegion)) {
-        std::cout << "No tap in action region" << std::endl;
         backgroundColor = 3;
         isHit = true;
         animate = true;
