@@ -175,6 +175,7 @@ void Game::checkEvent(const float &deltaTime)
 
 void Game::update(const float &deltaTime)
 {
+    // TODO: move this call into the individual view updates
     app->clear();
 	checkEvent(deltaTime);
 
@@ -184,6 +185,7 @@ void Game::update(const float &deltaTime)
 	{
 		case 1:
 			//INSERT GAME LOOP FOR MINIGAME_1
+			logic_1->update(deltaTime, logic->regionCheck());
 		    view_1->update(deltaTime);
 		    view->draw();
 			break;

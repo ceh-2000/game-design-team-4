@@ -44,7 +44,7 @@ public:
 
     int tapCheck();
 
-    void regionCheck();
+    bool regionCheck();
 
     void updatePostHit(const float &deltaTime);
 

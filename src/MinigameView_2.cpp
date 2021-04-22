@@ -70,6 +70,7 @@ void MinigameView_2::cutPizza(const float& deltaTime)
 
 void MinigameView_2::update(const float& deltaTime)
 {
+    app->clear();
     std::vector<float> cutAngles = miniLogic->getCutAngles();
     //if we need to move up
     if(cutAngles.size() < miniLogic->getMaxCuts() && miniLogic->getPAngle() < 2 * PI)
