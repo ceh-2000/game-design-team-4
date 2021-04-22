@@ -143,7 +143,7 @@ void Game::checkEvent(const float &deltaTime)
 							break;
 						case 4:
 							view_4->reachInput(3, logic->tapCheck());
-						break;
+							break;
 						default:
 							break;
 					}

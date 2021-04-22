@@ -11,19 +11,16 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 		endPoint.setPosition(300.0f*iter+750.0f, 100.0f);
 		endPoints.push_back(endPoint);
 	}
-	sf::Vector2f position = sf::Vector2f(app->getSize().x/2.0f, app->getSize().y/2.0f);
 
-	// oven.setPosition(app->getSize().x/2.0f, app->getSize().y/2.0f);
-
-	oven.setPosition(1*blockSize.x , 0);
-	refrigerator.setPosition(0, 1*blockSize.y);
-	counter.setPosition(1*blockSize.x, 2*blockSize.y);
-	stove.setPosition(2*blockSize.x, 1*blockSize.y);
+	refrigerator.setPosition(100, 150);
+	counter.setPosition(200, 250);
+	stove.setPosition(200, 50);
+	oven.setPosition(300, 150);
 
 	tables.push_back(refrigerator);
 	tables.push_back(counter);
-	tables.push_back(oven);
 	tables.push_back(stove);
+	tables.push_back(oven);
 }
 
 //TODO: Add 4 squares in a cross with the chef in the middle
@@ -43,28 +40,56 @@ void MinigameView_4::reachInput(int input, int tapOutcome)
 	}
 	for (int i = 0; i<4; i++) //reset all inputs again
 		tables.at(i).setFillColor(sf::Color::White);
+
 	switch(input)
 	{
-		case 0: //Left
+		//Left = 0, Down = 1, Up = 2, Right = 3
+
+		case 0: // Left
+			tables.at(input).setFillColor(sf::Color::Magenta);
+			break;
+		case 1: // Down
+			tables.at(input).setFillColor(sf::Color::Magenta);
+			break;
+		case 2: // Up
+			tables.at(input).setFillColor(sf::Color::Magenta);
+			break;
+		case 3: // Right
+			tables.at(input).setFillColor(sf::Color::Magenta);
+			break;
+		case 4: // Up and Right
+			tables.at(2).setFillColor(sf::Color::Magenta);
+			tables.at(3).setFillColor(sf::Color::Magenta);
+			break;
+		case 5: // Down and Right
+			tables.at(1).setFillColor(sf::Color::Magenta);
+			tables.at(3).setFillColor(sf::Color::Magenta);
+			break;
+		case 6: // Left and Right
+			tables.at(0).setFillColor(sf::Color::Magenta);
+			tables.at(3).setFillColor(sf::Color::Magenta);
+			break;
+		case 7: // Down and Left
+			tables.at(1).setFillColor(sf::Color::Magenta);
 			tables.at(0).setFillColor(sf::Color::Magenta);
 			break;
-		case 1: //Down
+		case 8: // Down and Up
 			tables.at(1).setFillColor(sf::Color::Magenta);
-			break;
-		case 2: //Up
 			tables.at(2).setFillColor(sf::Color::Magenta);
 			break;
-		case 3: //Right
+		case 9: // Right and Left
 			tables.at(3).setFillColor(sf::Color::Magenta);
+			tables.at(0).setFillColor(sf::Color::Magenta);
 			break;
 	}
 }
 
 void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) 
 {
-	sf::RectangleShape box;
+
 	for (BeatBoxLogic beatBox : beatBoxes) 
-	{        
+	{
+		sf::RectangleShape box;
 		box.setSize(sf::Vector2f(50.0f, 50.0f));
 		box.setFillColor(sf::Color::White);
 		box.setPosition(beatBox.getCurPos());
@@ -77,17 +102,13 @@ void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
 					switch(int(end.getPosition().x))
 					{
 						case 825:
-						break;
-						
+							break;
 						case 900:
-						break;
-
+							break;
 						case 975:
-						break;
-
+							break;
 						case 1050:
-						break;
-
+							break;
 					}
 				}
 		}
@@ -109,9 +130,7 @@ void MinigameView_4::draw()
 
 void MinigameView_4::update(const float& deltaTime)
 {
-
 	this->miniLogic->updateBeatBoxes(deltaTime);
 	draw();
 	updateBeatBoxes(this->miniLogic->getBeatBoxes());
-
 }
