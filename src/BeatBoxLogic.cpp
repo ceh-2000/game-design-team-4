@@ -102,7 +102,7 @@ bool BeatBoxLogic::update(const float &deltaTime, const float &curSongTime) {
     if (timeUntilHit <= 0 && !postHitMove) {
         this->curPos = this->endPos;
         this->postHitMove = true;
-    } else if (postHitMove && this->curPos.x - this->postHitPos.x < 0.1 && this->curPos.y - this->postHitPos.y < 0.1) {
+    } else if (postHitMove && (std::abs(this->curPos.x - this->postHitPos.x) >= 0.1 || std::abs(this->curPos.y - this->postHitPos.y) >= 0.1)) {
         moveXAfter(deltaTime);
         moveYAfter(deltaTime);
     }

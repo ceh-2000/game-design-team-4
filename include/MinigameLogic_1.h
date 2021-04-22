@@ -15,7 +15,7 @@ private:
     int badTapBoost = -50;
 
     // Dropping ingredients variables
-    sf::Vector2f ingredientDim = sf::Vector2f(50.0f, 50.0f);
+    sf::Vector2f ingredientDim = sf::Vector2f(150.0f, 150.0f);
     float ingredientSpeed = 500.0f;
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<bool> isGoodVector;

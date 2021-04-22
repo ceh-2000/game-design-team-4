@@ -50,6 +50,11 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
         if (isAtEnd) {
             curBeatBoxIndex = count;
         }
+
+        bool isAtPostHit = beatBox.isAtPostHit();
+        if(!isAtPostHit){
+
+        }
         temp.push_back(beatBox);
         count++;
     }
@@ -73,31 +78,35 @@ void MinigameLogic_1::updateBowl(const float &deltaTime) {
     // Moving bowl out and to the left; less than max
     else if (bowlMovingOut && bowl_cur_pos <= bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
         bowlPosition.x -= bowlSpeed * deltaTime;
-    } else if (!bowlMovingOut && bowl_cur_pos > bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
+    }
+    // Moving bowl in and and from the right; less than max
+    else if (!bowlMovingOut && bowl_cur_pos > bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
         bowlPosition.x -= bowlSpeed * deltaTime;
-//        std::cout << "Moving bowl in and and from the right; less than max" << std::endl;
-    } else if (!bowlMovingOut && bowl_cur_pos < bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
+    }
+    // Moving bowl in and and from the left; less than max
+    else if (!bowlMovingOut && bowl_cur_pos < bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
         bowlPosition.x += bowlSpeed * deltaTime;
-//        std::cout << "Moving bowl in and and from the left; less than max" << std::endl;
-    } else if (bowl_cur_pos >= bowl_end_pos && moveBowl == 1) {
+    }
+    // Moving bowl in and and from the right; beyond max
+    else if (bowl_cur_pos >= bowl_end_pos && moveBowl == 1) {
         bowlMovingOut = false;
         bowlPosition.x -= bowlSpeed * deltaTime;
-//        std::cout << "Moving bowl in and and from the right; beyond max" << std::endl;
-    } else if (bowl_cur_pos <= bowl_end_pos && moveBowl == 2) {
+    }
+    // Moving bowl in and and from the left; beyond max
+    else if (bowl_cur_pos <= bowl_end_pos && moveBowl == 2) {
         bowlMovingOut = false;
         bowlPosition.x += bowlSpeed * deltaTime;
-//        std::cout << "Moving bowl in and and from the left; beyond max" << std::endl;
-    } else {
+    }
+    // Don't move bowl
+    else {
         bowlPosition.x = bowlStartPosition.x;
         maxAmountToMoveBowl = 0.0f;
         moveBowl = 0;
         bowlMovingOut = true;
-//        std::cout << "Don't move bowl." << std::endl;
     }
 
-    // Reset maxAmountToMoveBowl and moveBowl both to 0
-    // Reset moveBowlOut to true
-
+    // TODO: Reset maxAmountToMoveBowl and moveBowl both to 0
+    // TODO: Reset moveBowlOut to true
 }
 
 /*

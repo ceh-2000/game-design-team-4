@@ -11,9 +11,9 @@ private:
     std::shared_ptr<MinigameLogic_1> miniLogic;
     std::shared_ptr<sf::RenderWindow> app;
 
-    sf::Texture texture;
+    sf::Texture appleTexture;
+    sf::Texture mouseTexture;
     sf::Font font;
-    sf::IntRect rectSourceSprite;
     sf::Text scoreText;
 
     sf::CircleShape circle = sf::CircleShape(100.0f);

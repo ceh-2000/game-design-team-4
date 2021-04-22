@@ -44,6 +44,11 @@ public:
         return false;
     }
 
+    bool isAtPostHit() {
+        if (std::abs(curPos.x - postHitPos.x) < 0.01 and std::abs(curPos.y - postHitPos.y) < 0.01) { return true; }
+        return false;
+    }
+
     // Methods with logic
     void moveX(const float &deltaTime);
 
