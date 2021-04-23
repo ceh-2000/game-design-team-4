@@ -10,14 +10,16 @@
 class Animation
 {
 private:
-    sf::IntRect texture;
+    sf::IntRect textureRect;
     sf::Sprite sprite;
-    sf::Text text;
 
+    int row;
+    int frames;
+    int sizePerFrame;
+    float timePerFrame;
     float elapsedDuration;
-    float duration;
-    bool animate = true;
     bool loop;
+<<<<<<< Updated upstream
     int counter = 0;
     int frames;
     float timePerFrame;
@@ -26,6 +28,15 @@ public:
     void animateSprite(const float& deltaTime, std::shared_ptr<sf::RenderWindow> window, sf::Text& resultText);
     void animateSprite(const float& deltaTime, std::shared_ptr<sf::RenderWindow> window);
     void isLoop(bool loop) { this->loop = loop; }
+=======
+    int counter;
+    
+
+public:
+    Animation(sf::Sprite& sprite, int row, int frames, int sizePerFrame, float timePerFrame, bool loop);
+    void isLoop(bool loop) { this->loop = loop; }
+    void animate(const float& dt, std::shared_ptr<sf::RenderWindow> window);
+>>>>>>> Stashed changes
 };
 
 
@@ -34,7 +45,11 @@ public:
 
 #endif
 
+<<<<<<< Updated upstream
 //file path
 //translation counter
 //max frames
 //time per frame
+=======
+
+>>>>>>> Stashed changes

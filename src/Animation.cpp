@@ -1,4 +1,5 @@
 #include "Animation.h"
+<<<<<<< Updated upstream
 #include <iostream>
 Animation::Animation(float& elapsedDuration, int frames, float timePerFrame, sf::Sprite &sprite, sf::IntRect &rectText)
 {   
@@ -36,11 +37,29 @@ void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow>
 
 
 void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow> window){
+=======
 
-    elapsedDuration += dt;
-        while(elapsedDuration > timePerFrame){
-            elapsedDuration -= timePerFrame;
+Animation::Animation(sf::Sprite& sprite, int row, int frames, int sizePerFrame, float timePerFrame, bool loop)
+{   
+   this->row = row;
+   this->frames = frames;
+   this->sizePerFrame = sizePerFrame;
+   this->timePerFrame = timePerFrame;
+   this->elapsedDuration = this->timePerFrame;
+   this->sprite = sprite;
+   
+   this->counter = 0;
+   textureRect = sf::IntRect(0, 100, sizePerFrame, sizePerFrame);
+   this->sprite.setTextureRect(textureRect);
 
+}
+
+void Animation::animate(const float& dt, std::shared_ptr<sf::RenderWindow> window){
+>>>>>>> Stashed changes
+
+    this->elapsedDuration += dt;
+
+<<<<<<< Updated upstream
             // cycle through 3 frames of talking
             if(!this->loop && counter == frames){
                 std::cout << "END";
@@ -60,4 +79,25 @@ void Animation::animateSprite(const float& dt, std::shared_ptr<sf::RenderWindow>
         }
 
         this->sprite.setTextureRect(texture);
+=======
+    while(elapsedDuration > timePerFrame){
+        elapsedDuration -= timePerFrame;
+
+        if(!this->loop && counter == frames){
+            textureRect.left = 0;
+            break;
+        }
+        else if (counter == frames){
+            counter = 0;
+            textureRect.left = 0;
+        }
+        else 
+        {
+            textureRect.left += sizePerFrame;
+            counter++;
+        }
+    }
+    
+    this->sprite.setTextureRect(textureRect);
+>>>>>>> Stashed changes
 }    
