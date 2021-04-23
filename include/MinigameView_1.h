@@ -4,13 +4,17 @@
 
 #include "MinigameView.h"
 #include "MinigameLogic_1.h"
+#include<string>
 
 class MinigameView_1 {
 private:
     std::shared_ptr<MinigameLogic_1> miniLogic;
     std::shared_ptr<sf::RenderWindow> app;
-    sf::Sprite bowl;
-    sf::Sprite ingredient;
+
+    sf::Texture appleTexture;
+    sf::Texture mouseTexture;
+    sf::Font font;
+    sf::Text scoreText;
 
     sf::CircleShape circle = sf::CircleShape(100.0f);
 public:
@@ -23,6 +27,8 @@ public:
     void drawStatic();
 
     void update(const float &deltaTime);
+
+    void drawScore(int score);
 };
 
 #endif

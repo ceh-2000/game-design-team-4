@@ -10,7 +10,7 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song)
 	// sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f postHitPos, sf::Vector2f velocity, float songTimeHit
 	for (float time : timings)
 	{
-		if(iter==1.25f) iter = 0.25f;
+		if(iter >= 1) iter = 0.25f;
 		if(iter==0.75f)
 		{
 			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
@@ -18,7 +18,8 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song)
 			beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*(iter+0.25f)+750.0f, 800.0f), sf::Vector2f(300.0f*(iter+0.25f) + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
 								sf::Vector2f(1200.0f, 1200.0f), time));
 		}
-		else beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
+		else 
+		beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(300.0f*iter+750.0f, 800.0f), sf::Vector2f(300.0f*iter + 750.0f, 100.0f), sf::Vector2f(300.0f*iter + 750.0f, 50.0f),
 								sf::Vector2f(1200.0f, 1200.0f), time));
 		iter+=0.25f;
 	}
@@ -42,4 +43,23 @@ void MinigameLogic_4::updateBeatBoxes(const float &deltaTime)
 		count++;
 	}
 	this->beatBoxes = temp;
+}
+
+void MinigameLogic_4::setScore(const int& tapCheck)
+{
+	switch(tapCheck)
+	{
+		case 3: //miss
+			this->score-=50;
+			
+			break;
+		case 2: //almost
+			this->score+=20;
+
+			break;
+		case 1: //perfect!
+			this->score+=50;
+
+			break;
+	}
 }

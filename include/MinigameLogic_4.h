@@ -5,6 +5,7 @@
 class MinigameLogic_4
 {
 private:
+	int score = 0;
 	std::shared_ptr<Song> song;
 	sf::Vector2f chefDim;
 	sf::Vector2f chefPosition;
@@ -13,7 +14,7 @@ private:
 	std::vector<BeatBoxLogic> beatBoxes;
 	std::vector<float> timings;
 	enum ARROWS {LEFT, RIGHT, UP, DOWN};
-
+	bool resetInputs = false;
 
 public:
 	MinigameLogic_4(std::shared_ptr<Song> song);
@@ -30,6 +31,9 @@ public:
 
 	float getChefSpeed() { return chefSpeed; }
 	void setChefSpeed(float s) { chefSpeed = s; }
+
+	int getScore() { return score; }
+	void setScore(const int& s);
 
 	std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
 

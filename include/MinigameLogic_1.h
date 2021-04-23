@@ -1,19 +1,26 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_1
 #define MINIGAME_LOGIC_1
+
 #include "MinigameLogic.h"
-class MinigameLogic_1
-{
+
+class MinigameLogic_1 {
 private:
     // General variables
-	std::shared_ptr<Song> song;
-	sf::Vector2f windowSize;
+    std::shared_ptr<Song> song;
+    sf::Vector2f windowSize;
+    int score = 0;
+    int goodTapBoost = 300;
+    int almostTapBoost = 150;
+    int badTapBoost = -50;
 
-	// Dropping ingredients variables
-	sf::Vector2f ingredientDim = sf::Vector2f(50.0f, 50.0f);
-	float ingredientSpeed = 500.0f;
+    // Dropping ingredients variables
+    sf::Vector2f ingredientDim = sf::Vector2f(150.0f, 150.0f);
+    float ingredientSpeed = 500.0f;
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<bool> isGoodVector;
+    float curBeatBoxIndex = 0;
+    bool firstTapScore = true;
 
     // Bowl variables
     float distanceToBowl;
@@ -25,28 +32,32 @@ private:
     int moveBowl = 0;
     float maxAmountToMoveBowl = 0;
 
+
 public:
-	MinigameLogic_1(std::shared_ptr<Song> song, float x, float y);
+    MinigameLogic_1(std::shared_ptr<Song> song, float x, float y);
+
     std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
+
     std::vector<bool> getIsGoodVector() { return isGoodVector; }
 
+    int getScore() { return score; }
+
+    sf::Vector2f getBowlSize() { return bowlSize; }
+
+    sf::Vector2f getBowlPosition() { return bowlPosition; }
+
+    sf::Vector2f getIngredDim() { return ingredientDim; }
+
     void updateBeatBoxes(const float &deltaTime);
+
     void updateBowl(const float &deltaTime);
 
     void reactTap(const int &hitOutcome, const bool &isRightTap);
 
-    sf::Vector2f getBowlSize(){ return bowlSize; }
+    void noTap(const bool &didHit);
 
-    sf::Vector2f getBowlPosition(){ return bowlPosition; }
-
-    float getDistanceToBowl() { return distanceToBowl; }
-    void setDistanceToBowl(float distance) { distanceToBowl = distance;}
-
-    sf::Vector2f getIngredDim() { return ingredientDim; }
-	void setIngredDim(sf::Vector2f& dim) { ingredientDim = dim;}
-
-	sf::Vector2f getChefPos() { return bowlPosition; }
-	void setChefPos(sf::Vector2f &pos) { bowlPosition = pos; }
+    void update(const float &deltaTime, const bool &didHit);
 
 };
+
 #endif

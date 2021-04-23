@@ -25,18 +25,23 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 
 //TODO: Add 4 squares in a cross with the chef in the middle
 //have the chef move to a designated input's direction (LEFT, RIGHT, UP, DOWN)
-void MinigameView_4::reachInput(int input, int tapOutcome)
+void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 {	
-	switch(tapOutcome) // set what sprite is done and where the chef is
+	
+	switch(tapOutcome) // set what sprite is done and where the chef is, set score as well
 	{
 		case 3: //miss
-		break;
-
+			this->miniLogic->setScore(-50);
+			
+			break;
 		case 2: //almost
-		break;
+			this->miniLogic->setScore(20);
 
-		case 1: //perfect
-		break;
+			break;
+		case 1: //perfect!
+			this->miniLogic->setScore(50);
+			
+			break;
 	}
 	for (int i = 0; i<4; i++) //reset all inputs again
 		tables.at(i).setFillColor(sf::Color::White);
@@ -82,6 +87,11 @@ void MinigameView_4::reachInput(int input, int tapOutcome)
 			tables.at(0).setFillColor(sf::Color::Magenta);
 			break;
 	}
+}
+
+void MinigameView_4::resetInput()
+{
+	resetInputs = true;
 }
 
 void MinigameView_4::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) 

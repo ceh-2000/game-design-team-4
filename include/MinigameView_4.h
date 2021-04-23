@@ -10,8 +10,8 @@ private:
 	std::shared_ptr<MinigameLogic_4> miniLogic;
 	std::vector<sf::RectangleShape> endPoints;
 	std::vector<sf::RectangleShape> tables;
-	// sf::Sprite chef;
 	//TODO: Replace RectangleShapes with art
+	// sf::Sprite chef;
 	// sf::Sprite oven;
 	// sf::Sprite refrigerator;
 	// sf::Sprite counter;
@@ -23,10 +23,13 @@ private:
 	sf::RectangleShape refrigerator = sf::RectangleShape(blockSize);
 	sf::RectangleShape counter = sf::RectangleShape(blockSize);
 	sf::RectangleShape stove = sf::RectangleShape(blockSize);
+	bool resetInputs = false;
+
 	
 public:
 	MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
-	void reachInput(int input, int tapOutcome);
+	void resetInput();
+	void reachInput(const int& input, const int& tapOutcome);
 	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
 	void draw();
 	void update(const float& dt);
