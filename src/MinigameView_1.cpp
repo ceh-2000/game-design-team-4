@@ -1,5 +1,8 @@
 #include "MinigameView_1.h"
 
+/*
+ * Constructor for view class for minigame 1
+ */
 MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::shared_ptr<sf::RenderWindow> app)
 {
     this->app = app;
@@ -16,7 +19,7 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
 
-    //load in the font for result text
+    // Set the font and text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
@@ -25,6 +28,9 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     this->scoreText.setFillColor(sf::Color::Red);
 }
 
+/*
+ * Draw the bowl at the updated position according to user input handled in the event manager
+ */
 void MinigameView_1::drawBowl()
 {
     this->circle.setPosition(this->miniLogic->getBowlPosition());
@@ -57,6 +63,9 @@ void MinigameView_1::drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
     }
 }
 
+/*
+ * Draw the static components of the game like the line that marks the bottom of the beat box
+ */
 void MinigameView_1::drawStatic(){
     float beatBoxEnd = this->miniLogic->getBeatBoxes().at(0).getEndPos().y + this->miniLogic->getIngredDim().y/2.0f;
     sf::RectangleShape line(sf::Vector2f(app->getSize().x, 2.0f));
@@ -65,11 +74,17 @@ void MinigameView_1::drawStatic(){
     app->draw(line);
 }
 
+/*
+ * Draw the user's score using a pre-loaded font
+ */
 void MinigameView_1::drawScore(int score) {
     this->scoreText.setString("Score: "+std::to_string(score));
     app->draw(scoreText);
 }
 
+/*
+ * Call all drawing methods to redraw the scene for minigame 1
+ */
 void MinigameView_1::update(const float& deltaTime)
 {
     app->clear(sf::Color(255, 165, 0, 1));

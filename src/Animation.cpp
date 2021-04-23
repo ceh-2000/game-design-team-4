@@ -1,30 +1,57 @@
 #include "Animation.h"
-Animation::Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window)
-{   
-    this->sprite = sprite;
-    this->text = text;
+
+/*
+ * Constructor for Animation class that wraps sprite class to provide generalized animations for a sprite sheet
+ */
+Animation::Animation(const std::string &spriteName, const sf::Vector2f &dimensions, const bool &loop) {
+
+    // Establish variables to loop or not loop animation and determine box dimensions
     this->loop = loop;
-    this->texture = rectText;
+    this->dimensions = dimensions;
 
-    elapsedDuration += dt;
-        while(elapsedDuration > timePerFrame){
-            elapsedDuration -= timePerFrame;
+    // Load in sprite sheet file
+    if (!this->spriteSheet.loadFromFile("../data/art/sprite_sheet.png")) {
+        std::cout << "Could not load sprite sheet from file." << std::endl;
+    }
 
-            // cycle through 3 frames of talking
-            if(!this->loop && counter == frames){
-                animate = false;
-                this->text.setString("");
-                break;
-            }
-            else if (counter == frames){
-                counter = 0;
-                texture.left = 0;
-            }
-            else 
-            {
-                texture.left += 128;
-                counter++;
-            }
+    // Determine which row corresponds to our animation of interest
+    int count = 0;
+    for (const char *spriteType: this->spriteNames) {
+        if (std::strcmp(spriteType, spriteName.c_str()) == 0) {
+            this->rowNumber = count;
+            break;
+        } else {
+            count++;
         }
-        this->sprite.setTextureRect(texture);
-}    
+    }
+
+    // Create sprite basics
+    this->sprite.setTexture(this->spriteSheet);
+    this->boundingBox = sf::IntRect(0, this->boxSize*this->rowNumber, this->boxSize, this->boxSize);
+    this->sprite.setTextureRect(this->boundingBox);
+    this->sprite.scale(dimensions.x/boxSize, dimensions.y/this->boxSize);
+}
+
+
+/*
+ * Transition sprite texture to a new frame
+ */
+void Animation::update(const float &deltaTime){
+    this->elapsedTime += deltaTime;
+
+    if(this->elapsedTime < this->maxTimeToShowFrame){
+        if(!this->loop && this->counter == this->frameNumber[this->rowNumber]){
+            boundingBox.left = 0;
+        }
+        else if(this->counter == this->frameNumber[this->rowNumber]){
+            this->counter = 0;
+            this->boundingBox.left = 0;
+        }
+        else{
+            this->boundingBox.left += this->boxSize;
+            this->counter++;
+        }
+    }
+    this->sprite.setTextureRect(boundingBox);
+}
+

@@ -5,28 +5,36 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <memory>
+#include <map>
+#include <iostream>
 
-
-class Animation
-{
+class Animation {
 private:
-    sf::IntRect texture;
-    sf::Sprite sprite;
-    sf::Text text;
+    // Deduce the row number in the sprite sheet from the sprite index
+    const char *spriteNames[7] = {"apple", "mouse", "satsana", "egg", "bread", "can", "eye"};
+    int frameNumber[7] = {7, 4, 3, 12, 2, 8, 6};
+    int rowNumber = 0;
+    int boxSize = 50;
 
-    float elapsedDuration;
-    float duration;
-    bool animate = true;
-    bool loop;
+    // Individual sprite variables
+    sf::Texture spriteSheet;
+    sf::IntRect boundingBox;
+    sf::Sprite sprite;
+    sf::Vector2f dimensions;
+
+    // Animation specific variables
+    bool loop = false;
     int counter = 0;
+    float maxTimeToShowFrame = 0.1f;
+    float elapsedTime = 0.0f;
+
 public:
-    Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window);
-    void isLoop(bool loop) { this->loop = loop; }
+    Animation(const std::string &spriteName, const sf::Vector2f &dimensions, const bool &loop);
+
+    void update(const float &deltaTime);
+
     void draw(std::shared_ptr<sf::RenderWindow> window);
 };
-
-
-
 
 
 #endif
