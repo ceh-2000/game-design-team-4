@@ -29,7 +29,7 @@ Game::Game(std::shared_ptr<Song> song)
 	resultText.setFillColor(sf::Color::Black);
 	resultText.setPosition(130, 40);
 
-	Satsana = new Animation(elapsedDuration, 3, 0.25f, sprite, rectSourceSprite);
+	//Satsana = new Animation(elapsedDuration, 3, 0.25f, sprite, rectSourceSprite);
 	//sf::Vector2u dim(384, 128);
 	//Satsana = new Animation(&texture, dim, 0.25f);
 }
@@ -200,7 +200,7 @@ void Game::update(const float& deltaTime)
 	}
 	//Upcoming changes?
 	//if(animate){
-	   Satsana->animateSprite(deltaTime, app, resultText);
+	   //Satsana->animateSprite(deltaTime, app, resultText);
 	   //Satsana->Update(0, deltaTime);
 	//}
 

@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-#include "MinigameView_3.h"
-=======
 #include "MinigameView_3.h"
 #include "Animation.h"
 
@@ -16,15 +13,11 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 
 	//load vegetable texture
 
-
-    sf::Texture satsanaTexture;
-    sf::Sprite satsanaSprite;
-
     satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
     satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(100,100);
+    satsanaSprite.setPosition(10,10);
 
-    animation = Animation(satsanaSprite, 0, 3, 128, 0.5, true);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.3, true);
 
 	
 }
@@ -34,6 +27,7 @@ void MinigameView_3::draw(){
     //draw the knife    
     knifeBox.setPosition(this->miniLogic->getKnifePos());
     app->draw(knifeBox);
+    //app->draw(satsanaSprite);
 
 
 
@@ -87,8 +81,7 @@ void MinigameView_3::update(const float& deltaTime){
     }
 
 
-    animation.animate(deltaTime, app);
+    animation->animate(deltaTime, app);
 	draw();
 
 }
->>>>>>> Stashed changes
