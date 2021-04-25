@@ -17,6 +17,7 @@ private:
     sf::Text scoreText;
 
     sf::CircleShape circle = sf::CircleShape(100.0f);
+
 public:
     MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 
