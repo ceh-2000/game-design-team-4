@@ -8,10 +8,10 @@ class MinigameView_2
 private:
     std::shared_ptr<sf::RenderWindow> app;
     std::shared_ptr<MinigameLogic_2> miniLogic;
-    sf::Sprite pizza;
 
     //Test Shapes
     sf::CircleShape cPizza;
+    sf::Texture pizzaTexture;
     sf::RectangleShape baseCut;//model cut object to transform
     sf::RectangleShape knifeBox;
 

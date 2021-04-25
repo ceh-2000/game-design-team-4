@@ -7,11 +7,15 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
     this->miniLogic = MinigameLogic_2;
     this->app = app;
 
+    if (!pizzaTexture.loadFromFile("../data/art/pizza.png")) {
+        std::cout << "Could not load pizza sprite." << std::endl;
+    }
     //Instantiate pizza object
+    cPizza.setTexture(&pizzaTexture, true);
     cPizza.setRadius(MinigameLogic_2->getPRadius());
     cPizza.setOrigin(MinigameLogic_2->getPRadius(), MinigameLogic_2->getPRadius());
     cPizza.setPosition(MinigameLogic_2->getPosition());
-    cPizza.setFillColor(sf::Color(255.f,165.f,0.0f));
+    //cPizza.setFillColor(sf::Color(255.f,165.f,0.0f));
 
     //Build baseCutShape, default angle is 0
     baseCut.setFillColor(sf::Color::Red);
@@ -32,15 +36,15 @@ void MinigameView_2::draw()
 {
     app->clear(sf::Color::Blue);
 
+    //DRAWING THE CUTS
+    std::vector<float> cutAngles = miniLogic->getCutAngles();
     // DRAW THE PIZZA
+    //std::cout << "cut angles larger than number of rects? " << cutAngles().size() << "\n";
     app->draw(cPizza);
-
     // DRAW THE KNIFE
     knifeBox.setPosition(this->miniLogic->getKnifePos());
     app->draw(knifeBox);
 
-    //DRAWING THE CUTS
-    std::vector<float> cutAngles = miniLogic->getCutAngles();
     //if we made a cut, push in the base model transformed to right pos
     if(cutAngles.size() > playerCuts.size())
     {
@@ -49,13 +53,13 @@ void MinigameView_2::draw()
         newRect.setRotation(cutAngles[cutAngles.size()-1] * 180.f/PI);
         playerCuts.push_back(newRect);
     }
-    //std::cout << "cut angles larger than number of rects? " << cutAngles().size() << "\n";
-    if(cutAngles.size() < miniLogic->getMaxCuts() && miniLogic->getPAngle() < 2 * PI)
-        cPizza.rotate(-miniLogic->getPAngle() * 180.f/PI); //
     for(sf::RectangleShape cut: playerCuts)
     {
         if(miniLogic->getPAngle() < 2 * PI)
-            cut.setRotation(cut.getRotation() - miniLogic->getPAngle() * 180.f/PI);
+        {
+          cut.setRotation(cut.getRotation() - miniLogic->getPAngle() * 180.f/PI);
+          cPizza.setRotation(playerCuts[0].getRotation() - miniLogic->getPAngle() * 180.f/PI); //
+        }
         app->draw(cut);
     }
 
