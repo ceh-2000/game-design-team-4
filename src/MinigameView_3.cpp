@@ -1,4 +1,5 @@
 #include "MinigameView_3.h"
+#include "Animation.h"
 
 MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3, std::shared_ptr<sf::RenderWindow> app)
 {
@@ -11,6 +12,13 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 	knifeBox.setFillColor(sf::Color::Black);
 
 	//load vegetable texture
+
+
+    satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
+    satsanaSprite.setTexture(satsanaTexture);
+    satsanaSprite.setPosition(10,10);
+
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.3, true);
 
 	
 }
@@ -71,7 +79,9 @@ void MinigameView_3::update(const float& deltaTime){
             this->miniLogic->setKnifePos(down);
         }
     }
-    
+
+
+    animation->animate(deltaTime, app);
 	draw();
 
 }

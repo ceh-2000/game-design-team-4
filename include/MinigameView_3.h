@@ -3,6 +3,7 @@
 #define MINIGAME_VIEW_3
 #include "MinigameView.h"
 #include "MinigameLogic_3.h"
+#include "Animation.h"
 class MinigameView_3
 {
 private:
@@ -17,6 +18,11 @@ private:
 	sf::RectangleShape knifeBox;
 
 	bool move = false;
+
+	sf::Texture satsanaTexture;
+	sf::Sprite satsanaSprite;
+
+	std::shared_ptr<Animation> animation;
 
 
 	
