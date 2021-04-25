@@ -4,8 +4,10 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 {
 	this->miniLogic = MinigameLogic_4;
 	this->app = app;
+	this->score.setPosition(app->getSize().x/2.0f, app->getSize().y/2.0f);
 
 	texture.loadFromFile("../data/art/arrows-spritesheet.png");
+	font.loadFromFile("../data/fonts/orange_kid.ttf");
 
 	refrigerator = sf::Sprite(texture, sf::IntRect(0,64,64,64));
 	counter = sf::Sprite(texture, sf::IntRect(0,128,64,64));
@@ -40,18 +42,12 @@ void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 	
 	switch(tapOutcome) // set what sprite is done and where the chef is, set score as well
 	{
-		case 3: //miss
-			this->miniLogic->setScore(-50);
-			
-			break;
-		case 2: //almost
-			this->miniLogic->setScore(20);
-
-			break;
-		case 1: //perfect!
-			this->miniLogic->setScore(50);
-			
-			break;
+		//miss
+		case 3: this->miniLogic->setScore(-50);	break;
+		//almost
+		case 2: this->miniLogic->setScore(20); break;
+		//perfect!
+		case 1: this->miniLogic->setScore(50); break;
 	}
 	for (int i = 0; i<4; i++) //reset all inputs again
 	{
@@ -126,7 +122,6 @@ void MinigameView_4::resetInput()
 
 void MinigameView_4::updateBeatBoxes(std::vector<std::shared_ptr<BeatBoxLogic>> beatBoxes) 
 {
-	// int count = 0;
 	for (std::shared_ptr<BeatBoxLogic> beatBox : beatBoxes) 
 	{
 		sf::Sprite arrow = sf::Sprite(texture);
@@ -139,19 +134,11 @@ void MinigameView_4::updateBeatBoxes(std::vector<std::shared_ptr<BeatBoxLogic>> 
 			case 1050: arrowTextureRect.left = 192;	break;
 			default: break;
 		}
-		if(arrow.getPosition().y == 34.0f)
+		if(arrow.getPosition().y > 34.0f)
 		{
-			// std::vector<std::shared_ptr<BeatBoxLogic>>::iterator iter;
-			// iter+=count;
-			// beatBoxes.erase(iter);
-
-			arrowTextureRect.left = 256;
 			arrow.setTextureRect(arrowTextureRect);
+			app->draw(arrow);
 		}
-		arrow.setTextureRect(arrowTextureRect);
-		app->draw(arrow);
-		
-		// count++;
 	}
 }
 
@@ -164,11 +151,13 @@ void MinigameView_4::draw()
 		app->draw(endPoints.at(i));
 		app->draw(tables.at(i));
 	}
+	app->draw(score);
 }
 
 void MinigameView_4::update(const float& deltaTime)
 {
 	this->miniLogic->updateBeatBoxes(deltaTime);
+	score.setString("Score: " + std::to_string(this->miniLogic->getScore()));
 	draw();
 	updateBeatBoxes(this->miniLogic->getBeatBoxes());
 }

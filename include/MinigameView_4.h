@@ -23,6 +23,9 @@ private:
 	sf::Sprite counter;
 	sf::Sprite stove;
 	
+	sf::Text score = sf::Text("", font, 30);
+	sf::Font font;
+
 public:
 	MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
 	void resetInput();
