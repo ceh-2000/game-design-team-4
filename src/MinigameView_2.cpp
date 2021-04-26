@@ -10,6 +10,11 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
     if (!pizzaTexture.loadFromFile("../data/art/pizza.png")) {
         std::cout << "Could not load pizza sprite." << std::endl;
     }
+
+    //load in the font for result text
+    if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
+        std::cout << "Could not load orange_kid.ttf." << std::endl;
+    }
     //Instantiate pizza object
     cPizza.setTexture(&pizzaTexture, true);
     cPizza.setRadius(MinigameLogic_2->getPRadius());
@@ -34,14 +39,22 @@ void MinigameView_2::draw()
 {
     app->clear(sf::Color::Blue);
 
-    //DRAWING THE CUTS
-    std::vector<float> cutAngles = miniLogic->getCutAngles();
+    //DRAW CUTS REMAINING TEXT
+    sf::Text cutText;
+    cutText.setFont(font);
+    cutText.setCharacterSize(50);
+    cutText.setFillColor(sf::Color::Red);
+    cutText.setString("REMAINING CUTS: \n" + std::to_string(miniLogic->getMaxCuts() - playerCuts.size()));
+    app->draw(cutText);
     // DRAW THE PIZZA
     //std::cout << "cut angles larger than number of rects? " << cutAngles().size() << "\n";
     app->draw(cPizza);
     // DRAW THE KNIFE
     knifeBox.setPosition(this->miniLogic->getKnifePos());
     app->draw(knifeBox);
+
+    //DRAWING THE CUTS
+    std::vector<float> cutAngles = miniLogic->getCutAngles();
 
     //if we made a cut, push in the base model transformed to right pos
     if(cutAngles.size() > playerCuts.size())
@@ -56,18 +69,16 @@ void MinigameView_2::draw()
         if(miniLogic->getPAngle() < 2 * PI)
         {
           cut.setRotation(cut.getRotation() - miniLogic->getPAngle() * 180.f/PI);
-          cPizza.setRotation(playerCuts[0].getRotation() - miniLogic->getPAngle() * 180.f/PI); //
+          cPizza.setRotation(playerCuts[0].getRotation() - miniLogic->getPAngle() * 180.f/PI);
         }
         app->draw(cut);
     }
 
     app->display();
-}
-
-
-void MinigameView_2::cutPizza(const float& deltaTime)
-{
-    move = true;
+    //sleep here to prevent beat from playing before drawing
+    sf::Time time = sf::seconds(0.001f);
+    sf::sleep(time);
+    if(miniLogic->getAngleSpeed() == 0) { miniLogic->playBeat(); }
 }
 
 void MinigameView_2::update(const float& deltaTime)
@@ -79,13 +90,13 @@ void MinigameView_2::update(const float& deltaTime)
     {
         float x = this->miniLogic->getKnifePos().x;
         float y = this->miniLogic->getKnifePos().y;
-        if(move){
+        if(moveKnife){
             if(x >= cPizza.getPosition().x){
                 sf::Vector2f left(x - this->miniLogic->getKnifeSpeed() * deltaTime, y);
                 this->miniLogic->setKnifePos(left);
                 //if we reach the peak set move = false so knife goes right
                 if(this->miniLogic->getKnifePos().x <= cPizza.getPosition().x){
-                    move = false;
+                    moveKnife = false;
                 }
             }
         }

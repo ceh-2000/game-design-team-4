@@ -5,8 +5,11 @@ MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
 {
     this->song = song;
     this->maxCuts = maxCuts;
+    position = sf::Vector2f(600, 400);
+    knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
-    angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
+
+    //angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
 }
 // Every hit of space adds new cut until reach max limit
 void MinigameLogic_2::pushNewCut()
@@ -22,7 +25,7 @@ void MinigameLogic_2::pushNewCut()
 
     std::cout << "cutAngles: ";
     for(int i=0; i < cutAngles.size(); i++)
-        std::cout << cutAngles.at(i) << ' ';
+        std::cout << cutAngles.at(i) * 180/PI << ' ';
     std::cout << "\n";
 }
 
@@ -48,29 +51,40 @@ void MinigameLogic_2::playBeat()
   int i = 0;
   while(i < maxCuts)
   {
-    if(song.get()->getSoundStatus() == sf::Sound::Status::Stopped)
+    if(song->getSoundStatus() == sf::Sound::Status::Stopped)
     {
-      song.get()->playSound();
+      song->playSound();
       i++;
     }
   }
   revTime = time.restart().asSeconds();
+  angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
+  //std::cout << "revTime: " << revTime << std::endl;
 }
-//Score calculating done at end of game
+//Score calculating done at end of game (Score out of 100)
 float MinigameLogic_2::calcScore()
 {
+    // Worst score that player can get
+    float worstScore = 200.f * (float)(maxCuts - 1) / (float) maxCuts;
+
     float score = 0.f;
     //calculate the total error for each pizza slice
-    if(cutAngles.size() != 1){
-        for(int i=1; i < cutAngles.size() ; i++){
-            score += abs(cutAngles[i] - cutAngles[i-1] - goalAngle); //slice angle - expected angle
+    if(cutAngles.size() != 1)
+    {
+        for(int i=1; i < cutAngles.size() ; i++)
+        {
+              score += 100.f * abs((cutAngles[i] - cutAngles[i-1] - goalAngle))/goalAngle; //slice angle - expected angle
         }
     }
-
-    //if there are less than requisite cuts error added is size of missed slices
+    //add in last slice from end to first cut
+    score += 100.f *(float) abs((2 * PI - cutAngles.back() - goalAngle))/goalAngle;
+    //Add error of missing slices
     if(cutAngles.size() < maxCuts){
-        score += (maxCuts - cutAngles.size()) * goalAngle;
+        score +=  100.f * (maxCuts - cutAngles.size());
     }
-
-    return score;
+    std::cout << "score after missing slices: " <<  score << std::endl;
+    score = score / (float) maxCuts; //Average score of all slices
+    std::cout << "score after averaging: " <<  score << std::endl;
+    //good scores are small, so operation makes 100 % best score
+    return  100 * (1 - score/worstScore) ;
 }

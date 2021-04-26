@@ -18,13 +18,15 @@ private:
     std::vector<sf::RectangleShape> actualCuts;
     std::vector<sf::RectangleShape> playerCuts;
 
-    bool move = false;
+    sf::Font font;
+
+    bool moveKnife = false;
 
 public:
     MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2, std::shared_ptr<sf::RenderWindow> app);
     void draw();
     void update(const float& deltaTime);
-    void cutPizza(const float& deltaTime);
+    void cutPizza() { moveKnife = true; }
 };
 
 #endif

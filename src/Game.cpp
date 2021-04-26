@@ -16,10 +16,7 @@ Game::Game()
   view = std::make_shared<MinigameView>(logic, app);
 
 	logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
-
-	logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
-	logic_2->setKnifePos(sf::Vector2f(logic_2->getPosition().x + 1.5 * logic_2->getPRadius(), logic_2->getPosition().y));
+	logic_2 = std::make_shared<MinigameLogic_2>(song, 5); // Pass maximum cuts allowed
 	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	logic_4 = std::make_shared<MinigameLogic_4>(song);
 
@@ -55,9 +52,7 @@ void Game::switchToNewGame()
 	else if(currentGame == 2)
 	{
 		//INSTANTIATE PIZZA GAME
-		logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
-		logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
-		logic_2->setKnifePos(sf::Vector2f(logic_2->getPosition().x + 1.5 * logic_2->getPRadius(), logic_2->getPosition().y));
+		logic_2 = std::make_shared<MinigameLogic_2>(song, 5); //pass maximum cuts allowed
 		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	}
 	else if(currentGame == 3)
@@ -87,15 +82,20 @@ void Game::checkEvent(const float &deltaTime)
 	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
 	// Process events
 	sf::Event event;
+	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q)
+	{
+		this->isActive = false;
+	}
 	while (app->pollEvent(event))
 	{
+		//BROAD EVENTS
 		switch (event.type)
 		{
 		case sf::Event::Closed:
 			this->isActive = false;
 			break; // Exit
 		case sf::Event::KeyPressed:
-			switch (event.key.code)
+			switch(event.key.code)
 			{
 				case sf::Keyboard::Q:
 					this->isActive = false;
@@ -116,73 +116,111 @@ void Game::checkEvent(const float &deltaTime)
 					currentGame = 4;
 					switchToNewGame();
 					break;
-				case sf::Keyboard::Enter:
-					if(currentGame == 2 && song.get()->getSoundStatus() != sf::Sound::Status::Playing)
-						logic_2->playBeat();
-					break;
-				case sf::Keyboard::Space:
-					switch(currentGame)
-					{
-						case 2:
-							logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
-							view_2->cutPizza(deltaTime);
-						break;
-						case 3:
-							logic->tapCheck();
-							view_3->splitBox(deltaTime);
-						break;
-						default:
-						break;
-					}
-					break;
-                case sf::Keyboard::Left:
-                    switch(currentGame)
-                    {
-                        case 1:
-                            logic_1->reactTap(logic->tapCheck(), false);
-                            break;
-						case 4:
-							view_4->reachInput(0);
-                        default:
-                            break;
-                    }
-                    break;
-                case sf::Keyboard::Right:
-                    switch(currentGame)
-                    {
-                        case 1:
-                            logic_1->reactTap(logic->tapCheck(), true);
-                            break;
-						case 4:
-							view_4->reachInput(3);
-						break;
-                        default:
-                            break;
-                    }
-					break;
-				case sf::Keyboard::Up:
-					switch(currentGame)
-					{
-						case 4:
-							view_4->reachInput(2);
-						break;
-					}
-					break;
-
-				case sf::Keyboard::Down:
-					switch(currentGame)
-					{
-						case 4:
-							view_4->reachInput(1);
-						break;
-					}
-					break;
-                default:
-                    break;
 			}
-		default:
 			break;
 		}
+
+		//MINIGAME SPECIFIC OPERATIONS
+		switch(currentGame)
+		{
+			case 1:
+				minigame1EventHandler(deltaTime, event);
+				break;
+			case 2:
+				minigame2EventHandler(deltaTime, event, song);
+			  break;
+			case 3:
+				minigame3EventHandler(deltaTime, event);
+			  break;
+			case 4:
+				minigame4EventHandler(deltaTime, event);
+			  break;
+		}
+	}
+}
+
+void Game::minigame1EventHandler(const float &deltaTime, sf::Event event)
+{
+	switch (event.type)
+	{
+	case sf::Event::KeyPressed:
+		switch (event.key.code)
+		{
+			case sf::Keyboard::Left:
+				logic_1->reactTap(logic->tapCheck(), false);
+				break;
+			case sf::Keyboard::Right:
+				logic_1->reactTap(logic->tapCheck(), true);
+				break;
+			default:
+			  break;
+		}
+	default:
+		break;
+	}
+}
+
+void Game::minigame2EventHandler(const float &deltaTime, sf::Event event, std::shared_ptr<Song> song)
+{
+	switch (event.type)
+	{
+	case sf::Event::KeyPressed:
+		switch (event.key.code)
+		{
+			case sf::Keyboard::Enter:
+				if(song->getSoundStatus() != sf::Sound::Status::Playing)
+					logic_2->playBeat();
+				break;
+			case sf::Keyboard::Space:
+				logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+				view_2->cutPizza();
+				break;
+		}
+	default:
+		break;
+	}
+}
+
+void Game::minigame3EventHandler(const float &deltaTime, sf::Event event)
+{
+	switch (event.type)
+	{
+	case sf::Event::KeyPressed:
+		switch (event.key.code)
+		{
+			case sf::Keyboard::Space:
+				logic->tapCheck();
+				view_3->splitBox(deltaTime);
+				break;
+		}
+		break;
+	}
+}
+
+void Game::minigame4EventHandler(const float &deltaTime, sf::Event event)
+{
+	switch (event.type)
+	{
+	case sf::Event::KeyPressed:
+		switch (event.key.code)
+		{
+			case sf::Keyboard::Left:
+				view_4->reachInput(0);
+				break;
+			case sf::Keyboard::Right:
+				view_4->reachInput(3);
+				break;
+			case sf::Keyboard::Up:
+				view_4->reachInput(2);
+				break;
+			case sf::Keyboard::Down:
+				view_4->reachInput(1);
+				break;
+			default:
+				break;
+		}
+	default:
+		break;
 	}
 }
 
