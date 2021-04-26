@@ -8,14 +8,16 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song)
     std::vector<float> trueCuts = song->getAllTimings();
 
     for (float time : trueCuts) {
-        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-150, 400),
-                                         sf::Vector2f(525, 400),
-                                         sf::Vector2f(525, 400),
+        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
+                                         sf::Vector2f(500, 400),
+                                         sf::Vector2f(1275, 400),
                                          sf::Vector2f(-500.0f, -500.0f), time));
     }
 
     knifePos = sf::Vector2f(600,600);
 	ingredientDim = sf::Vector2f(150, 75);
+
+
 }
 
 void MinigameLogic_3::update(const float& dt){
@@ -43,4 +45,13 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
         count++;
     }
     this->beatBoxes = temp;
+}
+
+void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck){
+    if(hitOutcome == 0) this->score += this->badTapBoost;
+    if(hitOutcome == 1) this->score += this->goodTapBoost;
+    if(hitOutcome == 2) this->score += this->almostTapBoost;
+    if(hitOutcome == 3) this->score += this->badTapBoost;
+
+    if(!regionCheck) this->score += this->badTapBoost;
 }
