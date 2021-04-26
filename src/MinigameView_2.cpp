@@ -15,7 +15,6 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
     cPizza.setRadius(MinigameLogic_2->getPRadius());
     cPizza.setOrigin(MinigameLogic_2->getPRadius(), MinigameLogic_2->getPRadius());
     cPizza.setPosition(MinigameLogic_2->getPosition());
-    //cPizza.setFillColor(sf::Color(255.f,165.f,0.0f));
 
     //Build baseCutShape, default angle is 0
     baseCut.setFillColor(sf::Color::Red);
@@ -28,7 +27,6 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
     //knifeBox.setTexture(this->knife.getTexture());
     //knifeBox.setOrigin(knifeBox.getSize()/2.f);
     knifeBox.setPosition(MinigameLogic_2->getPosition());
-    //knifeBox.move(1.5 * cPizza.getRadius(), 200);
     knifeBox.setFillColor(sf::Color::Black);
 }
 
@@ -85,14 +83,14 @@ void MinigameView_2::update(const float& deltaTime)
             if(x >= cPizza.getPosition().x){
                 sf::Vector2f left(x - this->miniLogic->getKnifeSpeed() * deltaTime, y);
                 this->miniLogic->setKnifePos(left);
-                //if we reach the peak set move = false so knife goes down
+                //if we reach the peak set move = false so knife goes right
                 if(this->miniLogic->getKnifePos().x <= cPizza.getPosition().x){
                     move = false;
                 }
             }
         }
 
-            //we need to move down
+            //we need to move right
         else{
             if(x < cPizza.getPosition().x + 1.5f * cPizza.getRadius()){
                 sf::Vector2f right(x + this->miniLogic->getKnifeSpeed() * deltaTime, y);

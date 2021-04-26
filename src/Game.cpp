@@ -3,11 +3,14 @@
 Game::Game()
 {
 	std::vector<std::string> songList;
+	std::vector<std::string> soundList;
 
 	// TODO: Push more than one song and allow for rotating between songs
 	songList.push_back("../data/music/Sixty_BPM.wav");
+	soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
 
-	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
+	//std::shared_ptr<Song> sound = std::make_shared<Song>(soundList);
 
 	logic = std::make_shared<MinigameLogic>(song);
   view = std::make_shared<MinigameView>(logic, app);
@@ -29,9 +32,11 @@ Game::Game()
 void Game::switchToNewGame()
 {
 	std::vector<std::string> songList;
+	std::vector<std::string> soundList;
+	soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
 	songList.push_back("../data/music/Sixty_BPM.wav");
 	logic->stopGame();
-	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
 
 	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
 	//Body of loop not needed for second minigame
@@ -77,7 +82,9 @@ void Game::checkEvent(const float &deltaTime)
 {
 	std::vector<std::string> songList;
 	songList.push_back("../data/music/Sixty_BPM.wav");
-	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+	std::vector<std::string> soundList;
+	soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
+	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
 	// Process events
 	sf::Event event;
 	while (app->pollEvent(event))
@@ -108,6 +115,10 @@ void Game::checkEvent(const float &deltaTime)
 				case sf::Keyboard::Num4:
 					currentGame = 4;
 					switchToNewGame();
+					break;
+				case sf::Keyboard::Enter:
+					if(currentGame == 2 && song.get()->getSoundStatus() != sf::Sound::Status::Playing)
+						logic_2->playBeat();
 					break;
 				case sf::Keyboard::Space:
 					switch(currentGame)
@@ -152,7 +163,7 @@ void Game::checkEvent(const float &deltaTime)
 				case sf::Keyboard::Up:
 					switch(currentGame)
 					{
-						case 4: 
+						case 4:
 							view_4->reachInput(2);
 						break;
 					}
@@ -161,7 +172,7 @@ void Game::checkEvent(const float &deltaTime)
 				case sf::Keyboard::Down:
 					switch(currentGame)
 					{
-						case 4: 
+						case 4:
 							view_4->reachInput(1);
 						break;
 					}

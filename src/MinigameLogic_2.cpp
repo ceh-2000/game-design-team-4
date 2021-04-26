@@ -4,7 +4,6 @@
 MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
 {
     this->song = song;
-
     this->maxCuts = maxCuts;
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
     angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
@@ -42,6 +41,21 @@ void MinigameLogic_2::update(float deltaTime)
     }
 }
 
+void MinigameLogic_2::playBeat()
+{
+  sf::Clock time;
+  time.restart();
+  int i = 0;
+  while(i < maxCuts)
+  {
+    if(song.get()->getSoundStatus() == sf::Sound::Status::Stopped)
+    {
+      song.get()->playSound();
+      i++;
+    }
+  }
+  revTime = time.restart().asSeconds();
+}
 //Score calculating done at end of game
 float MinigameLogic_2::calcScore()
 {

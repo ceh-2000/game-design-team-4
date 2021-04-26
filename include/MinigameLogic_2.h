@@ -58,7 +58,7 @@ public:
     float getKnifeSpeed(){ return knifeSpeed; }
     void setKnifePos(sf::Vector2f pos){ knifePos = pos; }
 
-    sf::Time playBeat();
+    void playBeat();
 
 };
 #endif
