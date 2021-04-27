@@ -11,6 +11,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     knifeBox.setSize(sf::Vector2f(25, 200));
     //knifeBox.setTexture(this->knife.getTexture());
 	knifeBox.setFillColor(sf::Color::Black);
+    knifeBox.setPosition(this->miniLogic->getKnifePos());
 
 	//load sushi texture
     if (!sushiTexture.loadFromFile("../data/art/sushi.png")) {
@@ -46,14 +47,19 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 
 void MinigameView_3::draw(const float& deltaTime){
 
-    //draw the knife    
-
-
-    knifeBox.setPosition(this->miniLogic->getKnifePos());
+    //animate satsana
     animation->animate(deltaTime, app);
+
+    //animate the belt
     beltAnimation->animate(deltaTime, app);
+
+    //draw the food
     updateBeatBoxes(this->miniLogic->getBeatBoxes());
+
+    //draw the knife
     app->draw(knifeBox);
+
+    //draw the score
     app->draw(scoreText);
 
 
@@ -62,12 +68,6 @@ void MinigameView_3::draw(const float& deltaTime){
 
 void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
     for (BeatBoxLogic beatBox : beatBoxes) {
-            // sf::RectangleShape box;
-            // box.setSize(this->miniLogic->getIngredientDim());
-            // box.setFillColor(sf::Color::White);
-            // box.setPosition(beatBox.getCurPos());
-            // app->draw(box);
-
             sf::Sprite sprite;
             sprite.setTexture(sushiTexture);
             sprite.setTextureRect(sf::IntRect(0, 0, 150, 75));
