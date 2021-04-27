@@ -17,6 +17,8 @@ protected:
     int difficult = 1;
     int currentGame = 1;
     bool isActive = true;
+    int key = 0;
+
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);

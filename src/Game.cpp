@@ -10,7 +10,7 @@ Game::Game()
 	std::shared_ptr<Song> song = std::make_shared<Song>(songList);
 
 	logic = std::make_shared<MinigameLogic>(song);
-    view = std::make_shared<MinigameView>(logic, app);
+	view = std::make_shared<MinigameView>(logic, app);
 
 	logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
@@ -76,6 +76,10 @@ void Game::switchToNewGame()
 **/
 void Game::checkEvent(const float &deltaTime)
 {
+	bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+	bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 	// Process events
 	sf::Event event;
 	while (app->pollEvent(event))
@@ -113,60 +117,60 @@ void Game::checkEvent(const float &deltaTime)
 						case 2:
 							logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
 							view_2->cutPizza(deltaTime);
-						break;
+							break;
 						case 3:
 							logic->tapCheck();
 							view_3->splitBox(deltaTime);
 							logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
 						break;
 						default:
-						break;
+							break;
 					}
 					break;
-                case sf::Keyboard::Left:
-                    switch(currentGame)
-                    {
-                        case 1:
-                            logic_1->reactTap(logic->tapCheck(), false);
-                            break;
+				case sf::Keyboard::Left:
+					switch(currentGame)
+					{
+						case 1:
+							logic_1->reactTap(logic->tapCheck(), false);
+							break;
 						case 4:
-							view_4->reachInput(0);
-                        default:
-                            break;
-                    }
-                    break;
-                case sf::Keyboard::Right:
-                    switch(currentGame)
-                    {
-                        case 1:
-                            logic_1->reactTap(logic->tapCheck(), true);
-                            break;
+							view_4->reachInput(0, logic->tapCheck());
+							break;
+						default:
+							break;
+					}
+					break;
+				case sf::Keyboard::Right:
+					switch(currentGame)
+					{
+						case 1:
+							logic_1->reactTap(logic->tapCheck(), true);
+							break;
 						case 4:
-							view_4->reachInput(3);
-						break;
-                        default:
-                            break;
-                    }
+							view_4->reachInput(3, logic->tapCheck());
+							break;
+						default:
+							break;
+					}
 					break;
 				case sf::Keyboard::Up:
 					switch(currentGame)
 					{
 						case 4: 
-							view_4->reachInput(2);
+							view_4->reachInput(2, logic->tapCheck());
 						break;
 					}
 					break;
-
 				case sf::Keyboard::Down:
 					switch(currentGame)
 					{
 						case 4: 
-							view_4->reachInput(1);
+							view_4->reachInput(1, logic->tapCheck());
 						break;
 					}
 					break;
-                default:
-                    break;
+				default:
+					break;
 			}
 		default:
 			break;
@@ -198,17 +202,18 @@ void Game::update(const float &deltaTime)
 		case 3:
 			//INSERT GAME LOOP FOR MINIGAME_3
 			view->update(deltaTime);
-		  view_3->update(deltaTime);
-		  view->draw();
+			view_3->update(deltaTime);
+			view->draw();
 			break;
 		case 4:
 			//INSERT GAME LOOP FOR MINIGAME_4
 			//DDR-themed game
 			view->update(deltaTime);
-              view_4->update(deltaTime);
-              view->draw();
+			view_4->update(deltaTime);
+			view->draw();
 			break;
 		case 0:
+			break;
 		default:
 			//GAME LOOP FOR MAIN MENU PERHAPS?
 			break;
