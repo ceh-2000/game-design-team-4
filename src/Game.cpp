@@ -121,7 +121,8 @@ void Game::checkEvent(const float &deltaTime)
 						case 3:
 							logic->tapCheck();
 							view_3->splitBox(deltaTime);
-							break;
+							logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
+						break;
 						default:
 							break;
 					}
