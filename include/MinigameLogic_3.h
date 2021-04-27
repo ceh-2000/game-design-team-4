@@ -9,7 +9,6 @@ private:
     std::shared_ptr<Song> song;
     sf::Vector2f ingredientDim;
     sf::Vector2f position;
-    int score = 0;
 
     float ingredientSpeed;
     std::vector<float> trueCuts;
@@ -20,12 +19,16 @@ private:
     sf::Vector2f knifePos;
     float knifeSpeed = 2500;
 
+    int score = 0;
+    int goodTapBoost = 300;
+    int almostTapBoost = 150;
+    int badTapBoost = -50;
+
+
 public:
     MinigameLogic_3(std::shared_ptr<Song> song);
 
     void move(const float &dt);
-
-    int getScore() { return score; }
 
     std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
 
@@ -53,6 +56,8 @@ public:
 
     std::vector<float> getPlayerCuts() { return playerCuts; }
 
+    int getScore() { return score; }
+
     void moveKnife(const float &dt);
 
     void update(const float &dt);
@@ -60,6 +65,8 @@ public:
     void splitBox();
 
     void updateBeatBoxes(const float &deltaTime);
+
+    void updateScore(const int &hitOutcome, bool regionCheck);
 
 
 };
