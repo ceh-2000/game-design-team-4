@@ -36,11 +36,14 @@ public:
 
     int getBackgroundColor() { return backgroundColor; }
 
+    void startGame() { song->play(); }
+
+    float getElapsedTime(){ return song->getSongTime(); }
+
     float determineNextTap(float songTime);
 
     float determinePrevTap(float songTime);
 
-    void startGame();
 
     int tapCheck();
 
