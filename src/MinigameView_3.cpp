@@ -19,7 +19,9 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     }
 
     //set up satsana animation
-    satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
+    if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
+        std::cout << "Could not load Satsana sprite sheet." << std::endl;
+    }
     satsanaSprite.setTexture(satsanaTexture);
     satsanaSprite.setPosition(10,10);
 
@@ -30,7 +32,10 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
 
-    beltTexture.loadFromFile("../data/art/spritesheet.png");
+    //set up conveyor belt animation
+    if(!beltTexture.loadFromFile("../data/art/spritesheet.png")){
+        std::cout << "Could not load belt sprite sheet." << std::endl;
+    }
     beltSprite.setTexture(beltTexture);
     beltSprite.setPosition(-350, 400);
     beltSprite.setScale(sf::Vector2f(8, 2.5));
@@ -67,6 +72,11 @@ void MinigameView_3::draw(const float& deltaTime){
 }
 
 void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
+
+    BeatBoxLogic lastBox = beatBoxes.back();
+    sf::Vector2f newPos = lastBox.getCurPos();
+    newPos.x += 20;
+
     for (BeatBoxLogic beatBox : beatBoxes) {
             sf::Sprite sprite;
             sprite.setTexture(sushiTexture);
@@ -75,6 +85,27 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes)
             sprite.setPosition(beatBox.getCurPos().x-this->miniLogic->getIngredientDim().x/2, beatBox.getCurPos().y-this->miniLogic->getIngredientDim().y/2);
             app->draw(sprite);
     }
+
+    cutBoxes.push_back(BeatBoxLogic(lastBox.getCurPos(),
+                                         lastBox.getPostHitPos(),
+                                         lastBox.getPostHitPos(),
+                                         lastBox.getVelocity(), lastBox.getSongTime()));
+
+    cutBoxes.push_back(BeatBoxLogic(newPos,
+                                         lastBox.getPostHitPos(),
+                                         lastBox.getPostHitPos(),
+                                         lastBox.getVelocity(), lastBox.getSongTime()));
+
+    for (BeatBoxLogic beatBox : cutBoxes) {
+            sf::Sprite sprite;
+            sprite.setTexture(sushiTexture);
+            sprite.setTextureRect(sf::IntRect(0, 0, 150, 75));
+            sprite.setScale(this->miniLogic->getIngredientDim()/75.0f);
+            sprite.setPosition(beatBox.getCurPos().x-this->miniLogic->getIngredientDim().x/2, beatBox.getCurPos().y-this->miniLogic->getIngredientDim().y/2);
+            app->draw(sprite);
+    }
+
+    
 }
 
 void MinigameView_3::splitBox(const float& deltaTime){
@@ -82,7 +113,6 @@ void MinigameView_3::splitBox(const float& deltaTime){
     move = true;
 
     //TODO: Split the boxes based on the time that the user pressed
-
 
 }
 
@@ -95,6 +125,7 @@ void MinigameView_3::update(const float& deltaTime){
 
     //if we need to move up
     if(move){
+        //std::cout << "MOVE";
         if(this->miniLogic->getKnifePos().y >= 150){
             sf::Vector2f up(x, y - this->miniLogic->getKnifeSpeed() * deltaTime);
             this->miniLogic->setKnifePos(up);
@@ -113,7 +144,11 @@ void MinigameView_3::update(const float& deltaTime){
         }
     }
 
+    std::cout << this->miniLogic->getKnifePos().y;
+    std::cout << "\n";
+
     this->scoreText.setString("Score: " + std::to_string(this->miniLogic->getScore()));
+    knifeBox.setPosition(this->miniLogic->getKnifePos());
 
 	draw(deltaTime);
 
