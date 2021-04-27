@@ -76,6 +76,10 @@ void Game::switchToNewGame()
 **/
 void Game::checkEvent(const float &deltaTime)
 {
+	bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+	bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 	// Process events
 	sf::Event event;
 	while (app->pollEvent(event))

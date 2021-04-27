@@ -10,7 +10,7 @@ private:
 	sf::Vector2f chefDim;
 	sf::Vector2f chefPosition;
 	float chefSpeed;
-	sf::Vector2f velocity = sf::Vector2f(1200.0f, 1200.0f);
+	sf::Vector2f velocity = sf::Vector2f(900.0f, 900.0f);
 	std::vector<std::vector<float>> arrowKeys;
 	std::vector<std::shared_ptr<BeatBoxLogic>> beatBoxes;
 	std::vector<float> timings;
