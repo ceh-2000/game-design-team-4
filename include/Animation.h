@@ -10,30 +10,21 @@
 class Animation
 {
 private:
-    sf::IntRect texture;
-    sf::Sprite sprite;
+    sf::Sprite &sprite;
+    sf::IntRect textureRect;
     sf::Text text;
 
+    int startY;
+    int frames;
+    int frameX;
+    int frameY;
+    float timePerFrame;
     float elapsedDuration;
-    float duration;
-    bool animate = true;
     bool loop;
-    int counter = 0;
+    int counter;
+
 public:
-    Animation(const float& dt, int frames, float timePerFrame, bool loop, sf::Text &text, sf::Sprite &sprite, sf::IntRect &rectText, std::shared_ptr<sf::RenderWindow> window);
-    void isLoop(bool loop) { this->loop = loop; }
-    void draw(std::shared_ptr<sf::RenderWindow> window);
+    Animation(sf::Sprite& sprite, int row, int frames, int frameX, int frameY, float timePerFrame, bool loop);
+    void animate(const float& dt, std::shared_ptr<sf::RenderWindow> window);
 };
-
-
-
-
-
 #endif
-
-//file path
-//translation counter
-//max frames
-//time per frame
-
-
