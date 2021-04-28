@@ -236,6 +236,36 @@ src/BeatBoxLogic.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.s
 .PHONY : src/BeatBoxLogic.cpp.s
 
+src/CutScene.o: src/CutScene.cpp.o
+
+.PHONY : src/CutScene.o
+
+# target to build an object file
+src/CutScene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CutScene.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/CutScene.cpp.o
+.PHONY : src/CutScene.cpp.o
+
+src/CutScene.i: src/CutScene.cpp.i
+
+.PHONY : src/CutScene.i
+
+# target to preprocess a source file
+src/CutScene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CutScene.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/CutScene.cpp.i
+.PHONY : src/CutScene.cpp.i
+
+src/CutScene.s: src/CutScene.cpp.s
+
+.PHONY : src/CutScene.s
+
+# target to generate assembly for a file
+src/CutScene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CutScene.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/CutScene.cpp.s
+.PHONY : src/CutScene.cpp.s
+
 src/Game.o: src/Game.cpp.o
 
 .PHONY : src/Game.o
@@ -579,6 +609,9 @@ help:
 	@echo "... src/BeatBoxLogic.o"
 	@echo "... src/BeatBoxLogic.i"
 	@echo "... src/BeatBoxLogic.s"
+	@echo "... src/CutScene.o"
+	@echo "... src/CutScene.i"
+	@echo "... src/CutScene.s"
 	@echo "... src/Game.o"
 	@echo "... src/Game.i"
 	@echo "... src/Game.s"

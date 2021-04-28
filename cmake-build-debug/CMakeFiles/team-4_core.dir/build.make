@@ -102,9 +102,22 @@ CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/clareheinbaugh/Desktop/game-design/team-4/src/BeatBoxLogic.cpp -o CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.s
 
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.o: CMakeFiles/team-4_core.dir/flags.make
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.o: ../src/CutScene.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/team-4_core.dir/src/CutScene.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/CutScene.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp
+
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/team-4_core.dir/src/CutScene.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp > CMakeFiles/team-4_core.dir/src/CutScene.cpp.i
+
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/team-4_core.dir/src/CutScene.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp -o CMakeFiles/team-4_core.dir/src/CutScene.cpp.s
+
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../src/Game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/team-4_core.dir/src/Game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/team-4_core.dir/src/Game.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/Game.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/Game.cpp
 
 CMakeFiles/team-4_core.dir/src/Game.cpp.i: cmake_force
@@ -117,7 +130,7 @@ CMakeFiles/team-4_core.dir/src/Game.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o: ../src/MinigameLogic.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.i: cmake_force
@@ -130,7 +143,7 @@ CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o: ../src/MinigameLogic_1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic_1.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.i: cmake_force
@@ -143,7 +156,7 @@ CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o: ../src/MinigameLogic_2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic_2.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.i: cmake_force
@@ -156,7 +169,7 @@ CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.o: ../src/MinigameLogic_3.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic_3.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.i: cmake_force
@@ -169,7 +182,7 @@ CMakeFiles/team-4_core.dir/src/MinigameLogic_3.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.o: ../src/MinigameLogic_4.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic_4.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.i: cmake_force
@@ -182,7 +195,7 @@ CMakeFiles/team-4_core.dir/src/MinigameLogic_4.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameView.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameView.cpp.o: ../src/MinigameView.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameView.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameView.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameView.cpp.i: cmake_force
@@ -195,7 +208,7 @@ CMakeFiles/team-4_core.dir/src/MinigameView.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.o: ../src/MinigameView_1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameView_1.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.i: cmake_force
@@ -208,7 +221,7 @@ CMakeFiles/team-4_core.dir/src/MinigameView_1.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.o: ../src/MinigameView_2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameView_2.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.i: cmake_force
@@ -221,7 +234,7 @@ CMakeFiles/team-4_core.dir/src/MinigameView_2.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.o: ../src/MinigameView_3.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameView_3.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.i: cmake_force
@@ -234,7 +247,7 @@ CMakeFiles/team-4_core.dir/src/MinigameView_3.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o: ../src/MinigameView_4.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameView_4.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.i: cmake_force
@@ -247,7 +260,7 @@ CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.s: cmake_force
 
 CMakeFiles/team-4_core.dir/src/Song.cpp.o: CMakeFiles/team-4_core.dir/flags.make
 CMakeFiles/team-4_core.dir/src/Song.cpp.o: ../src/Song.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/team-4_core.dir/src/Song.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/team-4_core.dir/src/Song.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/team-4_core.dir/src/Song.cpp.o -c /Users/clareheinbaugh/Desktop/game-design/team-4/src/Song.cpp
 
 CMakeFiles/team-4_core.dir/src/Song.cpp.i: cmake_force
@@ -262,6 +275,7 @@ CMakeFiles/team-4_core.dir/src/Song.cpp.s: cmake_force
 team__4_core_OBJECTS = \
 "CMakeFiles/team-4_core.dir/src/Animation.cpp.o" \
 "CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o" \
+"CMakeFiles/team-4_core.dir/src/CutScene.cpp.o" \
 "CMakeFiles/team-4_core.dir/src/Game.cpp.o" \
 "CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o" \
 "CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o" \
@@ -280,6 +294,7 @@ team__4_core_EXTERNAL_OBJECTS =
 
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/Animation.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o
+libteam-4_core.a: CMakeFiles/team-4_core.dir/src/CutScene.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/Game.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o
@@ -294,7 +309,7 @@ libteam-4_core.a: CMakeFiles/team-4_core.dir/src/MinigameView_4.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/src/Song.cpp.o
 libteam-4_core.a: CMakeFiles/team-4_core.dir/build.make
 libteam-4_core.a: CMakeFiles/team-4_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX static library libteam-4_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX static library libteam-4_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/team-4_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/team-4_core.dir/link.txt --verbose=$(VERBOSE)
 

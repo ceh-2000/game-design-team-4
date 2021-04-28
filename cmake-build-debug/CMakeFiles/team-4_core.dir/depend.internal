@@ -7,9 +7,13 @@ CMakeFiles/team-4_core.dir/src/Animation.cpp.o
 CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o
  ../include/BeatBoxLogic.h
  /Users/clareheinbaugh/Desktop/game-design/team-4/src/BeatBoxLogic.cpp
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.o
+ ../include/CutScene.h
+ /Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp
 CMakeFiles/team-4_core.dir/src/Game.cpp.o
  ../include/Animation.h
  ../include/BeatBoxLogic.h
+ ../include/CutScene.h
  ../include/Game.h
  ../include/MinigameLogic.h
  ../include/MinigameLogic_1.h

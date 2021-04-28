@@ -3,6 +3,7 @@
 
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/Animation.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/BeatBoxLogic.h
+CMakeFiles/main.dir/bin/main.cpp.o: ../include/CutScene.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/Game.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/MinigameLogic.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/MinigameLogic_1.h
@@ -16,4 +17,7 @@ CMakeFiles/main.dir/bin/main.cpp.o: ../include/MinigameView_3.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/MinigameView_4.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../include/Song.h
 CMakeFiles/main.dir/bin/main.cpp.o: ../bin/main.cpp
+
+CMakeFiles/main.dir/src/CutScene.cpp.o: ../include/CutScene.h
+CMakeFiles/main.dir/src/CutScene.cpp.o: ../src/CutScene.cpp
 

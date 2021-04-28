@@ -17,6 +17,8 @@ private:
 
 	sf::RectangleShape knifeBox;
 
+	std::vector<BeatBoxLogic> cutBoxes;
+
 	bool move = false;
 
 	sf::Texture satsanaTexture;

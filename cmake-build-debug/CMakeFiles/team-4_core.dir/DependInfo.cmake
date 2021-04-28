@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/clareheinbaugh/Desktop/game-design/team-4/src/Animation.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/Animation.cpp.o"
   "/Users/clareheinbaugh/Desktop/game-design/team-4/src/BeatBoxLogic.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o"
+  "/Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/CutScene.cpp.o"
   "/Users/clareheinbaugh/Desktop/game-design/team-4/src/Game.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/Game.cpp.o"
   "/Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o"
   "/Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic_1.cpp" "/Users/clareheinbaugh/Desktop/game-design/team-4/cmake-build-debug/CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o"

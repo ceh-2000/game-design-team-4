@@ -38,7 +38,7 @@ public:
 
     void startGame() { song->play(); }
 
-    float getElapsedTime(){ return song->getSongTime(); }
+    float getElapsedTime() { return song->getSongTime(); }
 
     float determineNextTap(float songTime);
 
@@ -51,6 +51,7 @@ public:
 
     void updatePostHit(const float &deltaTime);
 
-    void stopGame(){this->song->stop(); };
+    void stopGame() { this->song->stop(); }
 };
+
 #endif

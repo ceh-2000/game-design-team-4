@@ -133,10 +133,17 @@
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/bin/main.cpp">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/include/CutScene.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/Animation.cpp">
 			<Option target="team-4_core"/>
 		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/BeatBoxLogic.cpp">
+			<Option target="team-4_core"/>
+		</Unit>
+		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp">
+			<Option target="main"/>
 			<Option target="team-4_core"/>
 		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/Game.cpp">

@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/main.dir/bin/main.cpp.o"
+  "CMakeFiles/main.dir/src/CutScene.cpp.o"
   "main"
   "main.pdb"
 )

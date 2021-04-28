@@ -7,8 +7,12 @@ CMakeFiles/team-4_core.dir/src/Animation.cpp.o: ../src/Animation.cpp
 CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o: ../include/BeatBoxLogic.h
 CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o: ../src/BeatBoxLogic.cpp
 
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.o: ../include/CutScene.h
+CMakeFiles/team-4_core.dir/src/CutScene.cpp.o: ../src/CutScene.cpp
+
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/Animation.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/BeatBoxLogic.h
+CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/CutScene.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/Game.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameLogic.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameLogic_1.h

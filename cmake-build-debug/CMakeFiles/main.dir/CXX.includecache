@@ -22,6 +22,14 @@ math.h
 iostream
 -
 
+../include/CutScene.h
+iostream
+-
+memory
+-
+SFML/Graphics.hpp
+-
+
 ../include/Game.h
 iostream
 -
@@ -37,6 +45,8 @@ MinigameLogic.h
 ../include/MinigameLogic.h
 MinigameView.h
 ../include/MinigameView.h
+CutScene.h
+../include/CutScene.h
 
 ../include/MinigameLogic.h
 memory
