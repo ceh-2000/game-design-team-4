@@ -2,6 +2,7 @@
 #ifndef MINIGAME_VIEW_H
 #define MINIGAME_VIEW_H
 
+#include "Cutscene.h"
 #include "MinigameView_1.h"
 #include "MinigameView_2.h"
 #include "MinigameView_3.h"

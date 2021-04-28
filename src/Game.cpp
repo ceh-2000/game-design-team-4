@@ -25,6 +25,7 @@ Game::Game()
 	view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	view_3 = std::make_shared<MinigameView_3>(logic_3, app);
 	view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+	cutscene = std::make_shared<Cutscene>(app);
 }
 
 void Game::switchToNewGame()
@@ -42,31 +43,36 @@ void Game::switchToNewGame()
 		view = std::make_shared<MinigameView>(logic, app);
 	}
 	// Game Switching Part
-	if(currentGame == 1)
+	switch(currentGame)
 	{
+	case 1:
 		//INSTANTIATE SOUS CHEF GAME
 		logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 		view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-	}
-	else if(currentGame == 2)
-	{
+	break;
+	case 2:
 		//INSTANTIATE PIZZA GAME
 		logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
 		logic_2->setPosition(sf::Vector2f(app->getSize().x/2.f, app->getSize().y/2.f));
 		logic_2->setKnifePos(sf::Vector2f(logic_2->getPosition().x + 1.5 * logic_2->getPRadius(), logic_2->getPosition().y));
 		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-	}
-	else if(currentGame == 3)
-	{
+	break;
+	case 3:
 		//INSTANTIATE CUTTING GAME
 		logic_3 = std::make_shared<MinigameLogic_3>(song);
 		view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-	}
-	else if(currentGame == 4)
-	{
+	break;
+	case 4:
 		//INSTANTIATE DDR GAME
 		logic_4 = std::make_shared<MinigameLogic_4>(song);
 		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+	break;
+	case 5:
+		//CUTSCENE
+		cutscene = std::make_shared<Cutscene>(app);
+	break;
+	default:		
+	break;
 	}
 }
 
@@ -212,6 +218,11 @@ void Game::update(const float &deltaTime)
 			view_4->update(deltaTime);
 			view->draw();
 			break;
+		case 5:
+			view->update(deltaTime);
+			cutscene->update(deltaTime);
+			view->draw();
+		break;
 		case 0:
 			break;
 		default:
