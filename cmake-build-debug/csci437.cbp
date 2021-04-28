@@ -136,6 +136,9 @@
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/include/CutScene.h">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/include/MainMenu.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/Animation.cpp">
 			<Option target="team-4_core"/>
 		</Unit>
@@ -147,6 +150,10 @@
 			<Option target="team-4_core"/>
 		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/Game.cpp">
+			<Option target="team-4_core"/>
+		</Unit>
+		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/MainMenu.cpp">
+			<Option target="main"/>
 			<Option target="team-4_core"/>
 		</Unit>
 		<Unit filename="/Users/clareheinbaugh/Desktop/game-design/team-4/src/MinigameLogic.cpp">

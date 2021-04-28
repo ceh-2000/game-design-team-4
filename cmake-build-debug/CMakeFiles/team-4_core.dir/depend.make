@@ -14,6 +14,7 @@ CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/Animation.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/BeatBoxLogic.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/CutScene.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/Game.h
+CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MainMenu.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameLogic.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameLogic_1.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameLogic_2.h
@@ -26,6 +27,9 @@ CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameView_3.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/MinigameView_4.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../include/Song.h
 CMakeFiles/team-4_core.dir/src/Game.cpp.o: ../src/Game.cpp
+
+CMakeFiles/team-4_core.dir/src/MainMenu.cpp.o: ../include/MainMenu.h
+CMakeFiles/team-4_core.dir/src/MainMenu.cpp.o: ../src/MainMenu.cpp
 
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o: ../include/BeatBoxLogic.h
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o: ../include/MinigameLogic.h

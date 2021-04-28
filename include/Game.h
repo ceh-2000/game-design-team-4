@@ -10,15 +10,16 @@
 #include "MinigameLogic.h"
 #include "MinigameView.h"
 #include "CutScene.h"
+#include "MainMenu.h"
 
 class Game
 {
 protected:
     int score = 0;
     int round = 0;
-    int currentGame = 1;
+    int currentGame = 6;
     bool isActive = true;
-    float minigameTime = 2.0f;
+    float minigameTime = 5.0f;
     int numOfRounds = 3;
     float elapsedTime = 0.0f;
 
@@ -26,6 +27,7 @@ protected:
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
     std::shared_ptr<CutScene> cut_scene;
+    std::shared_ptr<MainMenu> main_menu;
 
     std::shared_ptr<MinigameView_1> view_1;
     std::shared_ptr<MinigameView_2> view_2;

@@ -1,7 +1,3 @@
-//
-// Created by Clare Heinbaugh on 4/27/21.
-//
-
 #ifndef CSCI437_CUTSCENE_H
 #define CSCI437_CUTSCENE_H
 

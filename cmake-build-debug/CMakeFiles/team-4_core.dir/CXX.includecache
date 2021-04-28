@@ -47,6 +47,16 @@ MinigameView.h
 ../include/MinigameView.h
 CutScene.h
 ../include/CutScene.h
+MainMenu.h
+../include/MainMenu.h
+
+../include/MainMenu.h
+iostream
+-
+memory
+-
+SFML/Graphics.hpp
+-
 
 ../include/MinigameLogic.h
 memory

@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/team-4_core.dir/src/BeatBoxLogic.cpp.o"
   "CMakeFiles/team-4_core.dir/src/CutScene.cpp.o"
   "CMakeFiles/team-4_core.dir/src/Game.cpp.o"
+  "CMakeFiles/team-4_core.dir/src/MainMenu.cpp.o"
   "CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o"
   "CMakeFiles/team-4_core.dir/src/MinigameLogic_1.cpp.o"
   "CMakeFiles/team-4_core.dir/src/MinigameLogic_2.cpp.o"

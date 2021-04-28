@@ -6,6 +6,7 @@ CMakeFiles/main.dir/bin/main.cpp.o
  ../include/BeatBoxLogic.h
  ../include/CutScene.h
  ../include/Game.h
+ ../include/MainMenu.h
  ../include/MinigameLogic.h
  ../include/MinigameLogic_1.h
  ../include/MinigameLogic_2.h
@@ -21,3 +22,6 @@ CMakeFiles/main.dir/bin/main.cpp.o
 CMakeFiles/main.dir/src/CutScene.cpp.o
  ../include/CutScene.h
  /Users/clareheinbaugh/Desktop/game-design/team-4/src/CutScene.cpp
+CMakeFiles/main.dir/src/MainMenu.cpp.o
+ ../include/MainMenu.h
+ /Users/clareheinbaugh/Desktop/game-design/team-4/src/MainMenu.cpp
