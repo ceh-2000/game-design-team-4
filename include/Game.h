@@ -17,7 +17,8 @@ protected:
     int difficult = 1;
     int currentGame = 1;
     bool isActive = true;
-    int key = 0;
+    float minigameTime = 10.0f;
+    float elapsedTime = 0.0f;
 
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;

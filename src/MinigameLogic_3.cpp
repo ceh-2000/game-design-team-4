@@ -1,10 +1,9 @@
 #include "MinigameLogic_3.h"
 
-MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song)
-{
+MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
     this->song = song;
 
-	// Create default beat boxes for the entire song of timings from the start
+    // Create default beat boxes for the entire song of timings from the start
     std::vector<float> trueCuts = song->getAllTimings();
 
     for (float time : trueCuts) {
@@ -14,14 +13,14 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song)
                                          sf::Vector2f(-500.0f, -500.0f), time));
     }
 
-    knifePos = sf::Vector2f(600,600);
-	ingredientDim = sf::Vector2f(150, 75);
+    knifePos = sf::Vector2f(600, 600);
+    ingredientDim = sf::Vector2f(150, 75);
 
 
 }
 
-void MinigameLogic_3::update(const float& dt){
-	//MinigameLogic::updateBeatBoxes(dt);
+void MinigameLogic_3::update(const float &dt) {
+    //MinigameLogic::updateBeatBoxes(dt);
 }
 
 
@@ -47,11 +46,11 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
     this->beatBoxes = temp;
 }
 
-void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck){
-    if(hitOutcome == 0) this->score += this->badTapBoost;
-    if(hitOutcome == 1) this->score += this->goodTapBoost;
-    if(hitOutcome == 2) this->score += this->almostTapBoost;
-    if(hitOutcome == 3) this->score += this->badTapBoost;
+void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
+    if (hitOutcome == 0) this->score += this->badTapBoost;
+    if (hitOutcome == 1) this->score += this->goodTapBoost;
+    if (hitOutcome == 2) this->score += this->almostTapBoost;
+    if (hitOutcome == 3) this->score += this->badTapBoost;
 
-    if(!regionCheck) this->score += this->badTapBoost;
+    if (!regionCheck) this->score += this->badTapBoost;
 }
