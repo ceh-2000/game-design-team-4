@@ -9,20 +9,23 @@
 #include <SFML/Graphics.hpp>
 #include "MinigameLogic.h"
 #include "MinigameView.h"
+#include "CutScene.h"
 
 class Game
 {
 protected:
     int score = 0;
-    int difficult = 1;
+    int round = 0;
     int currentGame = 1;
     bool isActive = true;
-    float minigameTime = 10.0f;
+    float minigameTime = 2.0f;
+    int numOfRounds = 3;
     float elapsedTime = 0.0f;
 
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
+    std::shared_ptr<CutScene> cut_scene;
 
     std::shared_ptr<MinigameView_1> view_1;
     std::shared_ptr<MinigameView_2> view_2;
@@ -40,5 +43,7 @@ public:
     void update(const float &deltaTime);
     void checkEvent(const float& deltaTime);
     void switchToNewGame();
+
+    void endRound();
 };
 #endif

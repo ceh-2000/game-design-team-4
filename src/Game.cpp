@@ -7,6 +7,7 @@ Game::Game() {
     songList.push_back("../data/music/Sixty_BPM.wav");
 
     std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+    cut_scene = std::make_shared<CutScene>(app);
 
     logic = std::make_shared<MinigameLogic>(song);
     view = std::make_shared<MinigameView>(logic, app);
@@ -28,6 +29,8 @@ Game::Game() {
 }
 
 void Game::switchToNewGame() {
+    this->elapsedTime = 0;
+
     std::vector<std::string> songList;
     songList.push_back("../data/music/Sixty_BPM.wav");
     logic->stopGame();
@@ -35,7 +38,7 @@ void Game::switchToNewGame() {
 
     //REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
     //Body of loop not needed for second minigame
-    if (currentGame != 2) {
+    if (currentGame != 2 && currentGame != 5) {
         logic = std::make_shared<MinigameLogic>(song);
         view = std::make_shared<MinigameView>(logic, app);
     }
@@ -59,10 +62,11 @@ void Game::switchToNewGame() {
         //INSTANTIATE DDR GAME
         logic_4 = std::make_shared<MinigameLogic_4>(song);
         view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+    } else if (currentGame == 5) {
+        this->cut_scene->setScore(this->score);
     }
 }
 
-// General game loop stays
 /**
 * Event checking for Minigame switching and playing
 **/
@@ -106,6 +110,9 @@ void Game::checkEvent(const float &deltaTime) {
                                 view_3->splitBox(deltaTime);
                                 logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
                                 break;
+                            case 5:
+                                this->endRound();
+                                break;
                             default:
                                 break;
                         }
@@ -116,7 +123,7 @@ void Game::checkEvent(const float &deltaTime) {
                                 logic_1->reactTap(logic->tapCheck(), false);
                                 break;
                             case 4:
-                                view_4->reachInput(0);
+                                view_4->reachInput(0, logic->tapCheck());
                             default:
                                 break;
                         }
@@ -127,7 +134,7 @@ void Game::checkEvent(const float &deltaTime) {
                                 logic_1->reactTap(logic->tapCheck(), true);
                                 break;
                             case 4:
-                                view_4->reachInput(3);
+                                view_4->reachInput(3, logic->tapCheck());
                                 break;
                             default:
                                 break;
@@ -136,7 +143,7 @@ void Game::checkEvent(const float &deltaTime) {
                     case sf::Keyboard::Up:
                         switch (currentGame) {
                             case 4:
-                                view_4->reachInput(2);
+                                view_4->reachInput(2, logic->tapCheck());
                                 break;
                         }
                         break;
@@ -144,7 +151,7 @@ void Game::checkEvent(const float &deltaTime) {
                     case sf::Keyboard::Down:
                         switch (currentGame) {
                             case 4:
-                                view_4->reachInput(1);
+                                view_4->reachInput(1, logic->tapCheck());
                                 break;
                         }
                         break;
@@ -157,13 +164,24 @@ void Game::checkEvent(const float &deltaTime) {
     }
 }
 
+void Game::endRound() {
+    if (round < numOfRounds) {
+        this->elapsedTime = 0.0f;
+        this->currentGame = 1;
+        this->switchToNewGame();
+        this->score = 0;
+        this->round++;
+    }
+    // TODO: Otherwise show the main menu
+}
+
 void Game::update(const float &deltaTime) {
     // TODO: move this call into the individual view updates
     app->clear();
     checkEvent(deltaTime);
 
     // Check if we have played the song for long enough
-    if (this->logic->getElapsedTime() > this->minigameTime or this->elapsedTime > this->minigameTime) {
+    if (this->elapsedTime > this->minigameTime) {
         // Reset time variable that checks time for minigame 2; 1, 3, & 4 rely on song time
         this->elapsedTime = 0.0f;
 
@@ -185,11 +203,12 @@ void Game::update(const float &deltaTime) {
                 break;
         }
 
-        this->currentGame++;
-        if (this->currentGame > 4) {
-            this->currentGame = 1;
+        if (this->currentGame < 5) {
+            this->currentGame++;
+            this->switchToNewGame();
+        } else {
+            endRound();
         }
-        this->switchToNewGame();
     }
 
 
@@ -217,7 +236,9 @@ void Game::update(const float &deltaTime) {
             view_4->update(deltaTime);
             view->draw();
             break;
-        case 0:
+        case 5:
+            // Cut scene
+            this->cut_scene->draw(deltaTime);
         default:
             //GAME LOOP FOR MAIN MENU PERHAPS?
             break;

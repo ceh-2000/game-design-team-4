@@ -44,7 +44,6 @@ public:
 
     float determinePrevTap(float songTime);
 
-
     int tapCheck();
 
     bool regionCheck();

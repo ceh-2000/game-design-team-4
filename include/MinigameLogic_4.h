@@ -44,6 +44,7 @@ public:
 
     std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
 
+    void setScore(const int &tapCheck);
 };
 
 #endif
