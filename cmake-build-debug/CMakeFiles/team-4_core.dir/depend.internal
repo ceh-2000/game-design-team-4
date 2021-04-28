@@ -15,6 +15,7 @@ CMakeFiles/team-4_core.dir/src/Game.cpp.o
  ../include/BeatBoxLogic.h
  ../include/CutScene.h
  ../include/Game.h
+ ../include/MainMenu.h
  ../include/MinigameLogic.h
  ../include/MinigameLogic_1.h
  ../include/MinigameLogic_2.h
@@ -27,6 +28,9 @@ CMakeFiles/team-4_core.dir/src/Game.cpp.o
  ../include/MinigameView_4.h
  ../include/Song.h
  /Users/clareheinbaugh/Desktop/game-design/team-4/src/Game.cpp
+CMakeFiles/team-4_core.dir/src/MainMenu.cpp.o
+ ../include/MainMenu.h
+ /Users/clareheinbaugh/Desktop/game-design/team-4/src/MainMenu.cpp
 CMakeFiles/team-4_core.dir/src/MinigameLogic.cpp.o
  ../include/BeatBoxLogic.h
  ../include/MinigameLogic.h

@@ -293,6 +293,36 @@ src/Game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/Game.cpp.s
 .PHONY : src/Game.cpp.s
 
+src/MainMenu.o: src/MainMenu.cpp.o
+
+.PHONY : src/MainMenu.o
+
+# target to build an object file
+src/MainMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MainMenu.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/MainMenu.cpp.o
+.PHONY : src/MainMenu.cpp.o
+
+src/MainMenu.i: src/MainMenu.cpp.i
+
+.PHONY : src/MainMenu.i
+
+# target to preprocess a source file
+src/MainMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MainMenu.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/MainMenu.cpp.i
+.PHONY : src/MainMenu.cpp.i
+
+src/MainMenu.s: src/MainMenu.cpp.s
+
+.PHONY : src/MainMenu.s
+
+# target to generate assembly for a file
+src/MainMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MainMenu.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/team-4_core.dir/build.make CMakeFiles/team-4_core.dir/src/MainMenu.cpp.s
+.PHONY : src/MainMenu.cpp.s
+
 src/MinigameLogic.o: src/MinigameLogic.cpp.o
 
 .PHONY : src/MinigameLogic.o
@@ -615,6 +645,9 @@ help:
 	@echo "... src/Game.o"
 	@echo "... src/Game.i"
 	@echo "... src/Game.s"
+	@echo "... src/MainMenu.o"
+	@echo "... src/MainMenu.i"
+	@echo "... src/MainMenu.s"
 	@echo "... src/MinigameLogic.o"
 	@echo "... src/MinigameLogic.i"
 	@echo "... src/MinigameLogic.s"
