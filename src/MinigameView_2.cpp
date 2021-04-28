@@ -47,7 +47,6 @@ void MinigameView_2::draw()
     cutText.setString("REMAINING CUTS: \n" + std::to_string(miniLogic->getMaxCuts() - playerCuts.size()));
     app->draw(cutText);
     // DRAW THE PIZZA
-    //std::cout << "cut angles larger than number of rects? " << cutAngles().size() << "\n";
     app->draw(cPizza);
     // DRAW THE KNIFE
     knifeBox.setPosition(this->miniLogic->getKnifePos());
@@ -78,7 +77,7 @@ void MinigameView_2::draw()
     //sleep here to prevent beat from playing before drawing
     sf::Time time = sf::seconds(0.001f);
     sf::sleep(time);
-    if(miniLogic->getAngleSpeed() == 0) { miniLogic->playBeat(); }
+    if(miniLogic->getAngleSpeed() == 0) { miniLogic->playBeat(*app); }
 }
 
 void MinigameView_2::update(const float& deltaTime)

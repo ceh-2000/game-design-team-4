@@ -12,7 +12,7 @@ private:
     std::vector<float> cutAngles; //Angles of pizza player cut (Also denotes cut lines)
     int maxCuts;
     sf::Vector2f position;
-    float pizzaAngle; //Current pizza rotation angle (in radians)
+    float pizzaAngle = 0.0f; //Current pizza rotation angle (in radians)
 
     //Pizza logic Attributes
     float angleSpeed;
@@ -20,7 +20,7 @@ private:
     float rotTime = 0.0f; //Current time in rotation
 
     //Minigame logic attributes
-    float gameScore;
+    float gameScore = -1.f;
     float revTime = 10.0f; //total time call beats played
 
     sf::Vector2f knifePos;
@@ -67,7 +67,7 @@ public:
 
     void pushNewCut();
     //Song method that retrieves time
-    void playBeat();
+    void playBeat(sf::RenderWindow &app);
 
 };
 #endif

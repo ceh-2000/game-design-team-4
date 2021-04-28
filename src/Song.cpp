@@ -15,6 +15,7 @@ Song::Song(std::vector<std::string> songFilePaths, std::vector<std::string> soun
     std::cout << "Could not load sound." << std::endl;
   sound.setBuffer(buffer);
   sound.setVolume(40.0f); // Reduce music to 10%
+  sound.setPitch(1);
 
   // Read the json and get the timing vector
   std::ifstream i("../Rhythm_Charter/timingChart.json");

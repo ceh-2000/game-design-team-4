@@ -15,18 +15,9 @@ MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
 void MinigameLogic_2::pushNewCut()
 {
     //Add cut into the vector
-    if(cutAngles.size() == 0){
-        cutAngles.push_back(0.0f);
-    }
-    else if(cutAngles.size() > 0 && cutAngles.size() < maxCuts && pizzaAngle <= 2.0f * PI)
-    {
+    if(cutAngles.size() < maxCuts && pizzaAngle <= 2.0f * PI)
         cutAngles.push_back(pizzaAngle);
-    }
 
-    std::cout << "cutAngles: ";
-    for(int i=0; i < cutAngles.size(); i++)
-        std::cout << cutAngles.at(i) * 180/PI << ' ';
-    std::cout << "\n";
 }
 
 void MinigameLogic_2::update(float deltaTime)
@@ -37,18 +28,21 @@ void MinigameLogic_2::update(float deltaTime)
     }
 
     //If player ran out of cuts or made one revolution, calculate score
-    if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore == 0.0)
+    if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore < 0.0)
     {
+
         gameScore = calcScore();
         std::cout << "Game Score: " << gameScore << "\n";
     }
 }
 
-void MinigameLogic_2::playBeat()
+//TODO: CLEAN UP AND REFACTOR THIS CODE
+//Play beat sequence
+void MinigameLogic_2::playBeat(sf::RenderWindow &app)
 {
   sf::Clock time;
-  time.restart();
   int i = 0;
+  time.restart();
   while(i < maxCuts)
   {
     if(song->getSoundStatus() == sf::Sound::Status::Stopped)
@@ -56,15 +50,22 @@ void MinigameLogic_2::playBeat()
       song->playSound();
       i++;
     }
+
   }
   revTime = time.restart().asSeconds();
   angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
-  //std::cout << "revTime: " << revTime << std::endl;
+
+  //Clear the entire event queue: Prevents keyboard and mouse presses
+  sf::Event event;
+  while(app.pollEvent(event))
+  {
+    //Can put exceptions here if want to register certain events
+  }
 }
 //Score calculating done at end of game (Score out of 100)
 float MinigameLogic_2::calcScore()
 {
-    // Worst score that player can get
+    // Worst score that player can get given maxcut
     float worstScore = 200.f * (float)(maxCuts - 1) / (float) maxCuts;
 
     float score = 0.f;
@@ -82,9 +83,7 @@ float MinigameLogic_2::calcScore()
     if(cutAngles.size() < maxCuts){
         score +=  100.f * (maxCuts - cutAngles.size());
     }
-    std::cout << "score after missing slices: " <<  score << std::endl;
     score = score / (float) maxCuts; //Average score of all slices
-    std::cout << "score after averaging: " <<  score << std::endl;
     //good scores are small, so operation makes 100 % best score
     return  100 * (1 - score/worstScore) ;
 }

@@ -16,7 +16,7 @@ Game::Game()
   view = std::make_shared<MinigameView>(logic, app);
 
 	logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-	logic_2 = std::make_shared<MinigameLogic_2>(song, 5); // Pass maximum cuts allowed
+	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
 	logic_3 = std::make_shared<MinigameLogic_3>(song);
 	logic_4 = std::make_shared<MinigameLogic_4>(song);
 
@@ -52,7 +52,7 @@ void Game::switchToNewGame()
 	else if(currentGame == 2)
 	{
 		//INSTANTIATE PIZZA GAME
-		logic_2 = std::make_shared<MinigameLogic_2>(song, 5); //pass maximum cuts allowed
+		logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
 		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
 	}
 	else if(currentGame == 3)
@@ -169,7 +169,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event, std::s
 		{
 			case sf::Keyboard::Enter:
 				if(song->getSoundStatus() != sf::Sound::Status::Playing)
-					logic_2->playBeat();
+					logic_2->playBeat(*app);
 				break;
 			case sf::Keyboard::Space:
 				logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
