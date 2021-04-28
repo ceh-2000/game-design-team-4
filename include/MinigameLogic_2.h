@@ -1,11 +1,13 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_2
 #define MINIGAME_LOGIC_2
+
 #include "MinigameLogic.h"
-class MinigameLogic_2
-{
+
+class MinigameLogic_2 {
 private:
     std::shared_ptr<Song> song; //Song is background run
+    int score = 0;
 
     //Pizza physical attributes
     float pizzaRadius = 200.0f;
@@ -29,10 +31,14 @@ private:
 
 public:
     MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts);
-    void move(const float& dt);
+
+    void move(const float &dt);
+
+    int getScore() { return score; }
 
     //GETTERS AND SETTERS
     float getPRadius() const { return pizzaRadius; }
+
     void setPRadius(float p) { pizzaRadius = p; }
 
     sf::Vector2f getPosition() { return position; }
@@ -44,10 +50,13 @@ public:
     bool isSoundPlaying() { return soundPlaying; }
 
     float getPAngle() const { return pizzaAngle; }
+
     void setPAngle(float theta) { pizzaAngle = theta; }
+
     void rotatePizza(float theta) { pizzaAngle += theta; }
 
     float getAngleSpeed() { return angleSpeed; }
+
     void setAngleSpeed(float s) { angleSpeed = s; }
 
     sf::Vector2f getKnifePos() { return knifePos; }
@@ -57,11 +66,13 @@ public:
     void setKnifeSpeed(float ks) { knifeSpeed = ks; }
 
     std::vector<float> getCutAngles() const { return cutAngles; }
+
     void pushBackCutAngle(float angle) { cutAngles.push_back(angle); }
     float getRotTime() { return rotTime; }
 
     //GAME OPERATIONS
     void checkEvent(sf::RenderWindow &app);
+
     void update(float deltaTime);
     float calcScore(); //Calculate score
 

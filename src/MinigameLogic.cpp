@@ -5,12 +5,6 @@ MinigameLogic::MinigameLogic(std::shared_ptr<Song> song) {
     this->elapsedDuration = this->duration;
 }
 
-/*
-Start the game by starting the song
-*/
-void MinigameLogic::startGame() {
-    song->play();
-}
 
 /*
 Gets the previous hit given a song time
