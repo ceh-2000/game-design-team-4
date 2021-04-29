@@ -1,42 +1,50 @@
 #pragma once
 #ifndef MINIGAME_LOGIC_4
 #define MINIGAME_LOGIC_4
+
 #include "MinigameLogic.h"
-class MinigameLogic_4
-{
+
+class MinigameLogic_4 {
 private:
-	int score = 0;
-	std::shared_ptr<Song> song;
-	sf::Vector2f chefDim;
-	sf::Vector2f chefPosition;
-	float chefSpeed;
-	sf::Vector2f velocity = sf::Vector2f(900.0f, 900.0f);
-	std::vector<std::vector<float>> arrowKeys;
-	std::vector<std::shared_ptr<BeatBoxLogic>> beatBoxes;
-	std::vector<float> timings;
-	enum ARROWS {LEFT, RIGHT, UP, DOWN};
-	bool resetInputs = false;
+    std::shared_ptr<Song> song;
+    sf::Vector2f chefDim;
+    sf::Vector2f chefPosition;
+    float chefSpeed;
+    std::vector<std::vector<float>> arrowKeys;
+    std::vector<BeatBoxLogic> beatBoxes;
+    std::vector<float> timings;
+    enum ARROWS {
+        LEFT, RIGHT, UP, DOWN
+    };
+    int score = 0;
 
 public:
-	MinigameLogic_4(std::shared_ptr<Song> song);
-	std::vector<std::shared_ptr<BeatBoxLogic>> getBeatBoxes() { return beatBoxes; }
-	void updateBeatBoxes(const float &deltaTime);
+    MinigameLogic_4(std::shared_ptr<Song> song);
 
-	sf::Vector2f getChefDim() { return chefDim; }
-	void setChefDim(sf::Vector2f& dim) { chefDim = dim;}
-	// void setChefDim(float& a, float& b) { chefDim = sf::Vector2f(a,b); }
+    std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
 
-	sf::Vector2f getChefPos() { return chefPosition; }
-	void setChefPos(sf::Vector2f &pos) { chefPosition = pos; }
-	void setChefDim(float &a, float &b) { chefPosition = sf::Vector2f(a,b); }
+    void updateBeatBoxes(const float &deltaTime);
 
-	float getChefSpeed() { return chefSpeed; }
-	void setChefSpeed(float s) { chefSpeed = s; }
+    int getScore() { return score; }
 
-	int getScore() { return score; }
-	void setScore(const int& s);
+    sf::Vector2f getChefDim() { return chefDim; }
 
-	std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
+    void setChefDim(sf::Vector2f &dim) { chefDim = dim; }
+    // void setChefDim(float& a, float& b) { chefDim = sf::Vector2f(a,b); }
 
+    sf::Vector2f getChefPos() { return chefPosition; }
+
+    void setChefPos(sf::Vector2f &pos) { chefPosition = pos; }
+
+    void setChefDim(float &a, float &b) { chefPosition = sf::Vector2f(a, b); }
+
+    float getChefSpeed() { return chefSpeed; }
+
+    void setChefSpeed(float s) { chefSpeed = s; }
+
+    std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
+
+    void setScore(const int &tapCheck);
 };
+
 #endif
