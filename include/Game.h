@@ -29,6 +29,8 @@ protected:
     std::shared_ptr<CutScene> cut_scene;
     std::shared_ptr<MainMenu> main_menu;
 
+    std::shared_ptr<Cutscene> cutscene;
+
     std::shared_ptr<MinigameView_1> view_1;
     std::shared_ptr<MinigameView_2> view_2;
     std::shared_ptr<MinigameView_3> view_3;
