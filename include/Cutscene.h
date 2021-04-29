@@ -2,13 +2,19 @@
 #ifndef CUTSCENE_H
 #define CUTSCENE_H
 
-#include <SFML/Graphics.hpp>
+#include <iostream>
 #include <memory>
+#include <SFML/Graphics.hpp>
 
 class Cutscene
 {
 private:
     std::shared_ptr<sf::RenderWindow> app;
+
+    sf::Font font;
+    sf::Text sceneText;
+    int score = 0;
+
     sf::Texture mcTexture;
     sf::Texture backgroundTexture;
     sf::Texture otherCharacterTexture;
@@ -18,10 +24,11 @@ private:
     sf::Sprite background;
     sf::Sprite otherCharacter;
     
-    sf::RectangleShape dialogueBox = sf::RectangleShape();
+    sf::RectangleShape dialogueBoxRect;
 public:
     Cutscene(std::shared_ptr<sf::RenderWindow> app);
     void draw();
+    void setScore(int s) { this->score = s;}
     void update(const float& dt);
     void selectCutscene(const int& cutSceneNum);
 };

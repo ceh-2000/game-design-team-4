@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include "MinigameLogic.h"
 #include "MinigameView.h"
-#include "CutScene.h"
+#include "Cutscene.h"
 #include "MainMenu.h"
 
 class Game
@@ -26,7 +26,7 @@ protected:
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
-    std::shared_ptr<CutScene> cut_scene;
+    std::shared_ptr<Cutscene> cut_scene;
     std::shared_ptr<MainMenu> main_menu;
 
     std::shared_ptr<Cutscene> cutscene;

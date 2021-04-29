@@ -3,7 +3,13 @@
 Cutscene::Cutscene(std::shared_ptr<sf::RenderWindow> app)
 {
     this->app = app;
-    // dialogueBox = sf::Sprite(dialogueBoxTexture, sf::IntRect(0,0,1200,200));
+
+    if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
+        std::cout << "Could not load orange_kid.ttf." << std::endl;
+    }
+    this->sceneText.setFont(font);
+    this->sceneText.setCharacterSize(50);
+    this->sceneText.setFillColor(sf::Color::Red);
 }
 
 void Cutscene::draw()
@@ -13,10 +19,13 @@ void Cutscene::draw()
     app->draw(mainCharacter);
     app->draw(otherCharacter);
     // app->draw(dialogueBox);
+    this->app->draw(sceneText);
+    app->display();
 }
 
 void Cutscene::update(const float& dt)
 {
+    this->sceneText.setString("Current score is "+std::to_string(this->score)+".\nPress SPACE BAR to skip.");
     draw();
 }
 
@@ -27,7 +36,7 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
     case 1:
         backgroundTexture.loadFromFile("../data/art/background.png");
         mcTexture.loadFromFile("../data/art/mc-cutscene.png");
-       otherCharacterTexture.loadFromFile("../data/art/male-chef.png");
+        otherCharacterTexture.loadFromFile("../data/art/male-chef.png");
         dialogueBoxTexture.loadFromFile("../data/art/dialogue-box.png");
         background = sf::Sprite(backgroundTexture, sf::IntRect(0,0,1200,800));
         mainCharacter = sf::Sprite(mcTexture, sf::IntRect(0,0,500,800));

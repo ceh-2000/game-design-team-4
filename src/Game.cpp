@@ -7,7 +7,7 @@ Game::Game() {
     songList.push_back("../data/music/Sixty_BPM.wav");
 
     std::shared_ptr<Song> song = std::make_shared<Song>(songList);
-    this->cut_scene = std::make_shared<CutScene>(app);
+    this->cut_scene = std::make_shared<Cutscene>(app);
     this->main_menu = std::make_shared<MainMenu>(app);
 
     this->logic = std::make_shared<MinigameLogic>(song);
@@ -251,7 +251,7 @@ void Game::update(const float &deltaTime) {
             break;
         case 5:
             // Cut scene
-            this->cut_scene->draw(deltaTime);
+            this->cut_scene->update(deltaTime);
             break;
         case 6:
             // Main menu
