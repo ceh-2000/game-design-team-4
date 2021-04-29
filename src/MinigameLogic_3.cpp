@@ -41,10 +41,30 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
                       << " can't make it in time :(. Consider increasing the speed of the boxes or adjusting another parameter."
                       << std::endl;
         }
-        temp.push_back(beatBox);
-        count++;
+
+        if(beatBox.getCurPos().x > 600){
+            passedBoxes.push_back(beatBox);
+        }
+        else{
+            temp.push_back(beatBox);
+            count++;
+        }
+    
     }
     this->beatBoxes = temp;
+
+}
+
+void MinigameLogic_3::updateOthers(const float& deltaTime){
+    float curSongTime = song->getSongTime();
+
+     for (BeatBoxLogic beatBox : this->cutBoxes) {
+        bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
+    }
+
+    for (BeatBoxLogic beatBox : this->passedBoxes) {
+        bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
+    }
 }
 
 void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck){
@@ -54,4 +74,5 @@ void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck){
     if(hitOutcome == 3) this->score += this->badTapBoost;
 
     if(!regionCheck) this->score += this->badTapBoost;
+
 }

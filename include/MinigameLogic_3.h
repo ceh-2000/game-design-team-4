@@ -14,6 +14,8 @@ private:
 	std::vector<float> playerCuts;
 
 	std::vector<BeatBoxLogic> beatBoxes;
+	std::vector<BeatBoxLogic> passedBoxes;
+	std::vector<BeatBoxLogic> cutBoxes;
 
 	sf::Vector2f knifePos;
 	float knifeSpeed = 2500;
@@ -29,6 +31,8 @@ public:
 	void move(const float& dt);
 
 	std::vector<BeatBoxLogic> getBeatBoxes(){ return beatBoxes; }
+	std::vector<BeatBoxLogic> getPassedBoxes(){ return passedBoxes; }
+	std::vector<BeatBoxLogic> getCutBoxes(){ return cutBoxes; }
 
 	sf::Vector2f getIngredientDim() { return ingredientDim; }
 	void setIngreientDim(sf::Vector2f& dim) { ingredientDim = dim;}
@@ -56,6 +60,7 @@ public:
 	void splitBox();
 
 	void updateBeatBoxes(const float &deltaTime);
+	void updateOthers(const float &deltaTime);
 
 	void updateScore(const int &hitOutcome, bool regionCheck);
 
