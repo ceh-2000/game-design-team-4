@@ -144,9 +144,6 @@ void MinigameView_3::update(const float& deltaTime){
         }
     }
 
-    std::cout << this->miniLogic->getKnifePos().y;
-    std::cout << "\n";
-
     this->scoreText.setString("Score: " + std::to_string(this->miniLogic->getScore()));
     knifeBox.setPosition(this->miniLogic->getKnifePos());
 

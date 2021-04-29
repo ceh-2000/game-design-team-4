@@ -26,12 +26,11 @@ MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song, float x, float y) {
             isGoodVector.push_back(true);
         }
 
-        beatBoxes.push_back(
-                BeatBoxLogic(sf::Vector2f(startX, -ingredientDim.y),
+        beatBoxes.emplace_back(sf::Vector2f(startX, -ingredientDim.y),
                              sf::Vector2f(startX, distanceToBowl - bowlSize.y * 2),
                              sf::Vector2f(startX, distanceToBowl),
                              sf::Vector2f(ingredientSpeed, ingredientSpeed),
-                             time));
+                             time);
     }
 }
 
