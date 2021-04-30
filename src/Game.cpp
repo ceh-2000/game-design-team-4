@@ -9,60 +9,69 @@ Game::Game()
 	songList.push_back("../data/music/Sixty_BPM.wav");
 	soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
 
-	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
-	cut_scene = std::make_shared<CutScene>(app);
-	//std::shared_ptr<Song> sound = std::make_shared<Song>(soundList);
+    std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
+    this->cut_scene = std::make_shared<Cutscene>(app);
+    this->main_menu = std::make_shared<MainMenu>(app);
 
-	logic = std::make_shared<MinigameLogic>(song);
-  view = std::make_shared<MinigameView>(logic, app);
-
-	logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-	logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
-	logic_3 = std::make_shared<MinigameLogic_3>(song);
-	logic_4 = std::make_shared<MinigameLogic_4>(song);
-
-    view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-    view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-    view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-    view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+    this->logic = std::make_shared<MinigameLogic>(song);
+    this->view = std::make_shared<MinigameView>(logic, app);
+//
+//    this->logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
+//    this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
+//
+//    // TODO: Position setting should be refactored
+//    this->logic_2->setPosition(sf::Vector2f(app->getSize().x / 2.0f, app->getSize().y / 2.f));
+//    this->logic_2->setKnifePos(
+//            sf::Vector2f(logic_2->getPosition().x + 1.5f * logic_2->getPRadius(), logic_2->getPosition().y));
+//    this->logic_3 = std::make_shared<MinigameLogic_3>(song);
+//    this->logic_4 = std::make_shared<MinigameLogic_4>(song);
+//
+//    this->view_1 = std::make_shared<MinigameView_1>(logic_1, app);
+//    this->view_2 = std::make_shared<MinigameView_2>(logic_2, app);
+//    this->view_3 = std::make_shared<MinigameView_3>(logic_3, app);
+//    this->view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 }
 
 void Game::switchToNewGame() {
-	this->elapsedTime = 0;
+    this->elapsedTime = 0;
 
-	std::vector<std::string> songList;
-	std::vector<std::string> soundList;
-	soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
-	songList.push_back("../data/music/Sixty_BPM.wav");
-	logic->stopGame();
-	std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
+    std::vector<std::string> songList;
+		std::vector<std::string> soundList;
+		soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
+    songList.push_back("../data/music/Sixty_BPM.wav");
+    this->logic->stopGame();
+    std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
 
-	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
-	//Body of loop not needed for second minigame
-	if(currentGame != 2 && currentGame != 5) {
-		logic = std::make_shared<MinigameLogic>(song);
-		view = std::make_shared<MinigameView>(logic, app);
-	}
-	// Game Switching Part
-	if(currentGame == 1) {
-		//INSTANTIATE SOUS CHEF GAME
-		logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-		view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-	} else if(currentGame == 2) {
-		//INSTANTIATE PIZZA GAME
-		logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
-		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-	} else if(currentGame == 3) {
-		//INSTANTIATE CUTTING GAME
-		logic_3 = std::make_shared<MinigameLogic_3>(song);
-		view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-	} else if(currentGame == 4) {
-		//INSTANTIATE DDR GAME
-		logic_4 = std::make_shared<MinigameLogic_4>(song);
-		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-	} else if (currentGame == 5) {
-			this->cut_scene->setScore(this->score);
-	}
+    //REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
+    //Body of loop not needed for second minigame
+    if (this->currentGame != 2 && this->currentGame != 5) {
+        this->logic = std::make_shared<MinigameLogic>(song);
+        this->view = std::make_shared<MinigameView>(this->logic, this->app);
+        this->logic->startGame();
+    }
+    // Game Switching Part
+    if (currentGame == 1) {
+        //INSTANTIATE SOUS CHEF GAME
+        this->logic_1 = std::make_shared<MinigameLogic_1>(song, this->app->getSize().x, this->app->getSize().y);
+        this->view_1 = std::make_shared<MinigameView_1>(this->logic_1, this->app);
+    } else if (currentGame == 2) {
+        //INSTANTIATE PIZZA GAME
+        this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
+        this->logic_2->setPosition(sf::Vector2f(this->app->getSize().x / 2.f, this->app->getSize().y / 2.f));
+        this->logic_2->setKnifePos(
+                sf::Vector2f(this->logic_2->getPosition().x + 1.5 * this->logic_2->getPRadius(), this->logic_2->getPosition().y));
+        this->view_2 = std::make_shared<MinigameView_2>(this->logic_2, app);
+    } else if (this->currentGame == 3) {
+        //INSTANTIATE CUTTING GAME
+        this->logic_3 = std::make_shared<MinigameLogic_3>(song);
+        this->view_3 = std::make_shared<MinigameView_3>(this->logic_3, this->app);
+    } else if (currentGame == 4) {
+        //INSTANTIATE DDR GAME
+        this->logic_4 = std::make_shared<MinigameLogic_4>(song);
+        this->view_4 = std::make_shared<MinigameView_4>(this->logic_4, this->app);
+    } else if (this->currentGame == 5) {
+        this->cut_scene->setScore(this->score);
+    }
 }
 
 /**
@@ -132,9 +141,15 @@ void Game::checkEvent(const float &deltaTime)
 				minigame4EventHandler(deltaTime, event);
 			  break;
 			case 5:
-				if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space){
+				if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
 					this->endRound();
 				}
+				case 6:
+					if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+						this->currentGame = 1;
+						this->switchToNewGame();
+						this->logic->startGame();
+					}
 				break;
 		}
 	}
@@ -170,7 +185,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event, std::s
 		{
 			case sf::Keyboard::Enter:
 				if(song->getSoundStatus() != sf::Sound::Status::Playing)
-					logic_2->playBeat(*app);
+					this->logic_2->playBeat(*app);
 				break;
 			case sf::Keyboard::Space:
 				logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
@@ -227,38 +242,46 @@ void Game::minigame4EventHandler(const float &deltaTime, sf::Event event)
 }
 
 void Game::endRound() {
-  if (round < numOfRounds) {
-      this->elapsedTime = 0.0f;
-      this->currentGame = 1;
-      this->switchToNewGame();
-      this->score = 0;
-      this->round++;
+    // Reset minigame variables
+    this->score = 0;
+    this->elapsedTime = 0.0f;
+
+    // Show the first minigame again
+    if (this->round < this->numOfRounds) {
+        this->currentGame = 1;
+        this->switchToNewGame();
+        this->round++;
+    }
+    // Show the main menu
+    else{
+        this->currentGame = 6;
+        this->round = 0;
     }
 }
     // TODO: Otherwise show the main menu
 void Game::update(const float &deltaTime) {
     // TODO: move this call into the individual view updates
-    app->clear();
+    this->app->clear();
     checkEvent(deltaTime);
 
     // Check if we have played the song for long enough
-    if (this->elapsedTime > this->minigameTime) {
+    if (this->elapsedTime > this->minigameTime and currentGame != 6) {
         // Reset time variable that checks time for minigame 2; 1, 3, & 4 rely on song time
         this->elapsedTime = 0.0f;
 
         // Get the score from the game that just finished
         switch (this->currentGame) {
             case 1:
-                this->score += logic_1->getScore();
+                this->score += this->logic_1->getScore();
                 break;
             case 2:
-                this->score += logic_2->getScore();
+                this->score += this->logic_2->getScore();
                 break;
             case 3:
-                this->score += logic_3->getScore();
+                this->score += this->logic_3->getScore();
                 break;
             case 4:
-                this->score += logic_4->getScore();
+                this->score += this->logic_4->getScore();
                 break;
             default:
                 break;
@@ -268,7 +291,7 @@ void Game::update(const float &deltaTime) {
             this->currentGame++;
             this->switchToNewGame();
         } else {
-            endRound();
+            this->endRound();
         }
     }
 
@@ -276,34 +299,38 @@ void Game::update(const float &deltaTime) {
     switch (this->currentGame) {
         case 1:
             // Sous chef game
-            logic_1->update(deltaTime, logic->regionCheck());
-            view_1->update(deltaTime);
-            view->draw();
+            this->logic_1->update(deltaTime, this->logic->regionCheck());
+            this->view_1->update(deltaTime);
+            this->view->draw();
             break;
         case 2:
             // Pizza cutting game
-            logic_2->update(deltaTime);
-            view_2->update(deltaTime);
+            this->logic_2->update(deltaTime);
+            this->view_2->update(deltaTime);
             break;
         case 3:
             // Chopping game
-            view->update(deltaTime);
-            view_3->update(deltaTime);
-            view->draw();
+            this->view->update(deltaTime);
+            this->view_3->update(deltaTime);
+            this->view->draw();
             break;
         case 4:
             // DDR-themed game
-            view->update(deltaTime);
-            view_4->update(deltaTime);
-            view->draw();
+            this->view->update(deltaTime);
+            this->view_4->update(deltaTime);
+            this->view->draw();
             break;
         case 5:
             // Cut scene
-            this->cut_scene->draw(deltaTime);
+            this->cut_scene->update(deltaTime);
+            break;
+        case 6:
+            // Main menu
+            this->main_menu->draw(deltaTime);
+            break;
         default:
-            //GAME LOOP FOR MAIN MENU PERHAPS?
             break;
     }
 
-    this->elapsedTime = elapsedTime + deltaTime;
+    this->elapsedTime = this->elapsedTime + deltaTime;
 }
