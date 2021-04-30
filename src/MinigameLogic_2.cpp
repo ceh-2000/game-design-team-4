@@ -30,8 +30,7 @@ void MinigameLogic_2::update(float deltaTime)
     //If player ran out of cuts or made one revolution, calculate score
     if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore < 0.0)
     {
-
-        gameScore = calcScore();
+        calcScore();
         std::cout << "Game Score: " << gameScore << "\n";
     }
 }
@@ -63,7 +62,7 @@ void MinigameLogic_2::playBeat(sf::RenderWindow &app)
   }
 }
 //Score calculating done at end of game (Score out of 100)
-float MinigameLogic_2::calcScore()
+void MinigameLogic_2::calcScore()
 {
     // Worst score that player can get given maxcut
     float worstScore = 200.f * (float)(maxCuts - 1) / (float) maxCuts;
@@ -85,5 +84,6 @@ float MinigameLogic_2::calcScore()
     }
     score = score / (float) maxCuts; //Average score of all slices
     //good scores are small, so operation makes 100 % best score
-    return  100 * (1 - score/worstScore) ;
+    state = MinigameLogic_2::gameState::ENDING;
+    gameScore = 100 * (1 - score/worstScore);
 }

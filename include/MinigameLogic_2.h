@@ -7,7 +7,6 @@
 class MinigameLogic_2 {
 private:
     std::shared_ptr<Song> song; //Song is background run
-    int score = 0;
 
     //Pizza physical attributes
     float pizzaRadius = 200.0f;
@@ -30,11 +29,12 @@ private:
     bool soundPlaying = false;
 
 public:
+
     MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts);
 
     void move(const float &dt);
 
-    int getScore() { return score; }
+    int getScore() { return gameScore; }
 
     //GETTERS AND SETTERS
     float getPRadius() const { return pizzaRadius; }
@@ -74,11 +74,16 @@ public:
     void checkEvent(sf::RenderWindow &app);
 
     void update(float deltaTime);
-    float calcScore(); //Calculate score
+    void calcScore(); //Calculate score
 
     void pushNewCut();
     //Song method that retrieves time
     void playBeat(sf::RenderWindow &app);
+
+    //Use the state enum to track the state of the game
+    enum gameState { PLAYING = 0, ENDING = 1, STOPPED = 2, PAUSED = 3 };
+    gameState state = PLAYING;
+
 
 };
 #endif

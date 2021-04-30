@@ -184,7 +184,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event, std::s
 		switch (event.key.code)
 		{
 			case sf::Keyboard::Enter:
-				if(song->getSoundStatus() != sf::Sound::Status::Playing)
+				if(this->logic_2->getCutAngles().size() == 0)
 					this->logic_2->playBeat(*app);
 				break;
 			case sf::Keyboard::Space:
@@ -274,9 +274,6 @@ void Game::update(const float &deltaTime) {
             case 1:
                 this->score += this->logic_1->getScore();
                 break;
-            case 2:
-                this->score += this->logic_2->getScore();
-                break;
             case 3:
                 this->score += this->logic_3->getScore();
                 break;
@@ -287,11 +284,16 @@ void Game::update(const float &deltaTime) {
                 break;
         }
 
-        if (this->currentGame < 5) {
+				if (this->currentGame == 2  && logic_2->state == MinigameLogic_2::gameState::STOPPED) {
+						std::cout << "I HAVE STOPPED AND WILL CONTINUE" << std::endl;
+						this->score += logic_2->getScore();
+						this->currentGame++;
+            this->switchToNewGame();
+				} else if(this->currentGame < 5 && this->currentGame != 2) {
             this->currentGame++;
             this->switchToNewGame();
-        } else {
-            this->endRound();
+        } else if(this->currentGame == 5) {
+            endRound();
         }
     }
 
