@@ -285,7 +285,6 @@ void Game::update(const float &deltaTime) {
         }
 
 				if (this->currentGame == 2  && logic_2->state == MinigameLogic_2::gameState::STOPPED) {
-						std::cout << "I HAVE STOPPED AND WILL CONTINUE" << std::endl;
 						this->score += logic_2->getScore();
 						this->currentGame++;
             this->switchToNewGame();

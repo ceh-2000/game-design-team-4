@@ -71,7 +71,6 @@ public:
     float getRotTime() { return rotTime; }
 
     //GAME OPERATIONS
-    void checkEvent(sf::RenderWindow &app);
 
     void update(float deltaTime);
     void calcScore(); //Calculate score

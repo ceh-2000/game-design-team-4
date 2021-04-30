@@ -8,8 +8,6 @@ MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
     position = sf::Vector2f(600, 400);
     knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
-
-    //angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
 }
 // Every hit of space adds new cut until reach max limit
 void MinigameLogic_2::pushNewCut()
@@ -73,7 +71,7 @@ void MinigameLogic_2::calcScore()
     {
         for(int i=1; i < cutAngles.size() ; i++)
         {
-              score += 100.f * abs((cutAngles[i] - cutAngles[i-1] - goalAngle))/goalAngle; //slice angle - expected angle
+            score += 100.f * abs((cutAngles[i] - cutAngles[i-1] - goalAngle))/goalAngle; //slice angle - expected angle
         }
     }
     //add in last slice from end to first cut
