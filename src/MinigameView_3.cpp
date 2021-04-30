@@ -18,6 +18,11 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
         std::cout << "Could not load sushi sprite sheet." << std::endl;
     }
 
+    //load cut sushi texture
+    if (!cutSushiTexture.loadFromFile("../data/art/cut_sushi.png")) {
+        std::cout << "Could not load sushi sprite sheet." << std::endl;
+    }
+
     //set up satsana animation
     if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
@@ -82,7 +87,7 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes,
             app->draw(sprite);
     }
 
-    for (BeatBoxLogic beatBox : passedBoxes) {
+     for (BeatBoxLogic beatBox : passedBoxes) {
             sf::Sprite sprite;
             sprite.setTexture(sushiTexture);
             sprite.setTextureRect(sf::IntRect(0, 0, 150, 75));
@@ -93,7 +98,7 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes,
 
     for (BeatBoxLogic beatBox : cutBoxes) {
             sf::Sprite sprite;
-            sprite.setTexture(sushiTexture);
+            sprite.setTexture(cutSushiTexture);
             sprite.setTextureRect(sf::IntRect(0, 0, 75, 75));
             sprite.setScale(this->miniLogic->getIngredientDim()/75.0f);
             sprite.setPosition(beatBox.getCurPos().x-this->miniLogic->getIngredientDim().x/2, beatBox.getCurPos().y-this->miniLogic->getIngredientDim().y/2);
@@ -116,8 +121,8 @@ void MinigameView_3::splitBox(const float& deltaTime){
 
 void MinigameView_3::update(const float& deltaTime){
     this->miniLogic->updateBeatBoxes(deltaTime);
-    
-    this->miniLogic->updateOthers(deltaTime);
+    this->miniLogic->updateCut(deltaTime);
+    this->miniLogic->updatePassed(deltaTime);
  
     float x = this->miniLogic->getKnifePos().x;
     float y = this->miniLogic->getKnifePos().y;

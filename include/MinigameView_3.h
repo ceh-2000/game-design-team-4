@@ -10,6 +10,7 @@ private:
 	std::shared_ptr<sf::RenderWindow> app;
 	std::shared_ptr<MinigameLogic_3> miniLogic;
 	sf::Texture sushiTexture;
+	sf::Texture cutSushiTexture;
 	sf::Sprite knife;
 	
 	std::vector<sf::RectangleShape> actualCuts;
