@@ -101,6 +101,14 @@ void Game::checkEvent(const float &deltaTime) {
                         this->currentGame = 4;
                         switchToNewGame();
                         break;
+                    case sf::Keyboard::Escape:
+                        switch(this->currentGame){
+                            case 6:
+                                this->main_menu->setCurrentScreen(0);
+                            default:
+                                break;
+                        }
+                        break;
                     case sf::Keyboard::Space:
                         switch (this->currentGame) {
                             case 2:
@@ -116,9 +124,17 @@ void Game::checkEvent(const float &deltaTime) {
                                 this->endRound();
                                 break;
                             case 6:
-                                this->currentGame = 1;
-                                this->switchToNewGame();
-                                this->logic->startGame();
+                                if(this->main_menu->chooseSelection() == 0){
+                                    this->currentGame = 1;
+                                    this->switchToNewGame();
+                                    this->logic->startGame();
+                                }
+                                if(this->main_menu->chooseSelection() == 1){
+                                    this->main_menu->setCurrentScreen(1);
+                                }
+                                if(this->main_menu->chooseSelection() == 2){
+                                    this->main_menu->setCurrentScreen(2);
+                                }
                             default:
                                 break;
                         }
@@ -151,6 +167,8 @@ void Game::checkEvent(const float &deltaTime) {
                             case 4:
                                 this->view_4->reachInput(2, this->logic->tapCheck());
                                 break;
+                            case 6:
+                                this->main_menu->moveUp();
                         }
                         break;
 
@@ -159,6 +177,8 @@ void Game::checkEvent(const float &deltaTime) {
                             case 4:
                                 this->view_4->reachInput(1, this->logic->tapCheck());
                                 break;
+                            case 6:
+                                this->main_menu->moveDown();
                         }
                         break;
                     default:
@@ -255,7 +275,7 @@ void Game::update(const float &deltaTime) {
             break;
         case 6:
             // Main menu
-            this->main_menu->draw(deltaTime);
+            this->main_menu->draw(deltaTime, this->main_menu->getCurrentScreen());
             break;
         default:
             break;

@@ -1,4 +1,6 @@
 #include "MainMenu.h"
+#include <array>
+#include <string>
 
 MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->app = app;
@@ -19,26 +21,26 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
         std::cout << "Could not load game-logo.png" << std::endl;
     }
 
-    this->startGame.setFont(this->font);
-    this->startGame.setCharacterSize(64);
-    this->startGame.setFillColor(sf::Color::White);
-    this->startGame.setStyle(sf::Text::Bold);
-    this->startGame.setPosition(startGamePos);
-    this->startGame.setString("PLAY GAME");
+    options[0].setFont(this->font);
+    options[0].setCharacterSize(64);
+    options[0].setFillColor(sf::Color::Green);
+    options[0].setStyle(sf::Text::Bold);
+    options[0].setPosition(startGamePos);
+    options[0].setString("PLAY GAME");
 
-    this->settings.setFont(this->font);
-    this->settings.setCharacterSize(64);
-    this->settings.setFillColor(sf::Color::White);
-    this->settings.setStyle(sf::Text::Bold);
-    this->settings.setPosition(settingsPos);
-    this->settings.setString("SETTINGS");
+    options[1].setFont(this->font);
+    options[1].setCharacterSize(64);
+    options[1].setFillColor(sf::Color::White);
+    options[1].setStyle(sf::Text::Bold);
+    options[1].setPosition(settingsPos);
+    options[1].setString("SETTINGS");
 
-    this->resources.setFont(this->font);
-    this->resources.setCharacterSize(64);
-    this->resources.setFillColor(sf::Color::White);
-    this->resources.setStyle(sf::Text::Bold);
-    this->resources.setPosition(resourcesPos);
-    this->resources.setString("RESOURCES");
+    options[2].setFont(this->font);
+    options[2].setCharacterSize(64);
+    options[2].setFillColor(sf::Color::White);
+    options[2].setStyle(sf::Text::Bold);
+    options[2].setPosition(resourcesPos);
+    options[2].setString("RESOURCES");
 
     this->gameTitle.setFont(this->font);
     this->gameTitle.setCharacterSize(128);
@@ -51,25 +53,103 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->logoSprite.setPosition(gameLogoPos);
     this->logoSprite.setScale(sf::Vector2f(2.0, 2.0));
 
+    //options = {this->startGame, this->settings, this->resources};
+
     
 }
 
-void MainMenu::draw(const float &dt){
-    this->app->clear(sf::Color::Magenta);
+void MainMenu::draw(const float &dt, int screen){
 
-    this->app->draw(this->startGame);
-    this->app->draw(this->settings);
-    this->app->draw(this->resources);
-    this->app->draw(this->gameTitle);
-    this->app->draw(this->logoSprite);
+    //main menu
+    if(screen == 0){
+        this->app->clear(sf::Color::Magenta);
 
-    this->app->display();
-}
+        this->app->draw(options[0]);
+        this->app->draw(options[1]);
+        this->app->draw(options[2]);
+        this->app->draw(this->gameTitle);
+        this->app->draw(this->logoSprite);
 
-void MainMenu::moveUp(){
-    selectedItemIndex += 1;
+        this->app->display();
+    }
+
+    //settings
+    else if(screen == 1){
+        drawOptions(dt);
+    }
+
+    //resources
+    else if(screen == 2){
+        drawResources(dt);
+    }
 }
 
 void MainMenu::moveDown(){
+    options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
+    selectedItemIndex += 1;
+    options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+}
+
+void MainMenu::moveUp(){
+    options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
     selectedItemIndex -= 1;
+    options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+}
+
+int MainMenu::chooseSelection(){
+    return(selectedItemIndex);
+}
+
+void MainMenu::drawOptions(const float& deltaTime){
+    this->app->clear(sf::Color::Magenta);
+
+    sf::Text returnBack;
+    returnBack.setFont(this->font);
+    returnBack.setCharacterSize(36);
+    returnBack.setPosition(20, 690);
+    returnBack.setStyle(sf::Text::Bold);
+    returnBack.setString("Press escape to return to menu");
+
+    sf::Text settingsTitle;
+    settingsTitle.setFont(this->font);
+    settingsTitle.setCharacterSize(64);
+    settingsTitle.setPosition(480, 20);
+    settingsTitle.setString("SETTINGS");
+
+    this->app->draw(returnBack);
+    this->app->draw(settingsTitle);
+    this->app->display();
+}
+
+void MainMenu::drawResources(const float& deltaTime){
+    this->app->clear(sf::Color::Magenta);
+
+    sf::Text returnBack;
+    returnBack.setFont(this->font);
+    returnBack.setCharacterSize(36);
+    returnBack.setPosition(20, 690);
+    returnBack.setStyle(sf::Text::Bold);
+    returnBack.setString("Press escape to return to menu");
+
+    std::string works = "Conveyor belt sprite sheet: https://opengameart.org/content/isometric-conveyor-belt-animation\n"
+                         "Sushi sprite: https://www.freepik.com/premium-vector/pixel-art-japanese-food-sushi-bit-game-item_11812806.html\n"
+                         "Pizza sprite: https://www.pinterest.com/pin/369717450659483649/\n"
+                         "All other assets were created by our team";
+
+    sf::Text worksCited;
+    worksCited.setFont(this->font);
+    worksCited.setCharacterSize(30);
+    worksCited.setPosition(20, 100);
+    worksCited.setString(works);
+
+    sf::Text resourcesTitle;
+    resourcesTitle.setFont(this->font);
+    resourcesTitle.setCharacterSize(64);
+    resourcesTitle.setPosition(450, 20);
+    resourcesTitle.setString("RESOURCES");
+
+    this->app->draw(returnBack);
+    this->app->draw(worksCited);
+    this->app->draw(resourcesTitle);
+    this->app->display();
 }

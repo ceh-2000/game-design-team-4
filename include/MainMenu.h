@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <array>
 
 class MainMenu {
 private:
@@ -27,10 +28,14 @@ private:
 
     int selectedItemIndex;
 
+    int currentScreen = 0;
+
+    std::array<sf::Text, 3> options = {startGame, settings, resources};
+
 public:
     MainMenu(std::shared_ptr<sf::RenderWindow> app);
 
-    void draw(const float &dt);
+    void draw(const float &dt, int screen);
 
     sf::Vector2f getSelectionBox();
     void setSelectionBox(sf::Vector2f position);
@@ -41,6 +46,14 @@ public:
 
     void moveUp();
     void moveDown();
+
+    int chooseSelection();
+
+    void drawOptions(const float& deltaTime);
+    void drawResources(const float& deltaTime);
+
+    int getCurrentScreen(){ return currentScreen; }
+    void setCurrentScreen(int screen){ currentScreen = screen; }
 };
 
 #endif //CSCI437_MAINMENU_H
