@@ -2,11 +2,13 @@
 
 Game::Game() {
     std::vector<std::string> songList;
+		std::vector<std::string> soundList;
 
     // TODO: Push more than one song and allow for rotating between songs
     songList.push_back("../data/music/Sixty_BPM.wav");
+		soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
 
-    std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+    std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
     this->cut_scene = std::make_shared<Cutscene>(app);
     this->main_menu = std::make_shared<MainMenu>(app);
 
@@ -32,10 +34,12 @@ Game::Game() {
 void Game::switchToNewGame() {
     this->elapsedTime = 0;
 
-    std::vector<std::string> songList;
+		std::vector<std::string> songList;
+		std::vector<std::string> soundList;
+		soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
     songList.push_back("../data/music/Sixty_BPM.wav");
     this->logic->stopGame();
-    std::shared_ptr<Song> song = std::make_shared<Song>(songList);
+    std::shared_ptr<Song> song = std::make_shared<Song>(songList, soundList);
 
     //REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
     //Body of loop not needed for second minigame
@@ -159,8 +163,19 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 				case sf::Keyboard::Space:
-					this->logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
-					this->view_2->cutPizza(deltaTime);
+					switch (this->logic_2->state) {
+						case MinigameLogic_2::gameState::PLAYING:
+							this->logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+							this->view_2->cutPizza(deltaTime);
+							break;
+						case MinigameLogic_2::gameState::ENDING:
+							this->score += logic_2->getScore();
+							this->currentGame++;
+							this->switchToNewGame();
+							break;
+						default:
+							break;
+					}
 					break;
 				default:
 					break;
@@ -273,9 +288,6 @@ void Game::update(const float &deltaTime) {
             case 1:
                 this->score += this->logic_1->getScore();
                 break;
-            case 2:
-                this->score += this->logic_2->getScore();
-                break;
             case 3:
                 this->score += this->logic_3->getScore();
                 break;
@@ -286,11 +298,7 @@ void Game::update(const float &deltaTime) {
                 break;
         }
 
-				if (this->currentGame == 2  && logic_2->state == MinigameLogic_2::gameState::STOPPED) {
-						this->score += logic_2->getScore();
-						this->currentGame++;
-            this->switchToNewGame();
-				} else if(this->currentGame < 5 && this->currentGame != 2) {
+				if(this->currentGame < 5 && this->currentGame != 2) {
             this->currentGame++;
             this->switchToNewGame();
         } else if(this->currentGame == 5) {

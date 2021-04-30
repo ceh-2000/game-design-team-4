@@ -27,7 +27,7 @@ public:
     MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2, std::shared_ptr<sf::RenderWindow> app);
     void draw();
     void update(const float& deltaTime);
-    void cutPizza(const float& deltaTime);
+    void cutPizza(const float& deltaTime) { move = true; };
 };
 
 #endif

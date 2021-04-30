@@ -8,7 +8,6 @@ MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
     position = sf::Vector2f(600, 400);
     knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
-    angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
 }
 // Every hit of space adds new cut until reach max limit
 void MinigameLogic_2::pushNewCut()
@@ -36,13 +35,39 @@ void MinigameLogic_2::update(float deltaTime)
     }
 
     //If player ran out of cuts or made one revolution, calculate score
-    if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore == 0.0)
+    if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore < 0.0)
     {
         gameScore = calcScore();
         std::cout << "Game Score: " << gameScore << "\n";
     }
 }
 
+//TODO: CLEAN UP AND REFACTOR THIS CODE
+//Play beat sequence
+void MinigameLogic_2::playBeat(sf::RenderWindow &app)
+{
+  sf::Clock time;
+  int i = 0;
+  time.restart();
+  while(i < maxCuts)
+  {
+    if(song->getSoundStatus() == sf::Sound::Status::Stopped)
+    {
+      song->playSound();
+      i++;
+    }
+
+  }
+  revTime = time.restart().asSeconds();
+  angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
+
+  //Clear the entire event queue: Prevents keyboard and mouse presses
+  sf::Event event;
+  while(app.pollEvent(event))
+  {
+    //Can put exceptions here if want to register certain events
+  }
+}
 //Score calculating done at end of game
 float MinigameLogic_2::calcScore()
 {
@@ -66,7 +91,7 @@ float MinigameLogic_2::calcScore()
     }
     score = score / (float) maxCuts; //Average score of all slices
     //good scores are small, so operation makes 100 % best score
-    state = MinigameLogic_2::gameState::ENDING;
+    this->state = MinigameLogic_2::gameState::ENDING;
     gameScore = 100 * (1 - score/worstScore);
 
     return gameScore;

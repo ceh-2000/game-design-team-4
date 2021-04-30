@@ -73,8 +73,7 @@ void MinigameView_2::draw()
       }
       app->draw(cut);
   }
-
-  if(this->miniLogic->state == MinigameLogic_2::gameState::ENDING || this->miniLogic->state == MinigameLogic_2::gameState::STOPPED) {
+  if(this->miniLogic->state == MinigameLogic_2::gameState::ENDING) {
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setCharacterSize(50);
@@ -86,8 +85,8 @@ void MinigameView_2::draw()
     scoreText.setString("Press Spacebar to continue");
     scoreText.setPosition(550,700);
     app->draw(scoreText);
-    this->miniLogic->state = MinigameLogic_2::gameState::STOPPED;
   }
+
   if(playerCuts.size() == 0) {
     sf::Text startText;
     startText.setFont(font);
@@ -98,12 +97,10 @@ void MinigameView_2::draw()
     app->draw(startText);
   }
   app->display();
-}
-
-
-void MinigameView_2::cutPizza(const float& deltaTime)
-{
-    move = true;
+  //sleep here to prevent beat from playing before drawing
+  sf::Time time = sf::seconds(0.001f);
+  sf::sleep(time);
+  if(this->miniLogic->getAngleSpeed() == 0) { this->miniLogic->playBeat(*app); }
 }
 
 void MinigameView_2::update(const float& deltaTime)
