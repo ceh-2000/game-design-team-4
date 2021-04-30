@@ -15,21 +15,6 @@ Game::Game()
 
     this->logic = std::make_shared<MinigameLogic>(song);
     this->view = std::make_shared<MinigameView>(logic, app);
-//
-//    this->logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-//    this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
-//
-//    // TODO: Position setting should be refactored
-//    this->logic_2->setPosition(sf::Vector2f(app->getSize().x / 2.0f, app->getSize().y / 2.f));
-//    this->logic_2->setKnifePos(
-//            sf::Vector2f(logic_2->getPosition().x + 1.5f * logic_2->getPRadius(), logic_2->getPosition().y));
-//    this->logic_3 = std::make_shared<MinigameLogic_3>(song);
-//    this->logic_4 = std::make_shared<MinigameLogic_4>(song);
-//
-//    this->view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-//    this->view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-//    this->view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-//    this->view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 }
 
 void Game::switchToNewGame() {
@@ -57,9 +42,6 @@ void Game::switchToNewGame() {
     } else if (currentGame == 2) {
         //INSTANTIATE PIZZA GAME
         this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
-        this->logic_2->setPosition(sf::Vector2f(this->app->getSize().x / 2.f, this->app->getSize().y / 2.f));
-        this->logic_2->setKnifePos(
-                sf::Vector2f(this->logic_2->getPosition().x + 1.5 * this->logic_2->getPRadius(), this->logic_2->getPosition().y));
         this->view_2 = std::make_shared<MinigameView_2>(this->logic_2, app);
     } else if (this->currentGame == 3) {
         //INSTANTIATE CUTTING GAME
