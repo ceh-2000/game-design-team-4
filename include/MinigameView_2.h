@@ -12,11 +12,14 @@ private:
 
     //Test Shapes
     sf::CircleShape cPizza;
+    sf::Texture pizzaTexture;
     sf::RectangleShape baseCut;//model cut object to transform
     sf::RectangleShape knifeBox;
 
     std::vector<sf::RectangleShape> actualCuts;
     std::vector<sf::RectangleShape> playerCuts;
+
+    sf::Font font;
 
     bool move = false;
 

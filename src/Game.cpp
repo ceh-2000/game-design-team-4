@@ -52,9 +52,6 @@ void Game::switchToNewGame() {
     } else if (currentGame == 2) {
         //INSTANTIATE PIZZA GAME
         this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
-        this->logic_2->setPosition(sf::Vector2f(this->app->getSize().x / 2.f, this->app->getSize().y / 2.f));
-        this->logic_2->setKnifePos(
-                sf::Vector2f(this->logic_2->getPosition().x + 1.5 * this->logic_2->getPRadius(), this->logic_2->getPosition().y));
         this->view_2 = std::make_shared<MinigameView_2>(this->logic_2, app);
     } else if (this->currentGame == 3) {
         //INSTANTIATE CUTTING GAME
@@ -110,84 +107,137 @@ void Game::checkEvent(const float &deltaTime) {
                         }
                         break;
                     case sf::Keyboard::Space:
-                        switch (this->currentGame) {
-                            case 2:
-                                this->logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
-                                this->view_2->cutPizza(deltaTime);
-                                break;
-                            case 3:
-                                this->logic->tapCheck();
-                                this->view_3->splitBox(deltaTime);
-                                this->logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
-                                break;
-                            case 5:
-                                this->endRound();
-                                break;
-                            case 6:
-                                if(this->main_menu->chooseSelection() == 0){
-                                    this->currentGame = 1;
-                                    this->switchToNewGame();
-                                    this->logic->startGame();
-                                }
-                                if(this->main_menu->chooseSelection() == 1){
-                                    this->main_menu->setCurrentScreen(1);
-                                }
-                                if(this->main_menu->chooseSelection() == 2){
-                                    this->main_menu->setCurrentScreen(2);
-                                }
-                            default:
-                                break;
-                        }
-                        break;
-                    case sf::Keyboard::Left:
-                        switch (this->currentGame) {
-                            case 1:
-                                this->logic_1->reactTap(this->logic->tapCheck(), false);
-                                break;
-                            case 4:
-                                this->view_4->reachInput(0, this->logic->tapCheck());
-                            default:
-                                break;
-                        }
-                        break;
-                    case sf::Keyboard::Right:
-                        switch (this->currentGame) {
-                            case 1:
-                                this->logic_1->reactTap(this->logic->tapCheck(), true);
-                                break;
-                            case 4:
-                                this->view_4->reachInput(3, this->logic->tapCheck());
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case sf::Keyboard::Up:
-                        switch (this->currentGame) {
-                            case 4:
-                                this->view_4->reachInput(2, this->logic->tapCheck());
-                                break;
-                            case 6:
-                                this->main_menu->moveUp();
-                        }
-                        break;
-
-                    case sf::Keyboard::Down:
-                        switch (this->currentGame) {
-                            case 4:
-                                this->view_4->reachInput(1, this->logic->tapCheck());
-                                break;
-                            case 6:
-                                this->main_menu->moveDown();
-                        }
-                        break;
-                    default:
-                        break;
-                }
+												if(this->currentGame == 5) {
+													this->endRound();
+												}
+								}
             default:
                 break;
         }
+
+				switch (this->currentGame) {
+					case 1:
+						this->minigame1EventHandler(deltaTime, event);
+						break;
+					case 2:
+						this->minigame2EventHandler(deltaTime, event);
+						break;
+					case 3:
+						this->minigame3EventHandler(deltaTime, event);
+						break;
+					case 4:
+						this->minigame4EventHandler(deltaTime, event);
+						break;
+					case 6:
+						this->mainMenuEventHandler(deltaTime, event);
+						break;
+					default:
+						break;
+				}
     }
+}
+
+void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
+	switch (event.type) {
+		case sf::Event::KeyPressed:
+			switch (event.key.code) {
+				case sf::Keyboard::Left:
+					this->logic_1->reactTap(this->logic->tapCheck(), false);
+					break;
+				case sf::Keyboard::Right:
+					this->logic_1->reactTap(this->logic->tapCheck(), true);
+					break;
+				default:
+					break;
+			}
+		break;
+	}
+}
+
+void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
+	switch (event.type) {
+		case sf::Event::KeyPressed:
+			switch (event.key.code) {
+				case sf::Keyboard::Space:
+					this->logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+					this->view_2->cutPizza(deltaTime);
+					break;
+				default:
+					break;
+			}
+		break;
+	}
+}
+
+void Game::minigame3EventHandler(const float &deltaTime, sf::Event event) {
+	switch (event.type) {
+		case sf::Event::KeyPressed:
+			switch (event.key.code) {
+				case sf::Keyboard::Space:
+					this->logic->tapCheck();
+					this->view_3->splitBox(deltaTime);
+					this->logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
+					break;
+				default:
+					break;
+			}
+		break;
+	}
+}
+
+void Game::minigame4EventHandler(const float &deltaTime, sf::Event event) {
+	switch (event.type) {
+		case sf::Event::KeyPressed:
+			switch (event.key.code) {
+				case sf::Keyboard::Space:
+					break;
+				case sf::Keyboard::Left:
+					this->view_4->reachInput(0, this->logic->tapCheck());
+					break;
+				case sf::Keyboard::Right:
+					this->view_4->reachInput(3, this->logic->tapCheck());
+					break;
+				case sf::Keyboard::Up:
+					this->view_4->reachInput(2, this->logic->tapCheck());
+					break;
+				case sf::Keyboard::Down:
+					this->view_4->reachInput(1, this->logic->tapCheck());
+					break;
+				default:
+					break;
+			}
+		break;
+	}
+}
+
+void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
+	switch (event.type) {
+		case sf::Event::KeyPressed:
+			switch (event.key.code) {
+				case sf::Keyboard::Space:
+					if(this->main_menu->chooseSelection() == 0){
+							this->currentGame = 1;
+							this->switchToNewGame();
+							this->logic->startGame();
+					}
+					if(this->main_menu->chooseSelection() == 1){
+							this->main_menu->setCurrentScreen(1);
+					}
+					if(this->main_menu->chooseSelection() == 2){
+							this->main_menu->setCurrentScreen(2);
+					}
+					break;
+				case sf::Keyboard::Up:
+					this->main_menu->moveUp();
+					break;
+				case sf::Keyboard::Down:
+					this->main_menu->moveDown();
+					break;
+				default:
+					break;
+			}
+		break;
+	}
 }
 
 void Game::endRound() {
@@ -236,11 +286,15 @@ void Game::update(const float &deltaTime) {
                 break;
         }
 
-        if (this->currentGame < 5) {
+				if (this->currentGame == 2  && logic_2->state == MinigameLogic_2::gameState::STOPPED) {
+						this->score += logic_2->getScore();
+						this->currentGame++;
+            this->switchToNewGame();
+				} else if(this->currentGame < 5 && this->currentGame != 2) {
             this->currentGame++;
             this->switchToNewGame();
-        } else {
-            this->endRound();
+        } else if(this->currentGame == 5) {
+            endRound();
         }
     }
 

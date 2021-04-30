@@ -48,6 +48,12 @@ public:
     void checkEvent(const float& deltaTime);
     void switchToNewGame();
 
+    void minigame1EventHandler(const float &deltaTime, sf::Event event);
+    void minigame2EventHandler(const float &deltaTime, sf::Event event);
+    void minigame3EventHandler(const float &deltaTime, sf::Event event);
+    void minigame4EventHandler(const float &deltaTime, sf::Event event);
+    void mainMenuEventHandler(const float &deltaTime, sf::Event event);
+
     void endRound();
 };
 #endif

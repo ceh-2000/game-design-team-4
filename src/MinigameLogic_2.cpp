@@ -4,8 +4,9 @@
 MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
 {
     this->song = song;
-
     this->maxCuts = maxCuts;
+    position = sf::Vector2f(600, 400);
+    knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
     angleSpeed = 2 * PI/ revTime; //Angular speed: one rps; tot time determined by rhythm "call"
 }
@@ -45,18 +46,28 @@ void MinigameLogic_2::update(float deltaTime)
 //Score calculating done at end of game
 float MinigameLogic_2::calcScore()
 {
+    // Worst score that player can get given maxcut
+    float worstScore = 200.f * (float)(maxCuts - 1) / (float) maxCuts;
+
     float score = 0.f;
     //calculate the total error for each pizza slice
-    if(cutAngles.size() != 1){
-        for(int i=1; i < cutAngles.size() ; i++){
-            score += abs(cutAngles[i] - cutAngles[i-1] - goalAngle); //slice angle - expected angle
+    if(cutAngles.size() != 1)
+    {
+        for(int i=1; i < cutAngles.size() ; i++)
+        {
+            score += 100.f * abs((cutAngles[i] - cutAngles[i-1] - goalAngle))/goalAngle; //slice angle - expected angle
         }
     }
-
-    //if there are less than requisite cuts error added is size of missed slices
+    //add in last slice from end to first cut
+    score += 100.f *(float) abs((2 * PI - cutAngles.back() - goalAngle))/goalAngle;
+    //Add error of missing slices
     if(cutAngles.size() < maxCuts){
-        score += (maxCuts - cutAngles.size()) * goalAngle;
+        score +=  100.f * (maxCuts - cutAngles.size());
     }
+    score = score / (float) maxCuts; //Average score of all slices
+    //good scores are small, so operation makes 100 % best score
+    state = MinigameLogic_2::gameState::ENDING;
+    gameScore = 100 * (1 - score/worstScore);
 
-    return score;
+    return gameScore;
 }
