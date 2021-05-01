@@ -43,5 +43,4 @@ public:
 	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes, const std::vector<BeatBoxLogic> &passedBoxes, const std::vector<BeatBoxLogic> &cutBoxes);
 	void splitBox(const float& deltaTime);
 };
-
 #endif
