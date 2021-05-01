@@ -17,7 +17,6 @@ MinigameView::MinigameView(std::shared_ptr<MinigameLogic> logic, std::shared_ptr
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
-    this->logic->startGame();
 }
 
 /*

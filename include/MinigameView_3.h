@@ -10,6 +10,7 @@ private:
 	std::shared_ptr<sf::RenderWindow> app;
 	std::shared_ptr<MinigameLogic_3> miniLogic;
 	sf::Texture sushiTexture;
+	sf::Texture cutSushiTexture;
 	sf::Sprite knife;
 	
 	std::vector<sf::RectangleShape> actualCuts;
@@ -18,6 +19,7 @@ private:
 	sf::RectangleShape knifeBox;
 
 	bool move = false;
+	bool moving = false;
 
 	sf::Texture satsanaTexture;
 	sf::Sprite satsanaSprite;
@@ -38,7 +40,7 @@ public:
 
 	void draw(const float& deltaTime);
 	void update(const float& deltaTime);
-	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes);
+	void updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes, const std::vector<BeatBoxLogic> &passedBoxes, const std::vector<BeatBoxLogic> &cutBoxes);
 	void splitBox(const float& deltaTime);
 };
 #endif

@@ -90,19 +90,19 @@ void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 		score.setString("Score: " + std::to_string(this->miniLogic->getScore()));
 }
 
-void MinigameView_4::updateBeatBoxes(std::vector<std::shared_ptr<BeatBoxLogic>> beatBoxes)
+void MinigameView_4::updateBeatBoxes(std::vector<BeatBoxLogic> beatBoxes)
 {
-	for (std::shared_ptr<BeatBoxLogic> beatBox : beatBoxes)
+	for (BeatBoxLogic beatBox : beatBoxes)
 	{
 		arrow = std::make_shared<sf::Sprite>(texture);
-		arrow->setPosition(beatBox->getCurPos());
+		arrow->setPosition(beatBox.getCurPos());
 		switch(int(arrow->getPosition().x))
 		{
 			case 825: arrowTextureRect.top = 0; break;
 			case 900: arrowTextureRect.top = 64; break;
 			case 975: arrowTextureRect.top = 128; break;
 			case 1050: arrowTextureRect.top = 192;	break;
-			default: break;
+			default: arrowTextureRect.top = 0; break;
 		}
 		if(arrow->getPosition().y > 36.0f)
 		{

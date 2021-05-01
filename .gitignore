@@ -2,6 +2,7 @@
 Debug/
 Rhythm_Charter/data/music
 /.vscode/
+cmake-build-debug/
 
 # Mac specific
 .DS_Store
