@@ -20,6 +20,7 @@ public:
     void stopSound() { sound.stop(); }
     sf::Sound::Status getSoundStatus() { return sound.getStatus(); }
     float getSongTime() { return sf::Time(music.getPlayingOffset()).asSeconds(); }
+    void setSoundPitch(float pitch) { sound.setPitch(pitch); }
     std::vector<float> getAllTimings(){ return correctTimings; }
 
     // Methods with logic

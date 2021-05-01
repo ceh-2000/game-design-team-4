@@ -17,11 +17,6 @@ Game::Game() {
 //
 //    this->logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 //    this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
-//
-//    // TODO: Position setting should be refactored
-//    this->logic_2->setPosition(sf::Vector2f(app->getSize().x / 2.0f, app->getSize().y / 2.f));
-//    this->logic_2->setKnifePos(
-//            sf::Vector2f(logic_2->getPosition().x + 1.5f * logic_2->getPRadius(), logic_2->getPosition().y));
 //    this->logic_3 = std::make_shared<MinigameLogic_3>(song);
 //    this->logic_4 = std::make_shared<MinigameLogic_4>(song);
 //
@@ -55,7 +50,7 @@ void Game::switchToNewGame() {
         this->view_1 = std::make_shared<MinigameView_1>(this->logic_1, this->app);
     } else if (currentGame == 2) {
         //INSTANTIATE PIZZA GAME
-        this->logic_2 = std::make_shared<MinigameLogic_2>(song, 10); //pass maximum cuts allowed
+        this->logic_2 = std::make_shared<MinigameLogic_2>(song, round); //pass maximum cuts allowed
         this->view_2 = std::make_shared<MinigameView_2>(this->logic_2, app);
     } else if (this->currentGame == 3) {
         //INSTANTIATE CUTTING GAME
@@ -163,10 +158,10 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 				case sf::Keyboard::Space:
-					switch (this->logic_2->state) {
+					switch (logic_2->state) {
 						case MinigameLogic_2::gameState::PLAYING:
-							this->logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
-							this->view_2->cutPizza(deltaTime);
+							logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
+							view_2->cutPizza(deltaTime);
 							break;
 						case MinigameLogic_2::gameState::ENDING:
 							this->score += logic_2->getScore();
@@ -177,6 +172,10 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							break;
 					}
 					break;
+				case sf::Keyboard::Enter:
+					if(logic_2->getCutAngles().size() == 0) {
+						logic_2->playBeat(*app);
+					}
 				default:
 					break;
 			}

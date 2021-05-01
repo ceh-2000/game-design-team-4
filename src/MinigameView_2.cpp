@@ -4,7 +4,7 @@
 MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2, std::shared_ptr<sf::RenderWindow> app)
 {
     //Retrieve logic and window
-    this->miniLogic = MinigameLogic_2;
+    miniLogic = MinigameLogic_2;
     this->app = app;
 
     if (!pizzaTexture.loadFromFile("../data/art/pizza.png")) {
@@ -50,7 +50,7 @@ void MinigameView_2::draw()
   // DRAW THE PIZZA
   app->draw(cPizza);
   // DRAW THE KNIFE
-  knifeBox.setPosition(this->miniLogic->getKnifePos());
+  knifeBox.setPosition(miniLogic->getKnifePos());
   app->draw(knifeBox);
 
   //DRAWING THE CUTS
@@ -73,12 +73,12 @@ void MinigameView_2::draw()
       }
       app->draw(cut);
   }
-  if(this->miniLogic->state == MinigameLogic_2::gameState::ENDING) {
+  if(miniLogic->state == MinigameLogic_2::gameState::ENDING) {
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setCharacterSize(50);
     scoreText.setFillColor(sf::Color::Red);
-    scoreText.setString("SCORE:  " + std::to_string(this->miniLogic->getScore()));
+    scoreText.setString("SCORE:  " + std::to_string(miniLogic->getScore()));
     scoreText.setPosition(550,650);
 
     app->draw(scoreText);
@@ -93,14 +93,14 @@ void MinigameView_2::draw()
     startText.setCharacterSize(50);
     startText.setFillColor(sf::Color::Red);
     startText.setString("Listen to the following beat. After listening,\n hit space to begin cutting\n or Enter to replay the beat.");
-    startText.setPosition(500,50);
+    startText.setPosition(500,0);
     app->draw(startText);
   }
   app->display();
   //sleep here to prevent beat from playing before drawing
   sf::Time time = sf::seconds(0.001f);
   sf::sleep(time);
-  if(this->miniLogic->getAngleSpeed() == 0) { this->miniLogic->playBeat(*app); }
+  if(miniLogic->getAngleSpeed() == 0) { miniLogic->playBeat(*app); }
 }
 
 void MinigameView_2::update(const float& deltaTime)
@@ -110,14 +110,14 @@ void MinigameView_2::update(const float& deltaTime)
     //if we need to move up
     if(cutAngles.size() < miniLogic->getMaxCuts() && miniLogic->getPAngle() < 2 * PI)
     {
-        float x = this->miniLogic->getKnifePos().x;
-        float y = this->miniLogic->getKnifePos().y;
+        float x = miniLogic->getKnifePos().x;
+        float y = miniLogic->getKnifePos().y;
         if(move){
             if(x >= cPizza.getPosition().x){
-                sf::Vector2f left(x - this->miniLogic->getKnifeSpeed() * deltaTime, y);
-                this->miniLogic->setKnifePos(left);
+                sf::Vector2f left(x - miniLogic->getKnifeSpeed() * deltaTime, y);
+                miniLogic->setKnifePos(left);
                 //if we reach the peak set move = false so knife goes down
-                if(this->miniLogic->getKnifePos().x <= cPizza.getPosition().x){
+                if(miniLogic->getKnifePos().x <= cPizza.getPosition().x){
                     move = false;
                 }
             }
@@ -126,8 +126,8 @@ void MinigameView_2::update(const float& deltaTime)
             //we need to move down
         else{
             if(x < cPizza.getPosition().x + 1.5f * cPizza.getRadius()){
-                sf::Vector2f right(x + this->miniLogic->getKnifeSpeed() * deltaTime, y);
-                this->miniLogic->setKnifePos(right);
+                sf::Vector2f right(x + miniLogic->getKnifeSpeed() * deltaTime, y);
+                miniLogic->setKnifePos(right);
             }
         }
     }

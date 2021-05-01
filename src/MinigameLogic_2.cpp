@@ -1,10 +1,25 @@
 #include "MinigameLogic_2.h"
 #include "constants.h"
 
-MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
+MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int round)
 {
     this->song = song;
-    this->maxCuts = maxCuts;
+    switch (round) {
+      case 0:
+        this->maxCuts = 8;
+        break;
+      case 1:
+        this->maxCuts = 10;
+        break;
+      case 2:
+        this->maxCuts = 15;
+        break;
+      case 3:
+        this->maxCuts = 20;
+        break;
+      default:
+        break;
+    }
     position = sf::Vector2f(600, 400);
     knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
@@ -46,14 +61,22 @@ void MinigameLogic_2::update(float deltaTime)
 //Play beat sequence
 void MinigameLogic_2::playBeat(sf::RenderWindow &app)
 {
+  //Shift duration for higher cuts
+  if(maxCuts >= 10) {
+    song->setSoundPitch(2);
+  }
+
   sf::Clock time;
-  int i = 0;
   time.restart();
-  while(i < maxCuts)
+
+  int i = 0;
+  while(i < maxCuts + 1)
   {
     if(song->getSoundStatus() == sf::Sound::Status::Stopped)
     {
-      song->playSound();
+      if(i != maxCuts) {
+        song->playSound();
+      }
       i++;
     }
 
