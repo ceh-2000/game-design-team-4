@@ -2,13 +2,20 @@
 #include "json.h"
 #include <fstream>
 
-Song::Song(std::vector<std::string> filePaths)
+Song::Song(std::vector<std::string> songFilePaths, std::vector<std::string> soundFilePaths)
 {
   // Open music file and play music
   // We open instead of loading to use less memory
-  if (!music.openFromFile(filePaths.at(0)))
+  if (!music.openFromFile(songFilePaths.at(0)))
     std::cout << "Could not load music." << std::endl;
   music.setVolume(40.0f); // Reduce music to 10%
+
+  // Open sound effects
+  if (!buffer.loadFromFile(soundFilePaths.at(0)))
+    std::cout << "Could not load sound." << std::endl;
+  sound.setBuffer(buffer);
+  sound.setVolume(40.0f); // Reduce music to 10%
+  sound.setPitch(1);
 
   // Read the json and get the timing vector
   std::ifstream i("../Rhythm_Charter/timingChart.json");
