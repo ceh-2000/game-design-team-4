@@ -4,6 +4,9 @@ Game::Game() {
     std::vector<std::string> songList;
 		std::vector<std::string> soundList;
 
+		//prevent repeat events when holding down
+		app->setKeyRepeatEnabled(false);
+
     // TODO: Push more than one song and allow for rotating between songs
     songList.push_back("../data/music/Sixty_BPM.wav");
 		soundList.push_back("../data/music/single_beat.wav"); //Sound to use in pizza game
