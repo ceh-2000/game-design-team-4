@@ -27,13 +27,15 @@ bool Horizontal_Scrollbar::selected(sf::Vector2f mousePos)
 	}
 	return false;
 }
-
+float Horizontal_Scrollbar::ratio()
+{
+	float ratio = (this->slider.getPosition().x + this->slider.getSize().x)/(this->bar.getPosition().x + this->bar.getSize().x);
+}
 
 void Horizontal_Scrollbar::autoScroll(std::shared_ptr<Music_Player> music_player)
 {
 	this->slider.setPosition(this->bar.getSize().x * music_player->getRatio() + this->slider.getSize().x, this->bar.getPosition().y + this->slider.getSize().y/2.0f);
 }
-
 
 void Horizontal_Scrollbar::draw(std::shared_ptr<sf::RenderWindow> window)
 {

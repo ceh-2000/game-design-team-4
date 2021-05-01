@@ -20,6 +20,7 @@ public:
     sf::RectangleShape getSlider() {return slider;}
     
     bool selected(sf::Vector2f mousePos);
+    float ratio();
     void autoScroll(std::shared_ptr<Music_Player> music_player);
     void draw(std::shared_ptr<sf::RenderWindow> window);
 };
