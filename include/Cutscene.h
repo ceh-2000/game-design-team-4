@@ -12,17 +12,19 @@ private:
     std::shared_ptr<sf::RenderWindow> app;
 
     sf::Font font;
-    sf::Text sceneText;
+    sf::Text scoreText;
     int score = 0;
 
     sf::Texture mcTexture;
     sf::Texture backgroundTexture;
     sf::Texture otherCharacterTexture;
     sf::Texture dialogueBoxTexture;
+    sf::Texture letterScoreTexture;
     sf::Sprite dialogueBox;
     sf::Sprite mainCharacter;
     sf::Sprite background;
     sf::Sprite otherCharacter;
+    sf::Sprite letterScore;
     
     sf::RectangleShape dialogueBoxRect;
 public:

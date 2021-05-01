@@ -14,9 +14,7 @@ private:
 
 	std::vector<sf::Sprite> endPoints;
 	std::vector<sf::Sprite> tables;
-	std::vector<std::shared_ptr<sf::Sprite>> arrows;
 
-	//TODO: Replace RectangleShapes with art
 	std::shared_ptr<sf::Sprite> arrow;
 	sf::Sprite chef;
 	sf::Sprite oven;
@@ -27,6 +25,8 @@ private:
 	sf::RectangleShape placeholder;	
 	sf::Text score = sf::Text("Score: 0", font, 30);
 	sf::Font font;
+
+	int left = 64;
 
 public:
 	MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4, std::shared_ptr<sf::RenderWindow> app);
