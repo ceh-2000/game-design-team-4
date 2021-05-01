@@ -1,6 +1,7 @@
 # Every person's run configuration will be different
 Debug/
 /.vscode/
+cmake-build-debug/
 
 # Mac specific
 .DS_Store
