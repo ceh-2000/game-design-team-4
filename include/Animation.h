@@ -27,9 +27,4 @@ public:
     Animation(sf::Sprite& sprite, int row, int frames, int frameX, int frameY, float timePerFrame, bool loop);
     void animate(const float& dt, std::shared_ptr<sf::RenderWindow> window);
 };
-
-
-
-
-
 #endif

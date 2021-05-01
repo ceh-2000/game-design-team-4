@@ -4,7 +4,6 @@
 #include <iostream>
 #include <memory>
 #include "Song.h"
-// #include "MinigameLogic.h"
 #include "Animation.h"
 #include <SFML/Graphics.hpp>
 #include "MinigameLogic.h"
@@ -22,14 +21,13 @@ protected:
     float minigameTime = 5.0f;
     int numOfRounds = 3;
     float elapsedTime = 0.0f;
+    bool left, down, up, right;
 
 	std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
     std::shared_ptr<Cutscene> cut_scene;
     std::shared_ptr<MainMenu> main_menu;
-
-    std::shared_ptr<Cutscene> cutscene;
 
     std::shared_ptr<MinigameView_1> view_1;
     std::shared_ptr<MinigameView_2> view_2;
@@ -46,6 +44,7 @@ public:
     bool getActive() { return isActive; }
     void update(const float &deltaTime);
     void checkEvent(const float& deltaTime);
+    int multiArrowInput();
     void switchToNewGame();
 
     void minigame1EventHandler(const float &deltaTime, sf::Event event);
