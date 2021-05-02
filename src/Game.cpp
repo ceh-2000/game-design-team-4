@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include <iostream>
 Game::Game(std::shared_ptr<Song> song) {
 
 		//prevent repeat events when holding down
@@ -23,7 +23,43 @@ Game::Game(std::shared_ptr<Song> song) {
 //    view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 }
 
-void Game::switchToNewGame() {
+void Game::operator=(const Game &game) {
+	this->song = game.song;
+	this->roundRank = game.roundRank;
+	this->scoreRank = game.scoreRank;
+}
+
+void Game::loadGame(std::string name) {
+	//retrieve save state json file
+	std::ifstream i("../gameSaveStates.json");
+	nlohmann::json saved_states;
+	i >> saved_states;
+
+	//check if state exists and replace current game with loaded game
+	if(saved_states.at(name).at("name") == name) {
+		//TODO: WHEN WE MAP THE TIMINGS HERE, NAME IS SAME AS SONG
+		saved_states.at(name).at("scoreRank").get_to(scoreRank);
+		saved_states.at(name).at("roundRank").get_to(roundRank);
+		saved_states.at(name).at("name").get_to(name);
+	}
+	else {
+		std::cout << "Game save " << name << " does not exist." << std::endl;
+	}
+}
+
+//Save game in state name
+void Game::saveGame() {
+	//TODO: WHEN WE MAP THE TIMINGS HERE, NAME IS SAME AS SONG
+	nlohmann::json saved_state;
+	saved_state[name]["name"] = name;
+	saved_state[name]["scoreRank"] = scoreRank;
+	saved_state[name]["roundRank"] = roundRank;
+
+	std::ofstream outFile("../gameSaveStates.json");
+	outFile << saved_state;
+}
+
+void Game::switchToNewMinigame() {
 		elapsedTime = 0;
     logic->stopGame();
 		song->setGameStateAudio(this->currentGame);
@@ -74,19 +110,19 @@ void Game::checkEvent(const float &deltaTime) {
                         break; // Exit
                     case sf::Keyboard::Num1:
                         currentGame = 1;
-                        switchToNewGame();
+                        switchToNewMinigame();
                         break;
                     case sf::Keyboard::Num2:
                         currentGame = 2;
-                        switchToNewGame();
+                        switchToNewMinigame();
                         break;
                     case sf::Keyboard::Num3:
                         currentGame = 3;
-                        switchToNewGame();
+                        switchToNewMinigame();
                         break;
                     case sf::Keyboard::Num4:
                         currentGame = 4;
-                        switchToNewGame();
+                        switchToNewMinigame();
                         break;
                     case sf::Keyboard::Escape:
                         switch(currentGame){
@@ -186,7 +222,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							score += logic_2->getScore();
 							scoreRank.at(round).at(currentGame) = logic_2->gradeMinigame();
 							currentGame++;
-							switchToNewGame();
+							switchToNewMinigame();
 							break;
 						default:
 							break;
@@ -252,7 +288,7 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 				switch(main_menu->chooseSelection()) {
 			 		case 0:
 					 	currentGame = 1;
-					 	switchToNewGame();
+					 	switchToNewMinigame();
 					 	logic->startGame();
 			 			break;
 			 		case 1: case 2:
@@ -304,7 +340,7 @@ void Game::endRound() {
 	// Show the first minigame again
 	if (round < numOfRounds) {
 		currentGame = 1;
-		switchToNewGame();
+		switchToNewMinigame();
 		round++;
 	}
 	// Show the main menu
@@ -343,7 +379,7 @@ void Game::update(const float &deltaTime) {
 
 		if(currentGame < 5 && currentGame != 2) {
 				currentGame++;
-				switchToNewGame();
+				switchToNewMinigame();
 		} else if(currentGame == 5) {
 				endRound();
 		}

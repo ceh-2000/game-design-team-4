@@ -3,6 +3,9 @@
 #define GAME_H
 #include <iostream>
 #include <memory>
+#include <fstream>
+#include <ostream>
+#include "../include/json.h"
 #include "Song.h"
 #include "Animation.h"
 #include <SFML/Graphics.hpp>
@@ -16,6 +19,7 @@ class Game
 protected:
     std::vector<std::vector<std::string>> scoreRank = {{" "," "," "," "},{" "," "," "," "},{" "," "," "," "},{" "," "," "," "}};
     std::vector<std::string> roundRank = {" "," "," "," "};
+    std::string name; //holds save state name; 'story' -> story mode (reg game) bonus{i} are user generated game
     int score = 0;
     int round = 0;
     int currentGame = 6;
@@ -44,11 +48,19 @@ protected:
 
 public:
     Game(std::shared_ptr<Song> audio);
+
+    //Overloaded assignment operator
+    void operator=(const Game &game);
+
+    //Game save save/retrieval
+    void saveGame();
+    void loadGame(std::string name);
+
     bool getActive() { return isActive; }
     void update(const float &deltaTime);
     void checkEvent(const float& deltaTime);
     int multiArrowInput();
-    void switchToNewGame();
+    void switchToNewMinigame();
 
     void minigame1EventHandler(const float &deltaTime, sf::Event event);
     void minigame2EventHandler(const float &deltaTime, sf::Event event);
