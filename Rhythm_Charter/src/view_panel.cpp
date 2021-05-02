@@ -21,7 +21,7 @@ bool View_Panel::selected(sf::Vector2f mousePos) {
 
 }
 
-void View_Panel::autoScroll(std::shared_ptr<Music_Player> music_player, )
+void View_Panel::autoScroll(std::shared_ptr<Music_Player> music_player)
 {
   //Middle area
   if((this->WINDOW_SIZE.x - 32.0f) * music_player->getRatio() + this->slider.getSize().x < this->WINDOW_SIZE.x &&
