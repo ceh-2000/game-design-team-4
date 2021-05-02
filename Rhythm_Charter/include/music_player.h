@@ -36,8 +36,8 @@ public:
 	void decreaseVolume(int v) { music.setVolume( music.getVolume() - v ); volume = std::to_string(music.getVolume());}
 	std::string &getVolume() { return this->volume; }
 
-	void incrementPos(float p) { this->music.setPlayingOffset( this->music.getPlayingOffset() + sf::seconds(p)); }
-	void decrementPos(float p) { this->music.setPlayingOffset( sf::Time(this->music.getPlayingOffset() - sf::seconds(p))); }
+	void incrementPos(float p);
+	void decrementPos(float p);
 	std::string &getText() { return play_time; }
 
 	float getPlayTime(){return music.getPlayingOffset().asSeconds();}
