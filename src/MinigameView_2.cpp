@@ -78,7 +78,7 @@ void MinigameView_2::draw()
     scoreText.setFont(font);
     scoreText.setCharacterSize(50);
     scoreText.setFillColor(sf::Color::Red);
-    scoreText.setString("SCORE:  " + std::to_string(miniLogic->getScore()));
+    scoreText.setString("SCORE:  " + std::to_string(miniLogic->getScore()) + "  RANK:  " + miniLogic->getRank());
     scoreText.setPosition(550,650);
 
     app->draw(scoreText);

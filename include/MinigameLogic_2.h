@@ -16,12 +16,13 @@ private:
     float pizzaAngle = 0.0f; //Current pizza rotation angle (in radians)
 
     //Pizza logic Attributes
-    float angleSpeed;
+    float angleSpeed = 0.f;
     float goalAngle; // Target angle for pizza slices; Computed in radians
     float rotTime = 0.0f; //Current time in rotation
 
     //Minigame logic attributes
     float gameScore = -1.f;
+    std::string grade;
     float revTime = 10.0f; //total time call beats played
 
     sf::Vector2f knifePos;
@@ -33,6 +34,10 @@ public:
     void move(const float &dt);
 
     int getScore() { return gameScore; }
+
+    std::string gradeMinigame();
+
+    std::string getRank() { return grade;}
 
     float getPRadius() const { return pizzaRadius; }
 
