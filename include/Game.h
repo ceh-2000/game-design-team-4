@@ -14,6 +14,8 @@
 class Game
 {
 protected:
+    std::vector<std::vector<std::string>> scoreRank = {{" "," "," "," "},{" "," "," "," "},{" "," "," "," "},{" "," "," "," "}};
+    std::vector<std::string> roundRank = {" "," "," "," "};
     int score = 0;
     int round = 0;
     int currentGame = 6;
@@ -23,7 +25,8 @@ protected:
     float elapsedTime = 0.0f;
     bool left, down, up, right;
 
-	std::shared_ptr<MinigameLogic> logic;
+    std::shared_ptr<Song> song;
+	   std::shared_ptr<MinigameLogic> logic;
     std::shared_ptr<MinigameView> view;
     std::shared_ptr<sf::RenderWindow> app = std::make_shared<sf::RenderWindow>(sf::VideoMode(1200, 800, 32), "Quick Quisine", sf::Style::Titlebar | sf::Style::Close);
     std::shared_ptr<Cutscene> cut_scene;
@@ -40,7 +43,7 @@ protected:
     std::shared_ptr<MinigameLogic_4> logic_4;
 
 public:
-    Game();
+    Game(std::shared_ptr<Song> audio);
     bool getActive() { return isActive; }
     void update(const float &deltaTime);
     void checkEvent(const float& deltaTime);
@@ -54,5 +57,6 @@ public:
     void mainMenuEventHandler(const float &deltaTime, sf::Event event);
 
     void endRound();
+    void calcRoundRank ();
 };
 #endif

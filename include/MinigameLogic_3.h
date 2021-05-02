@@ -22,6 +22,7 @@ private:
     float knifeSpeed = 3500;
 
     int score = 0;
+    std::string grade;
     int goodTapBoost = 300;
     int almostTapBoost = 150;
     int badTapBoost = -50;
@@ -72,6 +73,10 @@ public:
     void splitBox();
 
     void updateScore(const int &hitOutcome, bool regionCheck);
+
+    std::string gradeMinigame();
+
+    std::string getRank() { return grade;}
 
 	int getScore() { return score; }
 
