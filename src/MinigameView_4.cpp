@@ -9,7 +9,8 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	texture.loadFromFile("../data/art/arrows-spritesheet.png");
 	font.loadFromFile("../data/fonts/orange_kid.ttf");
 
-	chef = sf::Sprite(texture, sf::IntRect(0,514,256,256));
+	chef = sf::Sprite(texture, sf::IntRect());
+	chef_2 = sf::Sprite(texture, sf::IntRect());
 	refrigerator = sf::Sprite(texture, sf::IntRect(0,256,64,64));
 	counter = sf::Sprite(texture, sf::IntRect(0,320,64,64));
 	oven = sf::Sprite(texture, sf::IntRect(0,384,64,64));
@@ -36,7 +37,8 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	counter.setPosition(66, 192);
 	oven.setPosition(66, 64);
 	stove.setPosition(126, 128);
-	chef.setPosition(2, 256);
+	chef.setPosition(66, 256);
+	chef_2.setPosition(322, 256);
 
 	tables.push_back(refrigerator);
 	tables.push_back(counter);
@@ -54,6 +56,8 @@ void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 		tables.at(i).setTextureRect(sf::IntRect(0,i*64+256,64,64));
 		endPoints.at(i).setTextureRect(sf::IntRect(0,i*64,64,64));
 	}
+	chef.setTextureRect(sf::IntRect());
+	chef_2.setTextureRect(sf::IntRect());
 
 	switch(input)
 	{
@@ -63,40 +67,60 @@ void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 			tables.at(3).setTextureRect(sf::IntRect(left,448,64,64));
 			endPoints.at(2).setTextureRect(sf::IntRect(left,2*64,64,64));
 			endPoints.at(3).setTextureRect(sf::IntRect(left,3*64,64,64));
+			chef.setTextureRect(sf::IntRect(256, 256, 256, 256)); //UP
+			chef_2.setTextureRect(sf::IntRect(512, 256, 256, 256)); //RIGHT
 			break;
 		case 5: // Down and Right
 			tables.at(1).setTextureRect(sf::IntRect(left,320,64,64));
 			tables.at(3).setTextureRect(sf::IntRect(left,448,64,64));
 			endPoints.at(1).setTextureRect(sf::IntRect(left,1*64,64,64));
 			endPoints.at(3).setTextureRect(sf::IntRect(left,3*64,64,64));
+			chef.setTextureRect(sf::IntRect(512, 0, 256, 256)); //DOWN
+			chef_2.setTextureRect(sf::IntRect(512, 256, 256, 256)); //RIGHT
 			break;
 		case 6: // Left and Right
 			tables.at(0).setTextureRect(sf::IntRect(left,256,64,64));
 			tables.at(3).setTextureRect(sf::IntRect(left,448,64,64));
 			endPoints.at(0).setTextureRect(sf::IntRect(left,0*64,64,64));
 			endPoints.at(3).setTextureRect(sf::IntRect(left,3*64,64,64));
+			chef.setTextureRect(sf::IntRect(256, 0, 256, 256)); //LEFT
+			chef_2.setTextureRect(sf::IntRect(512, 256, 256, 256)); //RIGHT
 			break;
 		case 7: // Down and Left
 			tables.at(1).setTextureRect(sf::IntRect(left,320,64,64));
 			tables.at(0).setTextureRect(sf::IntRect(left,256,64,64));
 			endPoints.at(1).setTextureRect(sf::IntRect(left,1*64,64,64));
 			endPoints.at(0).setTextureRect(sf::IntRect(left,0*64,64,64));
+			chef.setTextureRect(sf::IntRect(512, 0, 256, 256)); //DOWN
+			chef_2.setTextureRect(sf::IntRect(256, 0, 256, 256)); //LEFT
 			break;
 		case 8: // Down and Up
 			tables.at(1).setTextureRect(sf::IntRect(left,320,64,64));
 			tables.at(2).setTextureRect(sf::IntRect(left,384,64,64));
 			endPoints.at(1).setTextureRect(sf::IntRect(left,1*64,64,64));
 			endPoints.at(2).setTextureRect(sf::IntRect(left,2*64,64,64));
+			chef.setTextureRect(sf::IntRect(512, 0, 256, 256)); //DOWN
+			chef_2.setTextureRect(sf::IntRect(256, 256, 256, 256)); //UP
 			break;
 		case 9: // Left and Up
 			tables.at(0).setTextureRect(sf::IntRect(left,256,64,64));
 			tables.at(2).setTextureRect(sf::IntRect(left,384,64,64));
 			endPoints.at(0).setTextureRect(sf::IntRect(left,0*64,64,64));
 			endPoints.at(2).setTextureRect(sf::IntRect(left,2*64,64,64));
+			chef.setTextureRect(sf::IntRect(256, 0, 256, 256)); //LEFT
+			chef_2.setTextureRect(sf::IntRect(256, 256, 256, 256)); //UP
 			break;
 		default: 
 			tables.at(input).setTextureRect(sf::IntRect(left,256+input*64,64,64));
 			endPoints.at(input).setTextureRect(sf::IntRect(left,input*64,64,64));
+			switch(input)
+			{
+				case 0: chef.setTextureRect(sf::IntRect(256, 0, 256, 256)); break; //LEFT
+				case 1:	chef.setTextureRect(sf::IntRect(512, 0, 256, 256)); break; //DOWN
+				case 2: chef.setTextureRect(sf::IntRect(256, 256, 256, 256)); break; //UP
+				case 3: chef.setTextureRect(sf::IntRect(512, 256, 256, 256)); break; //RIGHT
+				default: break;
+			}
 		break;
 	}
 		score.setString("Score: " + std::to_string(this->miniLogic->getScore()));
@@ -137,6 +161,7 @@ void MinigameView_4::draw()
 		app->draw(tables.at(i));
 	}
 	app->draw(chef);
+	app->draw(chef_2);
 	app->draw(score);
 }
 

@@ -17,6 +17,7 @@ private:
 
 	std::shared_ptr<sf::Sprite> arrow;
 	sf::Sprite chef;
+	sf::Sprite chef_2;
 	sf::Sprite oven;
 	sf::Sprite refrigerator;
 	sf::Sprite counter;
