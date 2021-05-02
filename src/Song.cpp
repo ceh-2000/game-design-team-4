@@ -66,7 +66,7 @@ void Song::setGameStateAudio(int state) {
   if(state > 0 && state < 5) {
     //If no user created songs were found
     if (pathAudio == "") {
-      pathAudio = basicSongs[state];
+      pathAudio = basicSongs[state-1];
       if (!music.openFromFile(AUD_PATH_BASE + basicSongs[state-1]))
         std::cout << "Could not load music." << std::endl;
       music.setVolume(40.0f); // Reduce music to 10%
