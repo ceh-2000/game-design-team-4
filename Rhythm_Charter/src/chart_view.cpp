@@ -6,6 +6,7 @@ Chart_View::Chart_View(std::shared_ptr<Chart_Logic> chart_logic)
 	this->chart_logic = chart_logic;
 	this->music_player = this->chart_logic->getMusic();
 	this->horiz_scrollbar = this->chart_logic->getScrollBar();
+	this->view_panel = this->chart_logic->getViewPanel();
 	this->input_chart = this->chart_logic->getChart();
 
 	this->WINDOW_SIZE = this->chart_logic->getWindowSize();
@@ -71,7 +72,7 @@ void Chart_View::pollInput()
 						case sf::Keyboard::BackSpace: this->input_chart->clearInput(); break;
 
 						case sf::Event::TextEntered:
-							
+
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
 							this->filePath += event.text.unicode;
 							break;
@@ -116,7 +117,7 @@ void Chart_View::pollInput()
 								endPos.x = this->horiz_scrollbar->getBar().getPosition().x;
 							else if (endPos.x > this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x)
 								endPos.x = this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x;
-							this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);	
+							this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);
 						}
 						// else if (this->worldPos == this->endPos)
 						// 	this->input_chart->clearInput();
@@ -154,6 +155,7 @@ void Chart_View::draw()
 void Chart_View::update()
 {
 	this->horiz_scrollbar->autoScroll(this->music_player);
+	this->view_panel->autoScroll(this->music_player);
 	this->text.setString(this->music_player->getText());
 	this->music_player->updateText();
 	pollInput();

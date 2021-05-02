@@ -8,7 +8,7 @@
 /*//////////////////////////
 // Super class for gui objects (button, horizontal scrollbar, input_chart)
 *///////////////////////////
-enum class TYPE { PLAY_BTN, STOP_BTN, CHART_BTN, TEXTFIELD, SCROLLBAR, INPUT_CHART};
+enum class TYPE { PLAY_BTN, STOP_BTN, CHART_BTN, TEXTFIELD, SCROLLBAR, INPUT_CHART, VIEW_PANEL};
 class GUI_Element : std::enable_shared_from_this<GUI_Element>
 {
 private:

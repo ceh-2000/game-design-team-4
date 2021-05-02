@@ -13,6 +13,7 @@ Chart_Logic::Chart_Logic()
 	this->chart_button = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x / 2.0f + 64.0f, this->WINDOW_SIZE.y - 64.0f), sf::Vector2f(32.0f, 32.0f), TYPE::CHART_BTN);
 	this->textField = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x - 64.0f, 16.0f), sf::Vector2f(64.0f, 16.0f), TYPE::TEXTFIELD, -1);
 	this->horiz_scrollbar = std::make_shared<Horizontal_Scrollbar>(sf::Vector2f(16.0f, this->WINDOW_SIZE.y - 120.0f), sf::Vector2f(this->WINDOW_SIZE.x - 32.0f, WINDOW_SIZE.y * 0.02f), TYPE::SCROLLBAR);
+	this->view_panel = std::make_shared<View_Panel>(sf::Vector2f(32.0f, 32.0f), sf::Vector2f(this->WINDOW_SIZE.x - 64.0f, this->WINDOW_SIZE.y - 200.f), sf::Vector2f(16.0f, this->WINDOW_SIZE.y - 120.0f), TYPE::VIEW_PANEL);
 	this->input_chart = std::make_shared<Input_Chart>(this->horiz_scrollbar, this->music_player,TYPE::INPUT_CHART);
 
 	this->buttonList.push_back(this->play_button);
@@ -24,5 +25,6 @@ Chart_Logic::Chart_Logic()
 	this->GUIList.push_back(this->chart_button);
 	this->GUIList.push_back(this->textField);
 	this->GUIList.push_back(this->horiz_scrollbar);
+	this->GUIList.push_back(this->view_panel);
 	this->GUIList.push_back(this->input_chart);
 }
