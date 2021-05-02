@@ -336,7 +336,7 @@ void Game::update(const float &deltaTime) {
 				break;
 			case 4:
 				score += logic_4->getScore();
-				scoreRank.at(round).at(currentGame) = logic_3->gradeMinigame();
+				//scoreRank.at(round).at(currentGame) = logic_3->gradeMinigame();
 				break;
 			default: break;
 		}
