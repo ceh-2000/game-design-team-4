@@ -11,7 +11,9 @@ private:
 	std::shared_ptr<MinigameLogic_3> miniLogic;
 	sf::Texture sushiTexture;
 	sf::Texture cutSushiTexture;
-	sf::Sprite knife;
+	
+	sf::Texture knifeTexture;
+	sf::Sprite knifeSprite;
 	
 	std::vector<sf::RectangleShape> actualCuts;
 	std::vector<sf::RectangleShape> playerCuts;

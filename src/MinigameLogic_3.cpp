@@ -13,7 +13,7 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
                                          sf::Vector2f(-500.0f, -500.0f), time));
     }
 
-    knifePos = sf::Vector2f(600, 600);
+    knifePos = sf::Vector2f(600, 500);
     ingredientDim = sf::Vector2f(150, 75);
 
 
