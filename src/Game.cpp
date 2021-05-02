@@ -127,6 +127,34 @@ void Game::checkEvent(const float &deltaTime) {
     }
 }
 
+void Game::calcRoundRank () {
+	//calculate minigame rank tally
+	int tally = 0;
+	for (std::string grade : scoreRank[round]) {
+		if (grade == "S")
+			tally += 5;
+		else if (grade == "A")
+			tally += 4;
+		else if (grade == "B")
+			tally += 3;
+		else if (grade == "C")
+			tally += 2;
+		else if (grade == "D")
+			tally += 1;
+	}
+	//convert tally to round rank
+	if (tally > 19)
+		roundRank[round] = "S";
+	else if (tally > 18)
+		roundRank[round] = "A";
+	else if (tally > 16)
+		roundRank[round] = "B";
+	else if (tally > 14)
+		roundRank[round] = "C";
+	else if (tally > 12)
+		roundRank[round] = "F";
+}
+
 void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
 	switch (event.type) {
 		case sf::Event::KeyPressed:
@@ -156,6 +184,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							break;
 						case MinigameLogic_2::gameState::ENDING:
 							score += logic_2->getScore();
+							scoreRank.at(round).at(currentGame) = logic_2->gradeMinigame();
 							currentGame++;
 							switchToNewGame();
 							break;
@@ -297,11 +326,21 @@ void Game::update(const float &deltaTime) {
 
 		// Get the score from the game that just finished
 		switch (currentGame) {
-			case 1:	score += logic_1->getScore(); break;
-			case 3: score += logic_3->getScore(); break;
-			case 4: score += logic_4->getScore(); break;
+			case 1:
+				score += logic_1->getScore();
+				scoreRank.at(round).at(currentGame) = logic_1->gradeMinigame();
+				break;
+			case 3:
+				score += logic_3->getScore();
+				scoreRank.at(round).at(currentGame) = logic_3->gradeMinigame();
+				break;
+			case 4:
+				score += logic_4->getScore();
+				scoreRank.at(round).at(currentGame) = logic_3->gradeMinigame();
+				break;
 			default: break;
 		}
+
 		if(currentGame < 5 && currentGame != 2) {
 				currentGame++;
 				switchToNewGame();

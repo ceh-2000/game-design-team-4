@@ -17,6 +17,7 @@ private:
         LEFT, RIGHT, UP, DOWN
     };
     int score = 0;
+    std::string grade;
 
 public:
     MinigameLogic_4(std::shared_ptr<Song> song);
@@ -45,6 +46,10 @@ public:
     std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
 
     void setScore(const int &tapCheck);
+
+    std::string gradeMinigame();
+
+    std::string getRank() { return grade;}
 };
 
 #endif

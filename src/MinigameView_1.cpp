@@ -79,5 +79,3 @@ void MinigameView_1::update(const float& deltaTime)
     drawScore(this->miniLogic->getScore());
     drawStatic();
 }
-
-

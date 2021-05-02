@@ -14,6 +14,8 @@
 class Game
 {
 protected:
+    std::vector<std::vector<std::string>> scoreRank = {{" "," "," "," "},{" "," "," "," "},{" "," "," "," "},{" "," "," "," "}};
+    std::vector<std::string> roundRank = {" "," "," "," "};
     int score = 0;
     int round = 0;
     int currentGame = 6;
@@ -55,5 +57,6 @@ public:
     void mainMenuEventHandler(const float &deltaTime, sf::Event event);
 
     void endRound();
+    void calcRoundRank ();
 };
 #endif
