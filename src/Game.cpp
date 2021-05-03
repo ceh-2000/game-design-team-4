@@ -155,8 +155,14 @@ void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
 	switch (event.type) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
-				case sf::Keyboard::Left: logic_1->reactTap(logic->tapCheck(), false); break;
-				case sf::Keyboard::Right: logic_1->reactTap(logic->tapCheck(), true); break;
+				case sf::Keyboard::Left:
+                    logic_1->reactTap(logic->tapCheck(), false);
+                    view_1->animatePostHit(logic->tapCheck(), round, deltaTime);
+                    break;
+				case sf::Keyboard::Right:
+                    logic_1->reactTap(logic->tapCheck(), true);
+                    view_1->animatePostHit(logic->tapCheck(), round, deltaTime);
+                    break;
 				default: break;
 			}
 		break;
