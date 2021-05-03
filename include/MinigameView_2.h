@@ -3,12 +3,15 @@
 #define MINIGAME_VIEW_2
 #include "MinigameView.h"
 #include "MinigameLogic_2.h"
+#include "Animation.h"
 class MinigameView_2
 {
 private:
     std::shared_ptr<sf::RenderWindow> app;
     std::shared_ptr<MinigameLogic_2> miniLogic;
 
+    sf::Texture knifeTexture;
+  	sf::Sprite knifeSprite;
     //Test Shapes
     sf::CircleShape cPizza;
     sf::Texture pizzaTexture;

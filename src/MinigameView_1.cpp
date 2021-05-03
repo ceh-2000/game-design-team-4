@@ -1,4 +1,5 @@
 #include "MinigameView_1.h"
+#include "Animation.h"
 
 MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::shared_ptr<sf::RenderWindow> app)
 {
@@ -23,6 +24,20 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
     this->scoreText.setFillColor(sf::Color::Red);
+
+
+    //set up satsana animation
+    if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
+        std::cout << "Could not load Satsana sprite sheet." << std::endl;
+    }
+    satsanaSprite.setTexture(satsanaTexture);
+    satsanaSprite.setPosition(10,680);
+
+    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+    outcome.setFont(font);
+    outcome.setCharacterSize(48);
+    outcome.setFillColor(sf::Color::White);
+    outcome.setPosition(sf::Vector2f(115, 680));
 }
 
 void MinigameView_1::drawBowl()
@@ -78,4 +93,12 @@ void MinigameView_1::update(const float& deltaTime)
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
     drawScore(this->miniLogic->getScore());
     drawStatic();
+    satsanaAnimation->animate(outcome, deltaTime, app);
+}
+
+void MinigameView_1::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
+
+    outcome.setString(outcomes[round][hitOutcome]);
+    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+
 }

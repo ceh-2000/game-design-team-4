@@ -4,6 +4,7 @@
 
 #include "MinigameView.h"
 #include "MinigameLogic_1.h"
+#include "Animation.h"
 #include<string>
 
 class MinigameView_1 {
@@ -18,6 +19,16 @@ private:
 
     sf::CircleShape circle = sf::CircleShape(100.0f);
 
+    sf::Text outcome;
+    sf::Texture satsanaTexture;
+	sf::Sprite satsanaSprite;
+    std::shared_ptr<Animation> satsanaAnimation;
+
+    std::string outcomes[4][4] = {{"Try again!", "Perfect!", "Almost!", "Try again!"},
+							{"Are you doing that right?", "Looks great!", "Not too bad.", "Are you doing that right?"},
+							{"My readers will hear about this!", "Textbook!", "Interesting way of doing that...", "My readers will hear about this!"},
+							{"This is a disaster!", "Amazing!", "I could do better!", "This is a disaster!"}};
+
 public:
     MinigameView_1(std::shared_ptr<MinigameLogic_1> MinigameLogic_1, std::shared_ptr<sf::RenderWindow> app);
 
@@ -30,6 +41,8 @@ public:
     void update(const float &deltaTime);
 
     void drawScore(int score);
+
+    void animatePostHit(const int& hitOutcome, int round, const float& deltaTime);
 };
 
 #endif

@@ -198,6 +198,7 @@ std::string MinigameLogic_1::gradeMinigame() {
   } else if (grade > 60) {
     letter_grade = "D";
   }
+  else letter_grade = "F";
   this->grade = letter_grade;
   return this->grade;
 }
