@@ -13,7 +13,10 @@ private:
 
     sf::Font font;
     sf::Text scoreText;
+    std::string dialogueStr;
     int score = 0;
+    int dialogueStrIter = 0;
+    float elapsedTime = 0;
 
     sf::Texture mcTexture;
     sf::Texture backgroundTexture;
@@ -26,7 +29,6 @@ private:
     sf::Sprite otherCharacter;
     sf::Sprite letterScore;
     
-    sf::RectangleShape dialogueBoxRect;
 public:
     Cutscene(std::shared_ptr<sf::RenderWindow> app);
     void draw();

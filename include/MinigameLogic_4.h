@@ -15,18 +15,23 @@ private:
     std::vector<float> timings;
     int score = 0;
     int totalScore = 0;
+    int totalScoreIter = 0;
     std::string grade;
 
 public:
     MinigameLogic_4(std::shared_ptr<Song> song);
 
-    std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
+    std::vector<BeatBoxLogic> &getBeatBoxes() { return beatBoxes; }
 
     void updateBeatBoxes(const float &deltaTime);
+
+    void addTotalScore(int i) { totalScoreIter+=i; } 
     
     void setTotalScore(int s) { totalScore+=s; }
 
-    int getScore() { return score; }
+    void setScore(const int &tapCheck);
+
+    int &getScore() { return score; }
 
     sf::Vector2f getChefDim() { return chefDim; }
 
@@ -39,13 +44,11 @@ public:
 
     void setChefDim(float &a, float &b) { chefPosition = sf::Vector2f(a, b); }
 
-    float getChefSpeed() { return chefSpeed; }
+    float &getChefSpeed() { return chefSpeed; }
 
     void setChefSpeed(float s) { chefSpeed = s; }
 
     std::vector<std::vector<float>> getArrowKeys() { return arrowKeys; }
-
-    void setScore(const int &tapCheck);
 
     std::string gradeMinigame();
 

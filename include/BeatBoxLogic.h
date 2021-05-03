@@ -18,17 +18,17 @@ public:
     BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f postHitPos, sf::Vector2f velocity, float songTimeHit);
 
     // Getters, setters, and short methods
-    sf::Vector2f getStartPos() { return startPos; }
+    sf::Vector2f &getStartPos() { return startPos; }
 
-    sf::Vector2f getEndPos() { return endPos; }
+    sf::Vector2f &getEndPos() { return endPos; }
 
-    sf::Vector2f getPostHitPos() { return postHitPos; }
+    sf::Vector2f &getPostHitPos() { return postHitPos; }
 
-    sf::Vector2f getCurPos() { return curPos; }
+    sf::Vector2f &getCurPos() { return curPos; }
 
-    sf::Vector2f getVelocity() { return velocity; }
+    sf::Vector2f &getVelocity() { return velocity; }
 
-    float getSongTime() { return songTimeHit; }
+    float &getSongTime() { return songTimeHit; }
 
     void setCurPos(sf::Vector2f cPos) { curPos = cPos; }
 
