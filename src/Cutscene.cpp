@@ -4,11 +4,15 @@ Cutscene::Cutscene(std::shared_ptr<sf::RenderWindow> app)
 {
 	this->app = app;
 
-	if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
-		std::cout << "Could not load orange_kid.ttf." << std::endl;
-	}
+	font.loadFromFile("../data/fonts/orange_kid.ttf");
 	this->scoreText = sf::Text("",font, 50);
 	this->scoreText.setFillColor(sf::Color::White);
+
+	satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
+	satsanaSprite.setTexture(satsanaTexture);
+    satsanaSprite.setPosition(0, 640);
+
+    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, true);
 }
 
 void Cutscene::draw()
@@ -19,7 +23,6 @@ void Cutscene::draw()
 	this->app->draw(otherCharacter);
 	this->app->draw(dialogueBox);
 	this->app->draw(scoreText);
-	this->app->display();
 }
 
 void Cutscene::update(const float& dt)
@@ -35,6 +38,9 @@ void Cutscene::update(const float& dt)
 		elapsedTime += dt;
 	}
 	draw();
+	satsanaAnimation->animate(dt, app);
+	this->app->display();
+
 }
 
 void Cutscene::selectCutscene(const int& cutSceneNum)
@@ -53,7 +59,7 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		dialogueBox.setTexture(dialogueBoxTexture);
 		otherCharacter.setPosition(800,0);
 		dialogueBox.setPosition(0, 600);
-		scoreText.setPosition(dialogueBox.getPosition().x+50, dialogueBox.getPosition().y+25);
+		scoreText.setPosition(125, 625);
 	break;
 	case 2:
 		backgroundTexture.loadFromFile("");

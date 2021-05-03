@@ -9,8 +9,8 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	texture.loadFromFile("../data/art/arrows-spritesheet.png");
 	font.loadFromFile("../data/fonts/orange_kid.ttf");
 	if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
-        std::cout << "Could not load Satsana sprite sheet." << std::endl;
-    }
+		std::cout << "Could not load Satsana sprite sheet." << std::endl;
+	}
 
 	chef = sf::Sprite(texture, sf::IntRect());
 	chef_2 = sf::Sprite(texture, sf::IntRect());
@@ -21,13 +21,13 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 
 
 	satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(10,680);
+	satsanaSprite.setPosition(10,680);
 
-    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
-    outcome.setFont(font);
-    outcome.setCharacterSize(48);
-    outcome.setFillColor(sf::Color::White);
-    outcome.setPosition(sf::Vector2f(115, 680));
+	satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+	outcome.setFont(font);
+	outcome.setCharacterSize(48);
+	outcome.setFillColor(sf::Color::White);
+	outcome.setPosition(sf::Vector2f(115, 680));
 
 	int count = 0;
 	for(float iter = 0.25f; iter<1.25f; iter+=0.25f)
@@ -197,7 +197,7 @@ void MinigameView_4::update(const float& dt)
 
 void MinigameView_4::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
 
-    outcome.setString(outcomes[round][hitOutcome]);
-    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+	outcome.setString(outcomes[round][hitOutcome]);
+	satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
 
 }

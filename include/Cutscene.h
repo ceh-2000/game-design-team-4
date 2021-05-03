@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 class Cutscene
 {
@@ -28,7 +29,14 @@ private:
     sf::Sprite background;
     sf::Sprite otherCharacter;
     sf::Sprite letterScore;
-    
+
+    sf::Texture satsanaTexture;
+	sf::Sprite satsanaSprite;
+	std::shared_ptr<Animation> satsanaAnimation;
+	std::string outcomes[4][4] = {{"Try again!", "Perfect!", "Almost!", "Try again!"},
+							{"Are you doing that right?", "Looks great!", "Not too bad.", "Are you doing that right?"},
+							{"My readers will hear about this!", "Textbook!", "Interesting way of doing that...", "My readers will hear about this!"},
+							{"This is a disaster!", "Amazing!", "I could do better!", "This is a disaster!"}};    
 public:
     Cutscene(std::shared_ptr<sf::RenderWindow> app);
     void draw();
