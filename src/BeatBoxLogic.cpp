@@ -26,7 +26,6 @@ void BeatBoxLogic::normalizeVelocity() {
     float totalVelocity = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
     velocity.x = totalVelocity * cos(theta);
     velocity.y = totalVelocity * sin(theta);
-
 }
 
 /*

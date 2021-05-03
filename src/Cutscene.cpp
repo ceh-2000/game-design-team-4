@@ -7,31 +7,33 @@ Cutscene::Cutscene(std::shared_ptr<sf::RenderWindow> app)
 	if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
 		std::cout << "Could not load orange_kid.ttf." << std::endl;
 	}
-	this->scoreText.setFont(font);
-	this->scoreText.setCharacterSize(50);
-	this->scoreText.setFillColor(sf::Color::Red);
-
-	dialogueBoxRect.setPosition(50, 1000);
-	dialogueBoxRect.setSize(sf::Vector2f(1100,200));
-	dialogueBoxRect.setFillColor(sf::Color::Black);
-	dialogueBoxRect.setOutlineColor(sf::Color(25,25,25,255));
-	dialogueBoxRect.setOutlineThickness(5);
+	this->scoreText = sf::Text("",font, 50);
+	this->scoreText.setFillColor(sf::Color::White);
 }
 
 void Cutscene::draw()
 {
-	this->app->clear(sf::Color::Black);
+	this->app->clear();
 	this->app->draw(background);
 	this->app->draw(mainCharacter);
 	this->app->draw(otherCharacter);
-	this->app->draw(dialogueBoxRect);
+	this->app->draw(dialogueBox);
 	this->app->draw(scoreText);
 	this->app->display();
 }
 
 void Cutscene::update(const float& dt)
 {
-	this->scoreText.setString("Current score is "+ std::to_string(this->score)+ ".\nPress SPACE BAR to skip.");
+	if(dialogueStrIter < dialogueStr.length()-1)
+	{
+		if(elapsedTime > 0.05f)
+		{
+			this->scoreText.setString(scoreText.getString()+dialogueStr[dialogueStrIter]);
+			dialogueStrIter++;
+			elapsedTime = 0;
+		}
+		elapsedTime += dt;
+	}
 	draw();
 }
 
@@ -43,11 +45,14 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		backgroundTexture.loadFromFile("../data/art/background.png");
 		mcTexture.loadFromFile("../data/art/mc-cutscene.png");
 		otherCharacterTexture.loadFromFile("../data/art/male-chef.png");
-		dialogueBoxTexture.loadFromFile("../data/art/dialogue-box.png");
+		dialogueBoxTexture.loadFromFile("../data/art/dialogueBox.png");
 		background.setTexture(backgroundTexture);
 		mainCharacter.setTexture(mcTexture);
 		otherCharacter.setTexture(otherCharacterTexture);
+		dialogueBox.setTexture(dialogueBoxTexture);
 		otherCharacter.setPosition(800,0);
+		dialogueBox.setPosition(0, 600);
+		scoreText.setPosition(dialogueBox.getPosition().x+50, dialogueBox.getPosition().y+25);
 	break;
 	case 2:
 		backgroundTexture.loadFromFile("");

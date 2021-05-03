@@ -24,9 +24,9 @@ Game::Game(std::shared_ptr<Song> song) {
 }
 
 void Game::switchToNewGame() {
-		elapsedTime = 0;
+	elapsedTime = 0;
 	logic->stopGame();
-		song->setGameStateAudio(this->currentGame);
+	song->setGameStateAudio(this->currentGame);
 	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
 	//Body of loop not needed for second minigame
 	if (currentGame != 2 && currentGame != 5) {
@@ -71,9 +71,7 @@ void Game::checkEvent(const float &deltaTime) {
 	sf::Event event;
 	while (app->pollEvent(event)) {
 		switch (event.type) {
-			case sf::Event::Closed:
-				isActive = false;
-				break; // Exit
+			case sf::Event::Closed:	isActive = false; break; // Exit
 			case sf::Event::KeyPressed:
 				switch (event.key.code) {
 					case sf::Keyboard::Q:
@@ -112,14 +110,14 @@ void Game::checkEvent(const float &deltaTime) {
 						break;
 		}
 
-				switch (currentGame) {
-					case 1:	minigame1EventHandler(deltaTime, event); break;
-					case 2:	minigame2EventHandler(deltaTime, event); break;
-					case 3: minigame3EventHandler(deltaTime, event); break;
-					case 4:	minigame4EventHandler(deltaTime, event); break;
-					case 6:	mainMenuEventHandler(deltaTime, event); break;
-					default: break;
-				}
+		switch (currentGame) {
+			case 1:	minigame1EventHandler(deltaTime, event); break;
+			case 2:	minigame2EventHandler(deltaTime, event); break;
+			case 3: minigame3EventHandler(deltaTime, event); break;
+			case 4:	minigame4EventHandler(deltaTime, event); break;
+			case 6:	mainMenuEventHandler(deltaTime, event); break;
+			default: break;
+		}
 	}
 }
 
@@ -187,6 +185,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 					if(logic_2->getCutAngles().size() == 0) {
 						logic_2->playBeat(*app);
 					}
+					break;
 				default:
 					break;
 			}
@@ -215,15 +214,16 @@ void Game::minigame4EventHandler(const float &deltaTime, sf::Event event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 				case sf::Keyboard::Left:
-				case sf::Keyboard::Right:
-				case sf::Keyboard::Up:
 				case sf::Keyboard::Down:
+				case sf::Keyboard::Up:
+				case sf::Keyboard::Right:
 					view_4->reachInput(multiArrowInput(), logic->tapCheck());
 				break;
 				case sf::Keyboard::Space: break;
 				default: break;
 			}
 		break;
+		default: break;
 	}
 }
 
@@ -232,25 +232,22 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 				case sf::Keyboard::Space:
-				switch(main_menu->chooseSelection()) {
-			 		case 0:
-					 	currentGame = 1;
-					 	switchToNewGame();
-					 	logic->startGame();
-			 			break;
-			 		case 1: case 2:
-				 		main_menu->setCurrentScreen(main_menu->chooseSelection());
-			 			break;
-			 		default: break;
-				}
-				case sf::Keyboard::Up:
-					main_menu->moveUp();
-					break;
-				case sf::Keyboard::Down:
-					main_menu->moveDown();
-					break;
-				default:
-					break;
+					switch(main_menu->chooseSelection()) {
+						case 0:
+							currentGame = 1;
+							switchToNewGame();
+							logic->startGame();
+							break;
+						case 1: 
+						case 2:
+							main_menu->setCurrentScreen(main_menu->chooseSelection());
+							break;
+						default: 
+							break;
+					}
+				case sf::Keyboard::Up: main_menu->moveUp();	break;
+				case sf::Keyboard::Down: main_menu->moveDown();	break;
+				default: break;
 			}
 		break;
 	}
@@ -291,7 +288,7 @@ void Game::endRound() {
 		round++;
 	}
 	// Show the main menu
-	else{
+	else {
 		currentGame = 6;
 		round = 0;
 	}
@@ -323,12 +320,9 @@ void Game::update(const float &deltaTime) {
 				break;
 			default: break;
 		}
-
 		if(currentGame < 5 && currentGame != 2) {
 				currentGame++;
 				switchToNewGame();
-		} else if(currentGame == 5) {
-				endRound();
 		}
 	}
 
