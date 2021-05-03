@@ -34,7 +34,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     satsanaSprite.setTexture(satsanaTexture);
     satsanaSprite.setPosition(10,10);
 
-    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.3, true);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.2, true);
 
     //set up score text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {

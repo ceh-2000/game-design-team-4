@@ -10,7 +10,7 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
                                          sf::Vector2f(500, 400),
                                          sf::Vector2f(1275, 400),
-                                         sf::Vector2f(-500.0f, -500.0f), time));
+                                         sf::Vector2f(-570.0f, -570.0f), time));
     }
 
     knifePos = sf::Vector2f(600, 500);
