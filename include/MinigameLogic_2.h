@@ -26,9 +26,11 @@ private:
     float revTime = 10.0f; //total time call beats played
 
     sf::Vector2f knifePos;
-    float knifeSpeed = 2500;
+    float knifeSpeed = 5000;
+    bool soundPlaying = false;
 
 public:
+
     MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts);
 
     void move(const float &dt);
@@ -39,15 +41,18 @@ public:
 
     std::string getRank() { return grade;}
 
+    //GETTERS AND SETTERS
     float getPRadius() const { return pizzaRadius; }
 
     void setPRadius(float p) { pizzaRadius = p; }
 
+    sf::Vector2f getPosition() { return position; }
     void setPosition(sf::Vector2f v) { position = v; }
 
-    sf::Vector2f getPosition() { return position; }
-
     int getMaxCuts() const { return maxCuts; }
+    void setMaxCuts(int c) { maxCuts = c; }
+
+    bool isSoundPlaying() { return soundPlaying; }
 
     float getPAngle() const { return pizzaAngle; }
 
@@ -59,24 +64,23 @@ public:
 
     void setAngleSpeed(float s) { angleSpeed = s; }
 
+    sf::Vector2f getKnifePos() { return knifePos; }
+    void setKnifePos(sf::Vector2f pos) { knifePos = pos; }
+
+    float getKnifeSpeed() { return knifeSpeed; }
+    void setKnifeSpeed(float ks) { knifeSpeed = ks; }
+
     std::vector<float> getCutAngles() const { return cutAngles; }
 
     void pushBackCutAngle(float angle) { cutAngles.push_back(angle); }
-
-    float calcScore(); //Calculate score
     float getRotTime() { return rotTime; }
 
-    void checkEvent(sf::RenderWindow &app);
+    //GAME OPERATIONS
 
     void update(float deltaTime);
+    float calcScore(); //Calculate score
 
     void pushNewCut();
-
-    sf::Vector2f getKnifePos() { return knifePos; }
-
-    float getKnifeSpeed() { return knifeSpeed; }
-
-    void setKnifePos(sf::Vector2f pos) { knifePos = pos; }
 
     //Song method that retrieves time
     void playBeat(sf::RenderWindow &app);
@@ -86,5 +90,4 @@ public:
     gameState state = PLAYING;
 
 };
-
 #endif

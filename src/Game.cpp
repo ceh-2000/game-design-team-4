@@ -5,10 +5,10 @@ Game::Game(std::shared_ptr<Song> song) {
 		//prevent repeat events when holding down
 		app->setKeyRepeatEnabled(false);
 
-	this->song = song;
+		this->song = song;
 		this->song->setGameStateAudio(this->currentGame);
-	cut_scene = std::make_shared<Cutscene>(app);
-	main_menu = std::make_shared<MainMenu>(app);
+		cut_scene = std::make_shared<Cutscene>(app);
+		main_menu = std::make_shared<MainMenu>(app);
 		logic = std::make_shared<MinigameLogic>(this->song);
 		view = std::make_shared<MinigameView>(logic, app);
 
@@ -66,6 +66,7 @@ void Game::switchToNewGame() {
 /**
 * Event checking for Minigame switching and playing
 **/
+
 void Game::checkEvent(const float &deltaTime) {
 	// Process events
 	sf::Event event;
@@ -153,8 +154,14 @@ void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
 	switch (event.type) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
-				case sf::Keyboard::Left: logic_1->reactTap(logic->tapCheck(), false); break;
-				case sf::Keyboard::Right: logic_1->reactTap(logic->tapCheck(), true); break;
+				case sf::Keyboard::Left:
+                    logic_1->reactTap(logic->tapCheck(), false);
+                    view_1->animatePostHit(logic->tapCheck(), round, deltaTime);
+                    break;
+				case sf::Keyboard::Right:
+                    logic_1->reactTap(logic->tapCheck(), true);
+                    view_1->animatePostHit(logic->tapCheck(), round, deltaTime);
+                    break;
 				default: break;
 			}
 		break;
@@ -172,16 +179,18 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							view_2->cutPizza(deltaTime);
 							break;
 						case MinigameLogic_2::gameState::ENDING:
-							score += logic_2->getScore();
-							scoreRank.at(round).at(currentGame-1) = logic_2->gradeMinigame();
-							currentGame++;
+							if(logic_2->getRank() != "F") {
+								score += logic_2->getScore();
+								scoreRank.at(round).at(currentGame-1) = logic_2->gradeMinigame();
+								currentGame++;
+							}
 							switchToNewGame();
 							break;
 						default:
 							break;
 					}
 					break;
-				case sf::Keyboard::Enter:
+				case sf::Keyboard::Return:
 					if(logic_2->getCutAngles().size() == 0) {
 						logic_2->playBeat(*app);
 					}
@@ -199,8 +208,9 @@ void Game::minigame3EventHandler(const float &deltaTime, sf::Event event) {
 			switch (event.key.code) {
 				case sf::Keyboard::Space:
 					logic->tapCheck();
-					view_3->splitBox(deltaTime);
 					logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
+                    view_3->splitBox(deltaTime);
+                    view_3->animatePostHit(logic->tapCheck(), round, deltaTime);
 					break;
 				default:
 					break;
@@ -218,6 +228,7 @@ void Game::minigame4EventHandler(const float &deltaTime, sf::Event event) {
 				case sf::Keyboard::Up:
 				case sf::Keyboard::Right:
 					view_4->reachInput(multiArrowInput(), logic->tapCheck());
+                    view_4->animatePostHit(logic->tapCheck(), round, deltaTime);
 				break;
 				case sf::Keyboard::Space: break;
 				default: break;
@@ -290,10 +301,10 @@ void Game::endRound() {
 	// Show the main menu
 	else {
 		currentGame = 6;
-		round = 0;
+		//round = 0;
 	}
 }
-
+    // TODO: Otherwise show the main menu
 void Game::update(const float &deltaTime) {
 	// TODO: move this call into the individual view updates
 	app->clear();

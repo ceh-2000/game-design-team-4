@@ -44,10 +44,38 @@ void Animation::animate(const float& dt, std::shared_ptr<sf::RenderWindow> windo
     this->sprite.setTextureRect(textureRect);
 
     if(!this->loop && counter == frames-1){
-        std::cout << "Don't draw";
+        //std::cout << "Don't draw";
     }
     else{
         window->draw(sprite);
     }
+
+}
+
+void Animation::animate(sf::Text& text, const float& dt, std::shared_ptr<sf::RenderWindow> window){
+    this->elapsedDuration += dt;
+
+    while(elapsedDuration > timePerFrame){
+        elapsedDuration -= timePerFrame;
+
+
+        if(!this->loop && counter == frames-1){
+            textureRect.left = 0;
+            break;
+        }
+        else if (counter == frames-1){
+            counter = 0;
+            textureRect.left = 0;
+        }
+        else 
+        {
+            textureRect.left += frameX;
+            counter++;
+        }
+    }
+    
+    this->sprite.setTextureRect(textureRect);
+    window->draw(sprite);
+    window->draw(text);
 
 }

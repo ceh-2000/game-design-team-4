@@ -46,6 +46,7 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		mcTexture.loadFromFile("../data/art/mc-cutscene.png");
 		otherCharacterTexture.loadFromFile("../data/art/male-chef.png");
 		dialogueBoxTexture.loadFromFile("../data/art/dialogueBox.png");
+		dialogueStr = "Current score is "+ std::to_string(this->score)+ ".\nPress [SPACE BAR] to skip.";
 		background.setTexture(backgroundTexture);
 		mainCharacter.setTexture(mcTexture);
 		otherCharacter.setTexture(otherCharacterTexture);

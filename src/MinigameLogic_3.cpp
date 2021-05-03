@@ -10,7 +10,7 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
                                          sf::Vector2f(500, 400),
                                          sf::Vector2f(1275, 400),
-                                         sf::Vector2f(-500.0f, -500.0f), time));
+                                         sf::Vector2f(-570.0f, -570.0f), time));
     }
 
     knifePos = sf::Vector2f(600, 500);
@@ -57,7 +57,7 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
 
             }
 
-            else if(beatBox.getCurPos().x > endPos.x + 100 && !needToSplit){
+            else if(beatBox.getCurPos().x > endPos.x + 200 && !needToSplit){
                 passedBoxes.push_back(BeatBoxLogic(beatBox.getCurPos(),
                                                 beatBox.getPostHitPos(),
                                                 beatBox.getPostHitPos(),
@@ -121,6 +121,7 @@ std::string MinigameLogic_3::gradeMinigame() {
   } else if (grade > 60) {
     letter_grade = "D";
   }
+  else letter_grade = "F";
   this->grade = letter_grade;
   return this->grade;
 }

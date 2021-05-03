@@ -62,7 +62,7 @@ void MainMenu::draw(const float &dt, int screen){
 
     //main menu
     if(screen == 0){
-        this->app->clear(sf::Color::Magenta);
+        this->app->clear(sf::Color(193, 148, 126));
 
         this->app->draw(options[0]);
         this->app->draw(options[1]);
@@ -101,7 +101,7 @@ int MainMenu::chooseSelection(){
 }
 
 void MainMenu::drawOptions(const float& deltaTime){
-    this->app->clear(sf::Color::Magenta);
+    this->app->clear(sf::Color(193, 148, 126));
 
     sf::Text returnBack;
     returnBack.setFont(this->font);
@@ -122,7 +122,7 @@ void MainMenu::drawOptions(const float& deltaTime){
 }
 
 void MainMenu::drawResources(const float& deltaTime){
-    this->app->clear(sf::Color::Magenta);
+    this->app->clear(sf::Color(193, 148, 126));
 
     sf::Text returnBack;
     returnBack.setFont(this->font);

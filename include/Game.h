@@ -42,6 +42,7 @@ protected:
     std::shared_ptr<MinigameLogic_3> logic_3;
     std::shared_ptr<MinigameLogic_4> logic_4;
 
+
 public:
     Game(std::shared_ptr<Song> audio);
     bool getActive() { return isActive; }
