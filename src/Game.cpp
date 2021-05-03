@@ -342,7 +342,7 @@ void Game::update(const float &deltaTime) {
 		case 1:
 			// Sous chef game
 			logic_1->update(deltaTime, logic->regionCheck());
-			view_1->update(deltaTime);
+			view_1->update(deltaTime, this->round);
 			view->draw();
 			break;
 		case 2:

@@ -8,6 +8,7 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     this->circle.setScale(scale, 1);
     this->circle.setPosition(this->miniLogic->getBowlPosition());
 
+    // Load all textures
     if (!appleTexture.loadFromFile("../data/art/apple.png")) {
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
@@ -16,7 +17,20 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
 
-    if (!backgroundTexture.loadFromFile("../data/art/round1_background.jpeg")) {
+    // Load all backgrounds
+    if (!backgroundTexture1.loadFromFile("../data/art/background_round1.jpeg")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture2.loadFromFile("../data/art/background_round2.jpeg")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture3.loadFromFile("../data/art/background_round3.png")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture4.loadFromFile("../data/art/background_round4.jpeg")) {
         std::cout << "Could not load background." << std::endl;
     }
 
@@ -44,10 +58,30 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
 }
 
 
-void MinigameView_1::drawBackground() {
-    sf::RectangleShape background(sf::Vector2f(static_cast<float>(this->app->getSize().x), static_cast<float>(this->app->getSize().y)));
-    const sf::Texture *pBackgroundTexture = &backgroundTexture;
-    background.setTexture(pBackgroundTexture);
+void MinigameView_1::drawBackground(const int &backgroundNum) {
+    sf::RectangleShape background(
+            sf::Vector2f(static_cast<float>(this->app->getSize().x), static_cast<float>(this->app->getSize().y)));
+
+    switch (backgroundNum) {
+        const sf::Texture *pBackgroundTexture;
+        case 0:
+            pBackgroundTexture = &backgroundTexture1;
+            background.setTexture(pBackgroundTexture);
+            break;
+        case 1:
+            pBackgroundTexture = &backgroundTexture2;
+            background.setTexture(pBackgroundTexture);
+            break;
+        case 2:
+            pBackgroundTexture = &backgroundTexture3;
+            background.setTexture(pBackgroundTexture);
+            break;
+        default:
+            pBackgroundTexture = &backgroundTexture4;
+            background.setTexture(pBackgroundTexture);
+            break;
+    }
+
     app->draw(background);
 }
 
@@ -95,10 +129,10 @@ void MinigameView_1::drawScore(int score) {
     app->draw(scoreText);
 }
 
-void MinigameView_1::update(const float &deltaTime) {
+void MinigameView_1::update(const float &deltaTime, const int &round) {
     app->clear(sf::Color(255, 165, 0, 1));
 
-    drawBackground();
+    drawBackground(round);
     drawBowl();
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
     drawScore(this->miniLogic->getScore());
