@@ -12,6 +12,7 @@ private:
     std::shared_ptr<MinigameLogic_1> miniLogic;
     std::shared_ptr<sf::RenderWindow> app;
 
+    sf::Texture backgroundTexture;
     sf::Texture appleTexture;
     sf::Texture mouseTexture;
     sf::Font font;
@@ -43,6 +44,8 @@ public:
     void drawScore(int score);
 
     void animatePostHit(const int& hitOutcome, int round, const float& deltaTime);
+
+    void drawBackground();
 };
 
 #endif
