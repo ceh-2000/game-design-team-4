@@ -39,7 +39,7 @@ private:
     sf::Text background;
     sf::Text finalChefSetting;
 
-    std::array<sf::Text, 3> settingsOptions = {chefName, background, finalChefSetting};
+    std::array<sf::Text, 2> settingsOptions = {chefName, finalChefSetting};
     int optionsSelected = 0;
 
     std::array<sf::String, 3> finalChefs = {sf::String("Guy Fieri"), sf::String("Bobby Flay"), sf::String("Gordon Ramsay")};

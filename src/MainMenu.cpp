@@ -64,14 +64,8 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     settingsOptions[1].setFont(this->font);
     settingsOptions[1].setCharacterSize(48);
     settingsOptions[1].setPosition(20, 350);
-    settingsOptions[1].setString("Select Background:");
+    settingsOptions[1].setString("Select Final Chef: " + finalChef);
     settingsOptions[1].setFillColor(sf::Color::White);
-
-    settingsOptions[2].setFont(this->font);
-    settingsOptions[2].setCharacterSize(48);
-    settingsOptions[2].setPosition(20, 550);
-    settingsOptions[2].setString("Select Final Chef: " + finalChef);
-    settingsOptions[2].setFillColor(sf::Color::White);
 
 
     this->gameTitle.setFont(this->font);
@@ -123,7 +117,7 @@ void MainMenu::moveDown(){
         }
     }
     else if(currentScreen == 1){
-        if(optionsSelected < 2){
+        if(optionsSelected < 1){
             settingsOptions[optionsSelected].setFillColor(sf::Color::White);
             optionsSelected += 1;
             settingsOptions[optionsSelected].setFillColor(sf::Color::Green);
@@ -149,7 +143,7 @@ void MainMenu::moveUp(){
 }
 
 void MainMenu::selectLeft(){
-    if(currentScreen == 1 && optionsSelected == 2){
+    if(currentScreen == 1 && optionsSelected == 1){
         if(chefSelected > 0){
             chefSelected -= 1;
             finalChef = finalChefs[chefSelected];
@@ -158,7 +152,7 @@ void MainMenu::selectLeft(){
 }
 
 void MainMenu::selectRight(){
-    if(currentScreen == 1 && optionsSelected == 2){
+    if(currentScreen == 1 && optionsSelected == 1){
         if(chefSelected < 2){
             chefSelected += 1;
             finalChef = finalChefs[chefSelected];
@@ -177,9 +171,8 @@ void MainMenu::drawOptions(const float& deltaTime){
     this->app->draw(settingsTitle);
     settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
     this->app->draw(settingsOptions[0]);
+    settingsOptions[1].setString("Select Final Chef: " + finalChef);
     this->app->draw(settingsOptions[1]);
-    settingsOptions[2].setString("Select Final Chef: " + finalChef);
-    this->app->draw(settingsOptions[2]);
 
     this->app->display();
 }
