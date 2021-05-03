@@ -21,15 +21,15 @@ MinigameLogic_4::MinigameLogic_4(std::shared_ptr<Song> song) {
 	}
 }
 
-void MinigameLogic_4::updateBeatBoxes(const float &deltaTime) 
+void MinigameLogic_4::updateBeatBoxes(const float &deltaTime)
 {
 	float curSongTime = song->getSongTime();
 	std::vector<BeatBoxLogic> temp;
 	int count = 0;
-	for (BeatBoxLogic beatBox : beatBoxes) 
+	for (BeatBoxLogic beatBox : beatBoxes)
 	{
 		bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
-		if (canWeMakeIt == false) 
+		if (canWeMakeIt == false)
 		{
 			std::cout << "Beat box #: " << count
 					  << " can't make it in time :(. Consider increasing the speed of the boxes or adjusting another parameter."
@@ -47,4 +47,25 @@ void MinigameLogic_4::setScore(const int &tapCheck) {
 		case 2:	this->score += 20; break; //almost
 		case 1:	this->score += 40; break; //perfect!
 	}
+}
+
+std::string MinigameLogic_4::gradeMinigame() {
+  //Calculate grade = score/maxScore * 100
+	int grade = score/totalScore * 100;
+	std::cout << grade << std::endl;
+  std::string letter_grade = " ";
+  if(grade > 95 ) {
+    letter_grade = "S";
+  } else if (grade > 90) {
+    letter_grade = "A";
+  } else if (grade > 80) {
+    letter_grade = "B";
+  } else if (grade > 70) {
+    letter_grade = "C";
+  } else if (grade > 60) {
+    letter_grade = "D";
+  }
+  else letter_grade = "F";
+  this->grade = letter_grade;
+  return this->grade;
 }

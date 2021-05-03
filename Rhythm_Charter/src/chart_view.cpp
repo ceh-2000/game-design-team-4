@@ -36,16 +36,16 @@ void Chart_View::pollInput()
 					break;
 
 				case sf::Event::KeyPressed:
-
 					switch(event.key.code)
 					{
 						case sf::Keyboard::LControl:
 						case sf::Keyboard::RControl:
 							if(sf::Keyboard::S)	this->input_chart->saveJSON();
+							// if(sf::Keyboard::L) this->input_chart->loadJSON();
 							// if(sf::Keyboard::O) open();
 							// if(sf::Keyboard::Z) undo();
 							// if(sf::Keyboard::Y) redo();
-							if(sf::Keyboard::A) this->input_chart->selectAll();
+							// if(sf::Keyboard::A) this->input_chart->selectAll();
 						break;
 
 						case sf::Keyboard::Q:
@@ -67,11 +67,8 @@ void Chart_View::pollInput()
 
 						case sf::Keyboard::C: this->chart_music(); break;
 
-						case sf::Keyboard::L: // this->input_chart->importInput();
-						break;
 						case sf::Keyboard::Delete: this->input_chart->delInput(); break;
 						case sf::Keyboard::BackSpace: this->input_chart->clearInput(); break;
-						
 
 						case sf::Event::TextEntered:
 							

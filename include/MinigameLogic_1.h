@@ -10,6 +10,7 @@ private:
     std::shared_ptr<Song> song;
     sf::Vector2f windowSize;
     int score = 0;
+    std::string grade;
     int goodTapBoost = 300;
     int almostTapBoost = 150;
     int badTapBoost = -50;
@@ -43,6 +44,10 @@ public:
     int getScore() { return score; }
 
     sf::Vector2f getBowlSize() { return bowlSize; }
+
+    std::string gradeMinigame();
+
+    std::string getRank() { return grade;}
 
     sf::Vector2f getBowlPosition() { return bowlPosition; }
 
