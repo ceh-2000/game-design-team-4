@@ -260,6 +260,12 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 					}
 				case sf::Keyboard::Up: main_menu->moveUp();	break;
 				case sf::Keyboard::Down: main_menu->moveDown();	break;
+                case sf::Keyboard::Right:
+                    main_menu->selectRight();
+                    break;
+                case sf::Keyboard::Left:
+                    main_menu->selectLeft();
+                    break;
 				default: break;
 			}
 		break;

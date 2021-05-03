@@ -7,6 +7,7 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
 
     selectedItemIndex = 0;
     chefNameString= "";
+    finalChef = finalChefs[0];
 
     this->startGamePos = sf::Vector2f(20, 250);
     this->settingsPos = sf::Vector2f(20, 450);
@@ -69,7 +70,7 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     settingsOptions[2].setFont(this->font);
     settingsOptions[2].setCharacterSize(48);
     settingsOptions[2].setPosition(20, 550);
-    settingsOptions[2].setString("Select Final Chef:");
+    settingsOptions[2].setString("Select Final Chef: " + finalChef);
     settingsOptions[2].setFillColor(sf::Color::White);
 
 
@@ -83,8 +84,6 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->logoSprite.setTexture(this->gameLogo);
     this->logoSprite.setPosition(gameLogoPos);
     this->logoSprite.setScale(sf::Vector2f(2.0, 2.0));
-
-    //options = {this->startGame, this->settings, this->resources};
 
     
 }
@@ -135,9 +134,9 @@ void MainMenu::moveDown(){
 void MainMenu::moveUp(){
     if(currentScreen == 0){
         if(selectedItemIndex > 0){
-            options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
+            options[selectedItemIndex].setFillColor(sf::Color::White);
             selectedItemIndex -= 1;
-            options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+            options[selectedItemIndex].setFillColor(sf::Color::Green);
         }
     }
     else if(currentScreen == 1){
@@ -145,6 +144,24 @@ void MainMenu::moveUp(){
             settingsOptions[optionsSelected].setFillColor(sf::Color::White);
             optionsSelected -= 1;
             settingsOptions[optionsSelected].setFillColor(sf::Color::Green);
+        }
+    }
+}
+
+void MainMenu::selectLeft(){
+    if(currentScreen == 1 && optionsSelected == 2){
+        if(chefSelected > 0){
+            chefSelected -= 1;
+            finalChef = finalChefs[chefSelected];
+        }
+    }
+}
+
+void MainMenu::selectRight(){
+    if(currentScreen == 1 && optionsSelected == 2){
+        if(chefSelected < 2){
+            chefSelected += 1;
+            finalChef = finalChefs[chefSelected];
         }
     }
 }
@@ -161,6 +178,7 @@ void MainMenu::drawOptions(const float& deltaTime){
     settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
     this->app->draw(settingsOptions[0]);
     this->app->draw(settingsOptions[1]);
+    settingsOptions[2].setString("Select Final Chef: " + finalChef);
     this->app->draw(settingsOptions[2]);
 
     this->app->display();
@@ -203,7 +221,7 @@ void MainMenu::drawResources(const float& deltaTime){
 }
 
 void MainMenu::addTextToName(sf::String newInput){
-    if(chefNameString.getSize() < 10){
+    if(chefNameString.getSize() < 20){
         chefNameString += newInput;
         settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
     }

@@ -37,10 +37,14 @@ private:
     sf::String chefNameString;
     sf::Text chefName;
     sf::Text background;
-    sf::Text finalChef;
+    sf::Text finalChefSetting;
 
-    std::array<sf::Text, 3> settingsOptions = {chefName, background, finalChef};
+    std::array<sf::Text, 3> settingsOptions = {chefName, background, finalChefSetting};
     int optionsSelected = 0;
+
+    std::array<sf::String, 3> finalChefs = {sf::String("Guy Fieri"), sf::String("Bobby Flay"), sf::String("Gordon Ramsay")};
+    int chefSelected;
+    sf::String finalChef;
 
 public:
     MainMenu(std::shared_ptr<sf::RenderWindow> app);
@@ -71,6 +75,11 @@ public:
 
     sf::String getUserChefName(){ return chefNameString; }
     void setUserChefName(sf::String newName){ chefNameString = newName;}
+
+    void selectLeft();
+    void selectRight();
+
+    sf::String getFinalChef(){ return finalChef; }
 };
 
 #endif //CSCI437_MAINMENU_H
