@@ -222,10 +222,14 @@ void Game::minigame4EventHandler(const float &deltaTime, sf::Event event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 				case sf::Keyboard::Left:
+                    view_4->animatePostHit(logic->tapCheck(), round, deltaTime);
 				case sf::Keyboard::Right:
+                    view_4->animatePostHit(logic->tapCheck(), round, deltaTime);
 				case sf::Keyboard::Up:
+                    view_4->animatePostHit(logic->tapCheck(), round, deltaTime);
 				case sf::Keyboard::Down:
 					view_4->reachInput(multiArrowInput(), logic->tapCheck());
+                    view_4->animatePostHit(logic->tapCheck(), round, deltaTime);
 				break;
 				case sf::Keyboard::Space: break;
 				default: break;
