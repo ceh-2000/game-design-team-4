@@ -36,18 +36,6 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
     knifeBox.setPosition(MinigameLogic_2->getPosition());
     knifeBox.setFillColor(sf::Color::Black);
 
-    //set up satsana animation
-    if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
-        std::cout << "Could not load Satsana sprite sheet." << std::endl;
-    }
-    satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(10,680);
-
-    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
-    outcome.setFont(font);
-    outcome.setCharacterSize(48);
-    outcome.setFillColor(sf::Color::White);
-    outcome.setPosition(sf::Vector2f(115, 680));
 }
 
 void MinigameView_2::draw()
@@ -119,7 +107,7 @@ void MinigameView_2::draw()
 
 void MinigameView_2::update(const float& deltaTime)
 {
-    //app->clear();
+    app->clear();
     std::vector<float> cutAngles = miniLogic->getCutAngles();
     //if we need to move up
     if(cutAngles.size() < miniLogic->getMaxCuts() && miniLogic->getPAngle() < 2 * PI)
@@ -145,14 +133,5 @@ void MinigameView_2::update(const float& deltaTime)
             }
         }
     }
-    
-    satsanaAnimation->animate(outcome, deltaTime, app);
     draw();
-}
-
-void MinigameView_2::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
-    
-    outcome.setString(outcomes[round][hitOutcome]);
-    satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
-
 }

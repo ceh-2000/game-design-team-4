@@ -24,22 +24,11 @@ private:
 
     bool move = false;
 
-    sf::Texture satsanaTexture;
-	sf::Sprite satsanaSprite;
-    std::shared_ptr<Animation> satsanaAnimation;
-    sf::Text outcome;
-
-	std::string outcomes[4][4] = {{"Try again!", "Perfect!", "Almost!", "Try again!"},
-							{"Are you doing that right?", "Looks great!", "Not too bad.", "Are you doing that right?"},
-							{"My readers will hear about this!", "Textbook!", "Interesting way of doing that...", "My readers will hear about this!"},
-							{"This is a disaster!", "Amazing!", "I could do better!", "This is a disaster!"}};
-
 public:
     MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2, std::shared_ptr<sf::RenderWindow> app);
     void draw();
     void update(const float& deltaTime);
     void cutPizza(const float& deltaTime) { move = true; };
-    void animatePostHit(const int& hitOutcome, int round, const float& deltaTime);
 };
 
 #endif
