@@ -14,12 +14,17 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->resourcesPos = sf::Vector2f(20, 650);
     this->gameTitlePos = sf::Vector2f(335, 30);
     this->gameLogoPos = sf::Vector2f(400, 250);
+    this->conceptArtPos = sf::Vector2f(600, 275);
 
     if (!this->font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
 
     if (!this->gameLogo.loadFromFile("../data/art/game-logo.png")) {
+        std::cout << "Could not load game-logo.png" << std::endl;
+    }
+
+    if (!this->conceptArt.loadFromFile("../data/art/concept_art.png")) {
         std::cout << "Could not load game-logo.png" << std::endl;
     }
 
@@ -78,6 +83,10 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->logoSprite.setTexture(this->gameLogo);
     this->logoSprite.setPosition(gameLogoPos);
     this->logoSprite.setScale(sf::Vector2f(2.0, 2.0));
+
+    this->conceptArtSprite.setTexture(this->conceptArt);
+    this->conceptArtSprite.setPosition(conceptArtPos);
+    this->conceptArtSprite.setScale(sf::Vector2f(.5, .5));
 
     
 }
@@ -173,6 +182,7 @@ void MainMenu::drawOptions(const float& deltaTime){
     this->app->draw(settingsOptions[0]);
     settingsOptions[1].setString("Select Final Chef: " + finalChef);
     this->app->draw(settingsOptions[1]);
+    this->app->draw(conceptArtSprite);
 
     this->app->display();
 }

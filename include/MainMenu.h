@@ -12,6 +12,9 @@ private:
     sf::Font font;
     sf::Font font1;
 
+    sf::Texture conceptArt;
+    sf::Sprite conceptArtSprite;
+
     sf::Text startGame;
     sf::Text settings;
     sf::Text gameTitle;
@@ -24,6 +27,7 @@ private:
     sf::Vector2f gameTitlePos;
     sf::Vector2f resourcesPos;
     sf::Vector2f gameLogoPos;
+    sf::Vector2f conceptArtPos;
 
     sf::Texture gameLogo;
     sf::Sprite logoSprite;
@@ -36,7 +40,6 @@ private:
 
     sf::String chefNameString;
     sf::Text chefName;
-    sf::Text background;
     sf::Text finalChefSetting;
 
     std::array<sf::Text, 2> settingsOptions = {chefName, finalChefSetting};
