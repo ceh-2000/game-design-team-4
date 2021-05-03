@@ -122,6 +122,8 @@ void MinigameView_4::updateBeatBoxes(std::vector<BeatBoxLogic> beatBoxes)
 			arrow->setTextureRect(arrowTextureRect);
 			app->draw(*arrow);
 		}
+		else if(arrow->getPosition().y == 34.0f)
+			this->miniLogic->setTotalScore(50);
 	}
 }
 

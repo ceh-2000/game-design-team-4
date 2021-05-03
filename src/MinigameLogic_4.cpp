@@ -51,7 +51,8 @@ void MinigameLogic_4::setScore(const int &tapCheck) {
 
 std::string MinigameLogic_4::gradeMinigame() {
   //Calculate grade = score/maxScore * 100
-	int grade = 0;
+	int grade = score/totalScore * 100;
+	std::cout << grade << std::endl;
   std::string letter_grade = " ";
   if(grade > 95 ) {
     letter_grade = "S";
@@ -64,6 +65,7 @@ std::string MinigameLogic_4::gradeMinigame() {
   } else if (grade > 60) {
     letter_grade = "D";
   }
+  else letter_grade = "F";
   this->grade = letter_grade;
   return this->grade;
 }

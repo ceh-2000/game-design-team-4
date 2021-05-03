@@ -13,10 +13,8 @@ private:
     std::vector<std::vector<float>> arrowKeys;
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<float> timings;
-    enum ARROWS {
-        LEFT, RIGHT, UP, DOWN
-    };
     int score = 0;
+    int totalScore = 0;
     std::string grade;
 
 public:
@@ -25,6 +23,8 @@ public:
     std::vector<BeatBoxLogic> getBeatBoxes() { return beatBoxes; }
 
     void updateBeatBoxes(const float &deltaTime);
+    
+    void setTotalScore(int s) { totalScore+=s; }
 
     int getScore() { return score; }
 
