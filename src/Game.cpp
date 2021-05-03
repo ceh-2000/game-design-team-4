@@ -5,10 +5,10 @@ Game::Game(std::shared_ptr<Song> song) {
 		//prevent repeat events when holding down
 		app->setKeyRepeatEnabled(false);
 
-	this->song = song;
+		this->song = song;
 		this->song->setGameStateAudio(this->currentGame);
-	cut_scene = std::make_shared<Cutscene>(app);
-	main_menu = std::make_shared<MainMenu>(app);
+		cut_scene = std::make_shared<Cutscene>(app);
+		main_menu = std::make_shared<MainMenu>(app);
 		logic = std::make_shared<MinigameLogic>(this->song);
 		view = std::make_shared<MinigameView>(logic, app);
 
@@ -66,6 +66,7 @@ void Game::switchToNewGame() {
 /**
 * Event checking for Minigame switching and playing
 **/
+
 void Game::checkEvent(const float &deltaTime) {
 	// Process events
 	sf::Event event;
@@ -180,9 +181,11 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							view_2->cutPizza(deltaTime);
 							break;
 						case MinigameLogic_2::gameState::ENDING:
-							score += logic_2->getScore();
-							scoreRank.at(round).at(currentGame-1) = logic_2->gradeMinigame();
-							currentGame++;
+							if(logic_2->getRank() != "F") {
+								score += logic_2->getScore();
+								scoreRank.at(round).at(currentGame-1) = logic_2->gradeMinigame();
+								currentGame++;
+							}
 							switchToNewGame();
 							break;
 						default:
@@ -304,10 +307,10 @@ void Game::endRound() {
 	// Show the main menu
 	else{
 		currentGame = 6;
-		round = 0;
+		//round = 0;
 	}
 }
-
+    // TODO: Otherwise show the main menu
 void Game::update(const float &deltaTime) {
 	// TODO: move this call into the individual view updates
 	app->clear();

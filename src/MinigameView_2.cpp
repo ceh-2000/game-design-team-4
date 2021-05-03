@@ -12,48 +12,53 @@ MinigameView_2::MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2,
         std::cout << "Could not load pizza sprite." << std::endl;
     }
 
-    //load in the font for result text
-    if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
-        std::cout << "Could not load orange_kid.ttf." << std::endl;
-    }
     //Instantiate pizza object
     cPizza.setTexture(&pizzaTexture, true);
     cPizza.setRadius(MinigameLogic_2->getPRadius());
     cPizza.setOrigin(MinigameLogic_2->getPRadius(), MinigameLogic_2->getPRadius());
     cPizza.setPosition(MinigameLogic_2->getPosition());
-    cPizza.setFillColor(sf::Color(255.f,165.f,0.0f));
+
+    //retrieve knife sprite
+    if(!knifeTexture.loadFromFile("../data/art/knife.png")){
+        std::cout << "Could not load knife texture." << std::endl;
+    }
+    //Instantiate knife object
+    knifeSprite.setTexture(knifeTexture);
+    knifeSprite.setTextureRect(sf::IntRect(0, 0, 28, 390));
+    knifeSprite.setScale(sf::Vector2f(1.5, 1.3));
+    knifeSprite.setPosition(this->miniLogic->getKnifePos());
+    knifeSprite.setRotation(270);
+    //load in the font for result text
+    if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
+        std::cout << "Could not load orange_kid.ttf." << std::endl;
+    }
 
     //Build baseCutShape, default angle is 0
-    baseCut.setFillColor(sf::Color::Red);
-    baseCut.setSize(sf::Vector2f(1.25f * MinigameLogic_2->getPRadius(), 1.0f));
+    baseCut.setFillColor(sf::Color::Black);
+    baseCut.setSize(sf::Vector2f(1.25f * MinigameLogic_2->getPRadius(), 2.0f));
     baseCut.setOrigin(0.0f, 1.0f/2.f);
     baseCut.setPosition(MinigameLogic_2->getPosition()); //set position
-
-    //load knife texture
-    knifeBox.setSize(sf::Vector2f(200, 25));
-    //knifeBox.setTexture(this->knife.getTexture());
-    //knifeBox.setOrigin(knifeBox.getSize()/2.f);
-    knifeBox.setPosition(MinigameLogic_2->getPosition());
-    knifeBox.setFillColor(sf::Color::Black);
 
 }
 
 void MinigameView_2::draw()
 {
-  app->clear(sf::Color::Blue);
+  app->clear(sf::Color(193, 148, 126));
 
   //DRAW CUTS REMAINING TEXT
   sf::Text cutText;
   cutText.setFont(font);
   cutText.setCharacterSize(50);
-  cutText.setFillColor(sf::Color::Red);
+  cutText.setFillColor(sf::Color::Black);
   cutText.setString("REMAINING CUTS: \n" + std::to_string(miniLogic->getMaxCuts() - playerCuts.size()));
   app->draw(cutText);
+
   // DRAW THE PIZZA
   app->draw(cPizza);
+
   // DRAW THE KNIFE
-  knifeBox.setPosition(miniLogic->getKnifePos());
-  app->draw(knifeBox);
+  knifeSprite.setPosition(miniLogic->getKnifePos());
+  app->draw(knifeSprite);
 
   //DRAWING THE CUTS
   std::vector<float> cutAngles = miniLogic->getCutAngles();
@@ -75,17 +80,32 @@ void MinigameView_2::draw()
       }
       app->draw(cut);
   }
+  //DrAW POST GAME
   if(miniLogic->state == MinigameLogic_2::gameState::ENDING) {
     sf::Text scoreText;
     scoreText.setFont(font);
-    scoreText.setCharacterSize(50);
-    scoreText.setFillColor(sf::Color::Red);
-    scoreText.setString("SCORE:  " + std::to_string(miniLogic->getScore()) + "  RANK:  " + miniLogic->getRank());
-    scoreText.setPosition(550,650);
+    scoreText.setCharacterSize(75);
+    scoreText.setFillColor(sf::Color::Black);
+    scoreText.setPosition(100,300);
 
+    std::string scoreMsg = "SCORE:  " + std::to_string(miniLogic->getScore());
+    scoreText.setString(scoreMsg);
     app->draw(scoreText);
-    scoreText.setString("Press Spacebar to continue");
-    scoreText.setPosition(550,700);
+
+    if(miniLogic->getRank() != "F")
+      scoreMsg = "  RANK:  " + miniLogic->getRank();
+    else
+      scoreMsg = " You failed";
+
+    scoreText.setPosition(100, 400);
+    scoreText.setString(scoreMsg);
+    app->draw(scoreText);
+
+    if(miniLogic->getRank() != "F")
+      scoreText.setString("Press Spacebar to continue");
+    else
+      scoreText.setString("Press Spacebar to try again");
+    scoreText.setPosition(250,600);
     app->draw(scoreText);
   }
 
@@ -93,7 +113,7 @@ void MinigameView_2::draw()
     sf::Text startText;
     startText.setFont(font);
     startText.setCharacterSize(50);
-    startText.setFillColor(sf::Color::Red);
+    startText.setFillColor(sf::Color::Black);
     startText.setString("Listen to the following beat. After listening,\n hit space to begin cutting\n or Enter to replay the beat.");
     startText.setPosition(500,0);
     app->draw(startText);
@@ -104,7 +124,6 @@ void MinigameView_2::draw()
   sf::sleep(time);
   if(miniLogic->getAngleSpeed() == 0) { miniLogic->playBeat(*app); }
 }
-
 void MinigameView_2::update(const float& deltaTime)
 {
     app->clear();
@@ -124,8 +143,7 @@ void MinigameView_2::update(const float& deltaTime)
                 }
             }
         }
-
-            //we need to move down
+        //we need to move down
         else{
             if(x < cPizza.getPosition().x + 1.5f * cPizza.getRadius()){
                 sf::Vector2f right(x + miniLogic->getKnifeSpeed() * deltaTime, y);
