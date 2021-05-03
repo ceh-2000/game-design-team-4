@@ -30,7 +30,7 @@ public:
     void setSoundPitch(float pitch) { sound.setPitch(pitch); }
 
     void setGameStateAudio(int state);
-    std::vector<float> getAllTimings(){ return correctTimings; }
+    std::vector<float> &getAllTimings(){ return correctTimings; }
 
     // Methods with logic
     float getACorrectTiming(int index);
