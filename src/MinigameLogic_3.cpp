@@ -57,7 +57,7 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
 
             }
 
-            else if(beatBox.getCurPos().x > endPos.x + 100 && !needToSplit){
+            else if(beatBox.getCurPos().x > endPos.x + 200 && !needToSplit){
                 passedBoxes.push_back(BeatBoxLogic(beatBox.getCurPos(),
                                                 beatBox.getPostHitPos(),
                                                 beatBox.getPostHitPos(),

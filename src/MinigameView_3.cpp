@@ -34,7 +34,11 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     satsanaSprite.setTexture(satsanaTexture);
     satsanaSprite.setPosition(10,10);
 
-    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.2, true);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+    outcome.setFont(font);
+    outcome.setCharacterSize(48);
+    outcome.setFillColor(sf::Color::White);
+    outcome.setPosition(sf::Vector2f(115, 20));
 
     //set up score text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
@@ -62,7 +66,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 void MinigameView_3::draw(const float& deltaTime){
 
     //animate satsana
-    animation->animate(deltaTime, app);
+    animation->animate(outcome, deltaTime, app);
 
     //animate the belt
     beltAnimation->animate(deltaTime, app);
@@ -117,8 +121,7 @@ void MinigameView_3::splitBox(const float& deltaTime){
         move = true;
         moving = true;
     }
-
-    //TODO: Split the boxes based on the time that the user pressed
+    
 
 }
 
@@ -158,5 +161,12 @@ void MinigameView_3::update(const float& deltaTime){
     knifeSprite.setPosition(this->miniLogic->getKnifePos());
 
 	draw(deltaTime);
+
+}
+
+void MinigameView_3::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
+
+    outcome.setString(outcomes[round][hitOutcome]);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
 
 }
