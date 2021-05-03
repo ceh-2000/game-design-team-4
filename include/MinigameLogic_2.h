@@ -16,12 +16,13 @@ private:
     float pizzaAngle = 0.0f; //Current pizza rotation angle (in radians)
 
     //Pizza logic Attributes
-    float angleSpeed;
+    float angleSpeed = 0.f;
     float goalAngle; // Target angle for pizza slices; Computed in radians
     float rotTime = 0.0f; //Current time in rotation
 
     //Minigame logic attributes
     float gameScore = -1.f;
+    std::string grade;
     float revTime = 10.0f; //total time call beats played
 
     sf::Vector2f knifePos;
@@ -35,6 +36,10 @@ public:
     void move(const float &dt);
 
     int getScore() { return gameScore; }
+
+    std::string gradeMinigame();
+
+    std::string getRank() { return grade;}
 
     //GETTERS AND SETTERS
     float getPRadius() const { return pizzaRadius; }
@@ -73,16 +78,16 @@ public:
     //GAME OPERATIONS
 
     void update(float deltaTime);
-    void calcScore(); //Calculate score
+    float calcScore(); //Calculate score
 
     void pushNewCut();
+
     //Song method that retrieves time
     void playBeat(sf::RenderWindow &app);
 
     //Use the state enum to track the state of the game
     enum gameState { PLAYING = 0, ENDING = 1, STOPPED = 2, PAUSED = 3 };
     gameState state = PLAYING;
-
 
 };
 #endif

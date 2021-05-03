@@ -1,10 +1,25 @@
 #include "MinigameLogic_2.h"
 #include "constants.h"
 
-MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int maxCuts)
+MinigameLogic_2::MinigameLogic_2(std::shared_ptr<Song> song, int round)
 {
     this->song = song;
-    this->maxCuts = maxCuts;
+    switch (round) {
+      case 0:
+        this->maxCuts = 8;
+        break;
+      case 1:
+        this->maxCuts = 10;
+        break;
+      case 2:
+        this->maxCuts = 15;
+        break;
+      case 3:
+        this->maxCuts = 20;
+        break;
+      default:
+        break;
+    }
     position = sf::Vector2f(600, 400);
     knifePos = sf::Vector2f(position.x + 1.5 * pizzaRadius, position.y);
     goalAngle = 2 * PI/(float) maxCuts; //90 degrees
@@ -37,14 +52,22 @@ void MinigameLogic_2::update(float deltaTime)
 //Play beat sequence
 void MinigameLogic_2::playBeat(sf::RenderWindow &app)
 {
+  //Shift duration for higher cuts
+  if(maxCuts >= 10) {
+    song->setSoundPitch(2);
+  }
+
   sf::Clock time;
-  int i = 0;
   time.restart();
-  while(i < maxCuts)
+
+  int i = 0;
+  while(i < maxCuts + 1)
   {
     if(song->getSoundStatus() == sf::Sound::Status::Stopped)
     {
-      song->playSound();
+      if(i != maxCuts) {
+        song->playSound();
+      }
       i++;
     }
 
@@ -59,8 +82,8 @@ void MinigameLogic_2::playBeat(sf::RenderWindow &app)
     //Can put exceptions here if want to register certain events
   }
 }
-//Score calculating done at end of game (Score out of 100)
-void MinigameLogic_2::calcScore()
+//Score calculating done at end of game
+float MinigameLogic_2::calcScore()
 {
     // Worst score that player can get given maxcut
     float worstScore = 200.f * (float)(maxCuts - 1) / (float) maxCuts;
@@ -82,6 +105,27 @@ void MinigameLogic_2::calcScore()
     }
     score = score / (float) maxCuts; //Average score of all slices
     //good scores are small, so operation makes 100 % best score
-    state = MinigameLogic_2::gameState::ENDING;
+    this->state = MinigameLogic_2::gameState::ENDING;
     gameScore = 100 * (1 - score/worstScore);
+    gradeMinigame();
+    return gameScore;
+}
+
+std::string MinigameLogic_2::gradeMinigame() {
+  float grade = gameScore;
+
+  std::string letter_grade = " ";
+  if(grade > 95 ) {
+    letter_grade = "S";
+  } else if (grade > 90) {
+    letter_grade = "A";
+  } else if (grade > 80) {
+    letter_grade = "B";
+  } else if (grade > 70) {
+    letter_grade = "C";
+  } else if (grade > 60) {
+    letter_grade = "D";
+  }
+  this->grade = letter_grade;
+  return letter_grade;
 }

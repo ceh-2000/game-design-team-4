@@ -20,14 +20,14 @@ private:
 
     sf::Font font;
 
-    bool moveKnife = false;
+    bool move = false;
 
 public:
     MinigameView_2(std::shared_ptr<MinigameLogic_2> MinigameLogic_2, std::shared_ptr<sf::RenderWindow> app);
-    void drawPlay();
+    void draw();
     void drawEndGame();
     void update(const float& deltaTime);
-    void cutPizza() { moveKnife = true; }
+    void cutPizza(const float& deltaTime) { move = true; };
 };
 
 #endif

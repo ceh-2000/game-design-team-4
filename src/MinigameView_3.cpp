@@ -7,11 +7,15 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 	this->miniLogic = MinigameLogic_3;
 	this->app = app;
 
-	//load knife texture
-    knifeBox.setSize(sf::Vector2f(25, 200));
-    //knifeBox.setTexture(this->knife.getTexture());
-	knifeBox.setFillColor(sf::Color::Black);
-    knifeBox.setPosition(this->miniLogic->getKnifePos());
+    if(!knifeTexture.loadFromFile("../data/art/knife.png")){
+        std::cout << "Could not load knife texture." << std::endl;
+    }
+
+    knifeSprite.setTexture(knifeTexture);
+    knifeSprite.setTextureRect(sf::IntRect(0, 0, 28, 390));
+    knifeSprite.setScale(sf::Vector2f(1.5, 1.3));
+    knifeSprite.setPosition(this->miniLogic->getKnifePos());
+
 
 	//load sushi texture
     if (!sushiTexture.loadFromFile("../data/art/sushi.png")) {
@@ -30,7 +34,11 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     satsanaSprite.setTexture(satsanaTexture);
     satsanaSprite.setPosition(10,10);
 
-    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.3, true);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+    outcome.setFont(font);
+    outcome.setCharacterSize(48);
+    outcome.setFillColor(sf::Color::White);
+    outcome.setPosition(sf::Vector2f(115, 20));
 
     //set up score text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
@@ -58,7 +66,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 void MinigameView_3::draw(const float& deltaTime){
 
     //animate satsana
-    animation->animate(deltaTime, app);
+    animation->animate(outcome, deltaTime, app);
 
     //animate the belt
     beltAnimation->animate(deltaTime, app);
@@ -67,7 +75,7 @@ void MinigameView_3::draw(const float& deltaTime){
     updateBeatBoxes(this->miniLogic->getBeatBoxes(), this->miniLogic->getPassedBoxes(), this->miniLogic->getCutBoxes());
 
     //draw the knife
-    app->draw(knifeBox);
+    app->draw(knifeSprite);
 
     //draw the score
     app->draw(scoreText);
@@ -113,8 +121,7 @@ void MinigameView_3::splitBox(const float& deltaTime){
         move = true;
         moving = true;
     }
-
-    //TODO: Split the boxes based on the time that the user pressed
+    
 
 }
 
@@ -141,7 +148,7 @@ void MinigameView_3::update(const float& deltaTime){
 
     //we need to move down
     else{
-        if(this->miniLogic->getKnifePos().y < 600){
+        if(this->miniLogic->getKnifePos().y < 500){
              sf::Vector2f down(x, y + this->miniLogic->getKnifeSpeed() * deltaTime);
             this->miniLogic->setKnifePos(down);
         }
@@ -151,8 +158,15 @@ void MinigameView_3::update(const float& deltaTime){
     }
 
     this->scoreText.setString("Score: " + std::to_string(this->miniLogic->getScore()));
-    knifeBox.setPosition(this->miniLogic->getKnifePos());
+    knifeSprite.setPosition(this->miniLogic->getKnifePos());
 
 	draw(deltaTime);
+
+}
+
+void MinigameView_3::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
+
+    outcome.setString(outcomes[round][hitOutcome]);
+    animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
 
 }

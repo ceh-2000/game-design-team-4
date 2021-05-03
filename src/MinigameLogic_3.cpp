@@ -10,10 +10,10 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
                                          sf::Vector2f(500, 400),
                                          sf::Vector2f(1275, 400),
-                                         sf::Vector2f(-500.0f, -500.0f), time));
+                                         sf::Vector2f(-570.0f, -570.0f), time));
     }
 
-    knifePos = sf::Vector2f(600, 600);
+    knifePos = sf::Vector2f(600, 500);
     ingredientDim = sf::Vector2f(150, 75);
 
 
@@ -40,7 +40,7 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
                 sf::Vector2f newLeftPos = beatBox.getCurPos();
                 newRightPos.x += 65;
                 newLeftPos.x -= 75;
-                
+
                 cutBoxes.push_back(BeatBoxLogic(newRightPos,
                                                 beatBox.getPostHitPos(),
                                                 beatBox.getPostHitPos(),
@@ -57,7 +57,7 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
 
             }
 
-            else if(beatBox.getCurPos().x > endPos.x + 100 && !needToSplit){
+            else if(beatBox.getCurPos().x > endPos.x + 200 && !needToSplit){
                 passedBoxes.push_back(BeatBoxLogic(beatBox.getCurPos(),
                                                 beatBox.getPostHitPos(),
                                                 beatBox.getPostHitPos(),
@@ -102,6 +102,27 @@ void MinigameLogic_3::updatePassed(const float& deltaTime){
         count++;
     }
     this->passedBoxes = temp;
+}
+
+std::string MinigameLogic_3::gradeMinigame() {
+  //calculate max score for percent out of 100
+  float maxScore = this->goodTapBoost * beatBoxes.size();
+  float grade = 100.f * score / maxScore;
+
+  std::string letter_grade = " ";
+  if(grade > 95 ) {
+    letter_grade = "S";
+  } else if (grade > 90) {
+    letter_grade = "A";
+  } else if (grade > 80) {
+    letter_grade = "B";
+  } else if (grade > 70) {
+    letter_grade = "C";
+  } else if (grade > 60) {
+    letter_grade = "D";
+  }
+  this->grade = letter_grade;
+  return this->grade;
 }
 
 void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {

@@ -1,6 +1,5 @@
 # Every person's run configuration will be different
 Debug/
-Rhythm_Charter/data/music
 /.vscode/
 cmake-build-debug/
 

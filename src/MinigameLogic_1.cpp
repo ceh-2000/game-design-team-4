@@ -181,6 +181,26 @@ void MinigameLogic_1::noTap(const bool &didHit) {
     firstTapScore = false;
 }
 
+std::string MinigameLogic_1::gradeMinigame() {
+  //calculate max score for percent out of 100
+  float maxScore = this->goodTapBoost * beatBoxes.size();
+  float grade = 100.f * score / maxScore;
+
+  std::string letter_grade = " ";
+  if(grade > 95 ) {
+    letter_grade = "S";
+  } else if (grade > 90) {
+    letter_grade = "A";
+  } else if (grade > 80) {
+    letter_grade = "B";
+  } else if (grade > 70) {
+    letter_grade = "C";
+  } else if (grade > 60) {
+    letter_grade = "D";
+  }
+  this->grade = letter_grade;
+  return this->grade;
+}
 
 void MinigameLogic_1::update(const float &deltaTime, const bool &didHit) {
     this->noTap(didHit);

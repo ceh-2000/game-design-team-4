@@ -36,7 +36,7 @@ public:
 
     int getBackgroundColor() { return backgroundColor; }
 
-    void startGame() { song->play(); }
+    void startGame() { song->playSong(); }
 
     float getElapsedTime() { return song->getSongTime(); }
 
@@ -50,7 +50,7 @@ public:
 
     void updatePostHit(const float &deltaTime);
 
-    void stopGame() { this->song->stop(); }
+    void stopGame() { this->song->stopSong(); }
 };
 
 #endif
