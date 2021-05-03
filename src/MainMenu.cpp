@@ -6,6 +6,7 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->app = app;
 
     selectedItemIndex = 0;
+    chefNameString= "";
 
     this->startGamePos = sf::Vector2f(20, 250);
     this->settingsPos = sf::Vector2f(20, 450);
@@ -41,6 +42,36 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     options[2].setStyle(sf::Text::Bold);
     options[2].setPosition(resourcesPos);
     options[2].setString("RESOURCES");
+
+    returnBack.setFont(this->font);
+    returnBack.setCharacterSize(36);
+    returnBack.setPosition(20, 690);
+    returnBack.setStyle(sf::Text::Bold);
+    returnBack.setString("Press escape to return to menu");
+
+    settingsTitle.setFont(this->font);
+    settingsTitle.setCharacterSize(64);
+    settingsTitle.setPosition(480, 20);
+    settingsTitle.setString("SETTINGS");
+
+    settingsOptions[0].setFont(this->font);
+    settingsOptions[0].setCharacterSize(48);
+    settingsOptions[0].setPosition(20, 150);
+    settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
+    settingsOptions[0].setFillColor(sf::Color::Green);
+
+    settingsOptions[1].setFont(this->font);
+    settingsOptions[1].setCharacterSize(48);
+    settingsOptions[1].setPosition(20, 350);
+    settingsOptions[1].setString("Select Background:");
+    settingsOptions[1].setFillColor(sf::Color::White);
+
+    settingsOptions[2].setFont(this->font);
+    settingsOptions[2].setCharacterSize(48);
+    settingsOptions[2].setPosition(20, 550);
+    settingsOptions[2].setString("Select Final Chef:");
+    settingsOptions[2].setFillColor(sf::Color::White);
+
 
     this->gameTitle.setFont(this->font);
     this->gameTitle.setCharacterSize(128);
@@ -85,15 +116,37 @@ void MainMenu::draw(const float &dt, int screen){
 }
 
 void MainMenu::moveDown(){
-    options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
-    selectedItemIndex += 1;
-    options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+    if(currentScreen == 0){
+        if(selectedItemIndex < 2){
+            options[selectedItemIndex].setFillColor(sf::Color::White);
+            selectedItemIndex += 1;
+            options[selectedItemIndex].setFillColor(sf::Color::Green);
+        }
+    }
+    else if(currentScreen == 1){
+        if(optionsSelected < 2){
+            settingsOptions[optionsSelected].setFillColor(sf::Color::White);
+            optionsSelected += 1;
+            settingsOptions[optionsSelected].setFillColor(sf::Color::Green);
+        }
+    }
 }
 
 void MainMenu::moveUp(){
-    options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
-    selectedItemIndex -= 1;
-    options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+    if(currentScreen == 0){
+        if(selectedItemIndex > 0){
+            options[selectedItemIndex % options.size()].setFillColor(sf::Color::White);
+            selectedItemIndex -= 1;
+            options[selectedItemIndex % options.size()].setFillColor(sf::Color::Green);
+        }
+    }
+    else if(currentScreen == 1){
+        if(optionsSelected > 0){
+            settingsOptions[optionsSelected].setFillColor(sf::Color::White);
+            optionsSelected -= 1;
+            settingsOptions[optionsSelected].setFillColor(sf::Color::Green);
+        }
+    }
 }
 
 int MainMenu::chooseSelection(){
@@ -103,21 +156,13 @@ int MainMenu::chooseSelection(){
 void MainMenu::drawOptions(const float& deltaTime){
     this->app->clear(sf::Color(193, 148, 126));
 
-    sf::Text returnBack;
-    returnBack.setFont(this->font);
-    returnBack.setCharacterSize(36);
-    returnBack.setPosition(20, 690);
-    returnBack.setStyle(sf::Text::Bold);
-    returnBack.setString("Press escape to return to menu");
-
-    sf::Text settingsTitle;
-    settingsTitle.setFont(this->font);
-    settingsTitle.setCharacterSize(64);
-    settingsTitle.setPosition(480, 20);
-    settingsTitle.setString("SETTINGS");
-
     this->app->draw(returnBack);
     this->app->draw(settingsTitle);
+    settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
+    this->app->draw(settingsOptions[0]);
+    this->app->draw(settingsOptions[1]);
+    this->app->draw(settingsOptions[2]);
+
     this->app->display();
 }
 
@@ -131,10 +176,13 @@ void MainMenu::drawResources(const float& deltaTime){
     returnBack.setStyle(sf::Text::Bold);
     returnBack.setString("Press escape to return to menu");
 
-    std::string works = "Conveyor belt sprite sheet: https://opengameart.org/content/isometric-conveyor-belt-animation\n"
+    std::string works = "ART:\n"
+                        "Conveyor belt sprite sheet: https://opengameart.org/content/isometric-conveyor-belt-animation\n"
                          "Sushi sprite: https://www.freepik.com/premium-vector/pixel-art-japanese-food-sushi-bit-game-item_11812806.html\n"
                          "Pizza sprite: https://www.pinterest.com/pin/369717450659483649/\n"
-                         "All other assets were created by our team";
+                         "All other assets were created by our team"
+                         "\n\n"
+                         "MUSIC:\n";
 
     sf::Text worksCited;
     worksCited.setFont(this->font);
@@ -152,4 +200,11 @@ void MainMenu::drawResources(const float& deltaTime){
     this->app->draw(worksCited);
     this->app->draw(resourcesTitle);
     this->app->display();
+}
+
+void MainMenu::addTextToName(sf::String newInput){
+    if(chefNameString.getSize() < 10){
+        chefNameString += newInput;
+        settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
+    }
 }
