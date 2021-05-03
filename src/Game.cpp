@@ -178,6 +178,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 						case MinigameLogic_2::gameState::PLAYING:
 							logic_2->pushNewCut(); //no hit accuracy checking, scoring at end of game
 							view_2->cutPizza(deltaTime);
+                            view_2->animatePostHit(logic->tapCheck(), round, deltaTime);
 							break;
 						case MinigameLogic_2::gameState::ENDING:
 							score += logic_2->getScore();
