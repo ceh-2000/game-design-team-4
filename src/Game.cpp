@@ -183,7 +183,7 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
 							break;
 					}
 					break;
-				case sf::Keyboard::Enter:
+				case sf::Keyboard::Return:
 					if(logic_2->getCutAngles().size() == 0) {
 						logic_2->playBeat(*app);
 					}
