@@ -250,6 +250,8 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 							logic->startGame();
 							break;
 						case 1: 
+                            main_menu->setCurrentScreen(main_menu->chooseSelection());
+							break;
 						case 2:
 							main_menu->setCurrentScreen(main_menu->chooseSelection());
 							break;
@@ -258,9 +260,28 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 					}
 				case sf::Keyboard::Up: main_menu->moveUp();	break;
 				case sf::Keyboard::Down: main_menu->moveDown();	break;
+                case sf::Keyboard::Right:
+                    main_menu->selectRight();
+                    break;
+                case sf::Keyboard::Left:
+                    main_menu->selectLeft();
+                    break;
 				default: break;
 			}
 		break;
+
+        case sf::Event::TextEntered:
+            if(main_menu->getCurrentScreen() == 1 && main_menu->getOptionSelected() == 0){
+                if(event.text.unicode == sf::Keyboard::BackSpace || event.text.unicode == sf::Keyboard::Delete || event.text.unicode == 8){
+                    if(main_menu->getUserChefName().getSize() > 0){
+                        main_menu->setUserChefName(main_menu->getUserChefName().substring(0, main_menu->getUserChefName().getSize()-1));
+                    }
+                }
+                else if(event.text.unicode < 128){
+                    main_menu->addTextToName(event.text.unicode);
+                }
+            }
+
 	}
 }
 
