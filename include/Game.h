@@ -14,7 +14,7 @@
 class Game
 {
 protected:
-    std::vector<std::vector<std::string>> scoreRank = {{" "," "," "," "},{" "," "," "," "},{" "," "," "," "},{" "," "," "," "}};
+    std::vector<std::vector<std::string>> scoreRank = {{"F","A","A","A"},{" "," "," "," "},{" "," "," "," "},{" "," "," "," "}};
     std::vector<std::string> roundRank = {" "," "," "," "};
     int score = 0;
     int round = 0;
