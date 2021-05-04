@@ -31,9 +31,11 @@ private:
 
     sf::Text score = sf::Text("Score: 0", font, 30);
     sf::Font font;
-    int left = 128;
+    int left = 192;
     float elapsedTime = 0;
 
+	enum ARROW { LEFT, DOWN, UP, RIGHT, UP_RIGHT, DOWN_RIGHT, LEFT_RIGHT, DOWN_LEFT, LEFT_UP};
+	ARROW currentArrow;
 
     sf::Texture satsanaTexture;
     sf::Sprite satsanaSprite;

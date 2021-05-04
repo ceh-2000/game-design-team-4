@@ -83,13 +83,13 @@ public:
 
     void addTextToName(sf::String newInput);
 
-    sf::String getUserChefName(){ return chefNameString; }
+    sf::String &getUserChefName(){ return chefNameString; }
     void setUserChefName(sf::String newName){ chefNameString = newName;}
 
     void selectLeft();
     void selectRight();
 
-    sf::String getFinalChef(){ return finalChef; }
+    sf::String &getFinalChef(){ return finalChef; }
 };
 
 #endif //CSCI437_MAINMENU_H

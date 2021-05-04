@@ -24,7 +24,6 @@ public:
     void stopSong() { music.stop(); }
 
     float getSongTime() { return music.getPlayingOffset().asSeconds(); }
-
     float getSongDuration() { return music.getDuration().asSeconds(); }
 
     //Sound methods

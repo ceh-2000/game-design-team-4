@@ -63,6 +63,8 @@ void Game::switchToNewGame() {
             minigameTime = song->getSongDuration();
             break;
         case 5:
+            cut_scene->setFinalChefName(main_menu->getFinalChef());
+            cut_scene->setName(main_menu->getUserChefName());
             cut_scene->setScore(score);
             cut_scene->setRank(roundRank[round]);
             break;
@@ -203,6 +205,11 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
                             view_2->cutPizza(deltaTime);
                             break;
                         case MinigameLogic_2::gameState::ENDING:
+                            if (logic_2->getRank() != "F") {
+                                score += logic_2->getScore();
+                                scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
+                                currentGame++;
+                            }
                             score += logic_2->getScore();
                             scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
                             currentGame++;

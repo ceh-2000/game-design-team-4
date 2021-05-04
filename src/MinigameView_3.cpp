@@ -135,7 +135,6 @@ void MinigameView_3::draw(const float &deltaTime, const float &round) {
     //draw the instructions
     app->draw(instructionsText);
 
-
 }
 
 void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes,

@@ -10,12 +10,14 @@ private:
     sf::Vector2f chefDim;
     sf::Vector2f chefPosition;
     float chefSpeed;
+    sf::Vector2f velocity = sf::Vector2f(400.0f, 400.0f);
     std::vector<std::vector<float>> arrowKeys;
     std::vector<BeatBoxLogic> beatBoxes;
     std::vector<float> timings;
     int score = 0;
     int totalScore = 0;
     int totalScoreIter = 0;
+    int boxIter = 0;
     std::string grade;
 
 public:
@@ -23,13 +25,15 @@ public:
 
     std::vector<BeatBoxLogic> &getBeatBoxes() { return beatBoxes; }
 
+    void incrementBoxIter() { boxIter++; }
+
     void updateBeatBoxes(const float &deltaTime);
 
     void addTotalScore(int i) { totalScoreIter+=i; } 
     
     void setTotalScore(int s) { totalScore+=s; }
 
-    void setScore(const int &tapCheck);
+    void setScore(const int& input,const int &tapCheck);
 
     int &getScore() { return score; }
 
