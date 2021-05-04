@@ -119,7 +119,7 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
     // Determine whether the user should tap right or left
     BeatBoxLogic currentBeatBox = beatBoxes.at(curBeatBoxIndex);
     bool isRightCorrect = true;
-    if (currentBeatBox.getStartPos().x > windowSize.x) {
+    if (currentBeatBox.getStartPos().x > windowSize.x/2) {
         isRightCorrect = false;
     }
 

@@ -9,7 +9,7 @@ Game::Game(std::shared_ptr<Song> song) {
     this->song->setGameStateAudio(this->currentGame, this->round);
     cut_scene = std::make_shared<Cutscene>(app);
     main_menu = std::make_shared<MainMenu>(app);
-    logic = std::make_shared<MinigameLogic>(this->song);
+    logic = std::make_shared<MinigameLogic>(this->song, sf::Vector2f(0.5,0.5));
     view = std::make_shared<MinigameView>(logic, app);
 
 //    logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
@@ -28,16 +28,13 @@ void Game::switchToNewGame() {
     logic->stopGame();
     song->setGameStateAudio(this->currentGame, this->round);
     //REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
-    //Body of loop not needed for second minigame
-    if (currentGame != 2 && currentGame != 5) {
-        logic = std::make_shared<MinigameLogic>(song);
-        view = std::make_shared<MinigameView>(logic, app);
-        logic->startGame();
-    }
     // Game Switching Part
     switch (currentGame) {
         case 1:
             //INSTANTIATE SOUS CHEF GAME
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.05,0.05));
+            view = std::make_shared<MinigameView>(logic, app);
+            logic->startGame();
             logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
             view_1 = std::make_shared<MinigameView_1>(logic_1, app);
             minigameTime = song->getSongDuration();
@@ -49,12 +46,18 @@ void Game::switchToNewGame() {
             break;
         case 3:
             //INSTANTIATE CUTTING GAME
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(1.5,1.5));
+            view = std::make_shared<MinigameView>(logic, app);
+            logic->startGame();
             logic_3 = std::make_shared<MinigameLogic_3>(song, round);
             view_3 = std::make_shared<MinigameView_3>(logic_3, app);
             minigameTime = song->getSongDuration();
             break;
         case 4:
             //INSTANTIATE DDR GAME
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(1.5,1.5));
+            view = std::make_shared<MinigameView>(logic, app);
+            logic->startGame();
             logic_4 = std::make_shared<MinigameLogic_4>(song);
             view_4 = std::make_shared<MinigameView_4>(logic_4, app);
             minigameTime = song->getSongDuration();
