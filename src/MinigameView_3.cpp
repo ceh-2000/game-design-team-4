@@ -66,10 +66,10 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
         std::cout << "Could not load belt sprite sheet." << std::endl;
     }
     beltSprite.setTexture(beltTexture);
-    beltSprite.setPosition(-350, 400);
+    beltSprite.setPosition(-350, 550);
     beltSprite.setScale(sf::Vector2f(8, 2.5));
 
-    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, 0.011, true);
+    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, miniLogic->getBeltSpeed(), true);
 
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
@@ -216,5 +216,7 @@ void MinigameView_3::animatePostHit(const int &hitOutcome, int round, const floa
 
     outcome.setString(outcomes[round][hitOutcome]);
     animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
+    std::cout << hitOutcome;
+    std::cout << "\n";
 
 }

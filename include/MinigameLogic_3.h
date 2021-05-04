@@ -25,12 +25,13 @@ private:
     std::string grade;
     int goodTapBoost = 300;
     int almostTapBoost = 150;
-    int badTapBoost = -50;
+    int badTapBoost = 50;
 
 	bool needToSplit = false;
 	int curBeatBoxIndex;
 
     sf::Vector2f velocity;
+    float beltSpeed;
 
 
 public:
@@ -74,13 +75,15 @@ public:
 
     void splitBox();
 
-    void updateScore(const int &hitOutcome, bool regionCheck);
+    void updateScore(const int &hitOutcome);
 
     std::string gradeMinigame();
 
     std::string getRank() { return grade;}
 
 	int getScore() { return score; }
+
+    float getBeltSpeed(){ return beltSpeed; }
 
 
 };

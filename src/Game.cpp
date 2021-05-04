@@ -225,7 +225,7 @@ void Game::minigame3EventHandler(const float &deltaTime, sf::Event event) {
             switch (event.key.code) {
                 case sf::Keyboard::Space:
                     logic->tapCheck();
-                    logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
+                    logic_3->updateScore(logic->tapCheck());
                     view_3->splitBox(deltaTime);
                     view_3->animatePostHit(logic->tapCheck(), round, deltaTime);
                     break;
@@ -396,6 +396,7 @@ void Game::update(const float &deltaTime) {
             // Chopping game
             view->update(deltaTime);
             view_3->update(deltaTime, this->round);
+            if(logic->regionCheck() == false) view_3->animatePostHit(3, this->round, deltaTime);
             view->draw();
             break;
         case 4:
