@@ -396,7 +396,6 @@ void Game::update(const float &deltaTime) {
             // Chopping game
             view->update(deltaTime);
             view_3->update(deltaTime, this->round);
-            if(logic->regionCheck() == false) view_3->animatePostHit(3, this->round, deltaTime);
             view->draw();
             break;
         case 4:

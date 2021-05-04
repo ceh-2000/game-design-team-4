@@ -30,7 +30,7 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
 
     for (float time : trueCuts) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 550),
-                                         sf::Vector2f(500, 550),
+                                         sf::Vector2f(620, 550),
                                          sf::Vector2f(1275, 550),
                                          velocity, time));
     }

@@ -216,7 +216,5 @@ void MinigameView_3::animatePostHit(const int &hitOutcome, int round, const floa
 
     outcome.setString(outcomes[round][hitOutcome]);
     animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
-    std::cout << hitOutcome;
-    std::cout << "\n";
 
 }

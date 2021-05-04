@@ -23,9 +23,9 @@ protected:
     bool resetHitYet = false;
 
     // Act and success regions (TODO: vary between songs?)
-    float actRegion = 0.2f;   //defines entire hit action region for a given song
-    float winRegion = 0.10f;   //defines successful hit time window in action region
-    float almostRegion = 0.1f; //defines near hit / near miss time window in action region
+    float actRegion = 0.3f;   //defines entire hit action region for a given song
+    float winRegion = 0.15f;   //defines successful hit time window in action region
+    float almostRegion = 0.15f; //defines near hit / near miss time window in action region
 
     // Variables for timings
     float elapsedDuration;
