@@ -37,7 +37,7 @@ void Game::switchToNewGame() {
             break;
         case 3:
             //INSTANTIATE CUTTING GAME
-            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.15, 0.15));
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.3, 0.3));
             view = std::make_shared<MinigameView>(logic, app);
             logic->startGame();
             logic_3 = std::make_shared<MinigameLogic_3>(song, round);
@@ -151,6 +151,8 @@ void Game::calcRoundRank() {
             tally += 1;
     }
     //convert tally to round rank
+    roundRank[round] = "S";
+
     if (tally >= 19)
         roundRank[round] = "S";
     else if (tally >= 15)
@@ -196,11 +198,6 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
                             view_2->cutPizza(deltaTime);
                             break;
                         case MinigameLogic_2::gameState::ENDING:
-                            if (logic_2->getRank() != "F") {
-                                score += logic_2->getScore();
-                                scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
-                                currentGame++;
-                            }
                             score += logic_2->getScore();
                             scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
                             currentGame++;
@@ -388,7 +385,7 @@ void Game::update(const float &deltaTime) {
             calcRoundRank();
         }
 
-        if (currentGame < 5) {
+        if (currentGame < 5 and currentGame!=2) {
             currentGame++;
             switchToNewGame();
         }

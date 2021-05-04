@@ -21,7 +21,7 @@ protected:
     int currentGame = 6;
     bool isActive = true;
     float minigameTime = 30.0f;
-    int numOfRounds = 3;
+    int numOfRounds = 4;
     float elapsedTime = 0.0f;
     bool left, down, up, right;
 

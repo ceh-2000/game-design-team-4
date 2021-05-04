@@ -13,7 +13,7 @@ private:
     std::string grade;
     int goodTapBoost = 300;
     int almostTapBoost = 150;
-    int badTapBoost = -300;
+    int badTapBoost = -50;
 
     // Dropping ingredients variables
     sf::Vector2f ingredientDim = sf::Vector2f(150.0f, 150.0f);
