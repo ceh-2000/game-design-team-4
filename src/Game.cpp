@@ -9,18 +9,8 @@ Game::Game(std::shared_ptr<Song> song) {
     this->song->setGameStateAudio(this->currentGame, this->round);
     cut_scene = std::make_shared<Cutscene>(app);
     main_menu = std::make_shared<MainMenu>(app);
-    logic = std::make_shared<MinigameLogic>(this->song, sf::Vector2f(0.5,0.5));
+    logic = std::make_shared<MinigameLogic>(this->song, sf::Vector2f(0.15, 0.15));
     view = std::make_shared<MinigameView>(logic, app);
-
-//    logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-//    logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
-//    logic_3 = std::make_shared<MinigameLogic_3>(song);
-//    logic_4 = std::make_shared<MinigameLogic_4>(song);
-//
-//    view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-//    view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-//    view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-//    view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 }
 
 void Game::switchToNewGame() {
@@ -32,35 +22,36 @@ void Game::switchToNewGame() {
     switch (currentGame) {
         case 1:
             //INSTANTIATE SOUS CHEF GAME
-            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.05,0.05));
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.15, 0.15));
             view = std::make_shared<MinigameView>(logic, app);
             logic->startGame();
             logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
             view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f; // song->getSongDuration();
             break;
         case 2:
             //INSTANTIATE PIZZA GAME
             logic_2 = std::make_shared<MinigameLogic_2>(song, round); //pass maximum cuts allowed
             view_2 = std::make_shared<MinigameView_2>(logic_2, app);
+            minigameTime = 100.0f;
             break;
         case 3:
             //INSTANTIATE CUTTING GAME
-            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(1.5,1.5));
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.15, 0.15));
             view = std::make_shared<MinigameView>(logic, app);
             logic->startGame();
             logic_3 = std::make_shared<MinigameLogic_3>(song, round);
             view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f; // song->getSongDuration();
             break;
         case 4:
             //INSTANTIATE DDR GAME
-            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(1.5,1.5));
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.15, 0.15));
             view = std::make_shared<MinigameView>(logic, app);
             logic->startGame();
             logic_4 = std::make_shared<MinigameLogic_4>(song);
             view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f; // song->getSongDuration();
             break;
         case 5:
             cut_scene->setFinalChefName(main_menu->getFinalChef());
@@ -397,7 +388,7 @@ void Game::update(const float &deltaTime) {
             calcRoundRank();
         }
 
-        if (currentGame < 5 && currentGame != 2) {
+        if (currentGame < 5) {
             currentGame++;
             switchToNewGame();
         }
