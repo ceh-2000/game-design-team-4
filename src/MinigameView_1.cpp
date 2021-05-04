@@ -57,7 +57,6 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     outcome.setPosition(sf::Vector2f(115, 680));
 }
 
-
 void MinigameView_1::drawBackground(const int &backgroundNum) {
     sf::RectangleShape background(
             sf::Vector2f(static_cast<float>(this->app->getSize().x), static_cast<float>(this->app->getSize().y)));
@@ -130,7 +129,7 @@ void MinigameView_1::drawScore(int score) {
 }
 
 void MinigameView_1::update(const float &deltaTime, const int &round) {
-    app->clear(sf::Color(255, 165, 0, 1));
+    app->clear(sf::Color(193, 148, 126));
 
     drawBackground(round);
     drawBowl();

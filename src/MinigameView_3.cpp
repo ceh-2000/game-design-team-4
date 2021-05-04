@@ -105,6 +105,7 @@ void MinigameView_3::drawBackground(const int &backgroundNum) {
 }
 
 void MinigameView_3::draw(const float &deltaTime, const float &round) {
+    app->clear(sf::Color(193, 148, 126));
 
     // Draw the background
     drawBackground(round);
