@@ -19,7 +19,7 @@ private:
 	std::vector<BeatBoxLogic> cutBoxes;
 
     sf::Vector2f knifePos;
-    float knifeSpeed = 3500;
+    float knifeSpeed = 5000;
 
     int score = 0;
     std::string grade;

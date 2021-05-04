@@ -5,7 +5,7 @@ Chart_Logic::Chart_Logic()
 	// this->music_player = std::make_shared<Music_Player>("../data/music/Gettin' Freaky (Main Menu) - Friday Night Funkin' OST-HQ.ogg");
 	//TODO: load list of songs into musicList from JSON
 	std::vector<std::string> musicList;
-	musicList.push_back("../data/music/On to Grasstown.ogg");
+	musicList.push_back("../data/music/death_by_glamour.wav");
 	this->music_player = std::make_shared<Music_Player>(musicList);
 
     this->play_button = std::make_shared<Button>(sf::Vector2f(this->WINDOW_SIZE.x / 2.0f, this->WINDOW_SIZE.y - 64.0f), sf::Vector2f(32.0f, 32.0f), TYPE::PLAY_BTN, 0);

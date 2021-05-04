@@ -1,6 +1,8 @@
 #include "Song.h"
 #include "json.h"
+#include <iostream>
 #include <fstream>
+#include <string>
 #include "constants.h"
 
 Song::Song(std::vector<std::string> songFilePaths, std::vector<std::string> soundFilePaths)
@@ -32,15 +34,16 @@ Song::Song(std::vector<std::string> songFilePaths, std::vector<std::string> soun
   //correctTimings = {6.79, 8.62, 10.63, 12.65, 14.65, 16.59, 18.576, 22.52, 23.02, 23.56, 24.04, 24.54, 25.03, 25.53};
 }
 
-void Song::setGameStateAudio(int state) {
+void Song::setGameStateAudio(int state, int round) {
   std::string pathAudio= "";
+  //retrieve songs that the state uses
   for (auto file: songFilePaths) {
     int i = 1;
     //search file name for state marker
     while (file[i] != '_') {
       if ((int)file[i] - 48 == state) {
         pathAudio = file;
-        if (!music.openFromFile(AUD_PATH_BASE + file))
+        if (!music.openFromFile(AUD_PATH_BASE + file + ".wav"))
           std::cout << "Could not load music." << std::endl;
         music.setVolume(40.0f); // Reduce music to 10%
       }
@@ -48,6 +51,7 @@ void Song::setGameStateAudio(int state) {
     }
   }
 
+  //retrieve sounds that the state uses
   for (auto file: soundFilePaths) {
     int i = 1;
     //search file name for state marker
@@ -63,11 +67,11 @@ void Song::setGameStateAudio(int state) {
   }
 
   //Retrieve song timings for minigames
-  if(state > 0 && state < 5) {
+  if(state > 0 && state < 5 && state != 2) {
     //If no user created songs were found
     if (pathAudio == "") {
       pathAudio = basicSongs[state-1];
-      if (!music.openFromFile(AUD_PATH_BASE + basicSongs[state-1]))
+      if (!music.openFromFile(AUD_PATH_BASE + basicSongs[state-1] + ".wav"))
         std::cout << "Could not load music." << std::endl;
       music.setVolume(40.0f); // Reduce music to 10%
     }
@@ -76,8 +80,14 @@ void Song::setGameStateAudio(int state) {
     nlohmann::json timingChart;
     i >> timingChart;
     //TODO: WHEN WE MAP THE TIMINGS HERE, NAME IS SAME AS SONG
-    timingChart.at("test").get_to(correctTimings);
-    //timingChart.at(pathAudio).get_to(correctTimings);
+    //timingChart.at("test").get_to(correctTimings);
+    std::string json_elem;
+    //get json element =audiofile - typeending
+    for(int index = 0; index < pathAudio.size(); index ++) {
+      json_elem.push_back(pathAudio[index]);
+    }
+    json_elem += std::to_string(round);
+    timingChart.at(json_elem).get_to(correctTimings);
   }
 }
 //retrieve minigame beat song

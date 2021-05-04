@@ -51,7 +51,13 @@ void Chart_View::pollInput()
 						case sf::Keyboard::Q:
 						case sf::Keyboard::Escape: this->chart_logic->setActive(false); break;
 
-						case sf::Keyboard::P: this->music_player->pause(); break;
+						case sf::Keyboard::P:
+							if(this->music_player->isPlaying()) {
+								this->music_player->pause();
+							} else {
+								this->music_player->play();
+							}
+							break;
 
 						case sf::Keyboard::Up:
 						case sf::Keyboard::W: this->music_player->increaseVolume(5); break;
@@ -71,7 +77,7 @@ void Chart_View::pollInput()
 						case sf::Keyboard::BackSpace: this->input_chart->clearInput(); break;
 
 						case sf::Event::TextEntered:
-							
+
 							// if(this->textfield->getOutlineColor() == sf::Color::Blue)
 							this->filePath += event.text.unicode;
 							break;
@@ -116,7 +122,7 @@ void Chart_View::pollInput()
 								endPos.x = this->horiz_scrollbar->getBar().getPosition().x;
 							else if (endPos.x > this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x)
 								endPos.x = this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x;
-							this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);	
+							this->input_chart->moveInput(this->endPos, this->horiz_scrollbar->getBar().getPosition().x + this->horiz_scrollbar->getBar().getSize().x);
 						}
 						// else if (this->worldPos == this->endPos)
 						// 	this->input_chart->clearInput();

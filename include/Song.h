@@ -20,6 +20,7 @@ public:
     void pauseSong() { music.pause(); }
     void stopSong() { music.stop(); }
     float getSongTime() { return music.getPlayingOffset().asSeconds(); }
+    float getSongDuration() { return music.getDuration().asSeconds(); }
 
     //Sound methods
     void setSound(std::string soundFile);
@@ -29,7 +30,7 @@ public:
     sf::Sound::Status getSoundStatus() { return sound.getStatus(); }
     void setSoundPitch(float pitch) { sound.setPitch(pitch); }
 
-    void setGameStateAudio(int state);
+    void setGameStateAudio(int state, int round);
     std::vector<float> &getAllTimings(){ return correctTimings; }
 
     // Methods with logic
@@ -40,7 +41,7 @@ private:
     //(M,S) determines if either Sound (S) or Music (M)
     //{1,2,3,4} Determines which song files are for minigame beats
     //Default song files do not get file prefixes (M,S){1,2,3,4}_, they go in var basicSongs
-    const std::vector<std::string> basicSongs = { "Sixty_BPM.wav", "Sixty_BPM.wav", "Sixty_BPM.wav", "Sixty_BPM.wav"}; //INSERT YOUR DEFAULT MINIGAME SONGS IN HERE
+    const std::vector<std::string> basicSongs = { "splashdown_sous", "Sixty_BPM", "zelda_cut", "death_by_glamour"}; //INSERT YOUR DEFAULT MINIGAME SONGS IN HERE
     std::vector<std::string> songFilePaths;
     std::vector<std::string> soundFilePaths;
     sf::Music music;
