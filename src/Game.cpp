@@ -58,10 +58,11 @@ void Game::switchToNewGame() {
 		//INSTANTIATE DDR GAME
 		logic_4 = std::make_shared<MinigameLogic_4>(song);
 		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-		minigameTime = song->getSongDuration();
+		minigameTime = 5.f;
 		break;
 		case 5:
 		cut_scene->setScore(score);
+    cut_scene->setRank(roundRank[round]);
 		break;
 	}
 }
@@ -142,6 +143,7 @@ void Game::calcRoundRank () {
 	//calculate minigame rank tally
 	int tally = 0;
 	for (std::string grade : scoreRank[round]) {
+    std::cout << grade << std::endl;
 		if (grade == "S")
 			tally += 5;
 		else if (grade == "A")
@@ -154,16 +156,20 @@ void Game::calcRoundRank () {
 			tally += 1;
 	}
 	//convert tally to round rank
-	if (tally > 19)
+  std::cout << "ROUND SCORE: " << tally << std::endl;
+	if (tally >= 19)
 		roundRank[round] = "S";
-	else if (tally > 18)
+	else if (tally >= 15)
 		roundRank[round] = "A";
-	else if (tally > 16)
+	else if (tally >= 11)
 		roundRank[round] = "B";
-	else if (tally > 14)
+	else if (tally >= 7)
 		roundRank[round] = "C";
-	else if (tally > 12)
+	else if (tally >= 3)
 		roundRank[round] = "D";
+  else {
+    roundRank[round] = "F";
+  }
 }
 
 void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
@@ -196,11 +202,9 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
                             view_2->cutPizza(deltaTime);
                             break;
                         case MinigameLogic_2::gameState::ENDING:
-                            if (logic_2->getRank() != "F") {
-                                score += logic_2->getScore();
-                                scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
-                                currentGame++;
-                            }
+                            score += logic_2->getScore();
+                            scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
+                            currentGame++;
                             switchToNewGame();
                             break;
                         default:
@@ -334,9 +338,11 @@ void Game::endRound() {
 
     // Show the first minigame again
     if (round < numOfRounds) {
-        currentGame = 1;
-        switchToNewGame();
-        round++;
+      currentGame = 1;
+      switchToNewGame();
+      if (roundRank[round] != "F") {
+          round++;
+      }
     }
         // Show the main menu
     else {
@@ -373,6 +379,11 @@ void Game::update(const float &deltaTime) {
             default:
                 break;
         }
+
+        if( currentGame == 4) {
+          calcRoundRank();
+        }
+
         if (currentGame < 5 && currentGame != 2) {
             currentGame++;
             switchToNewGame();
