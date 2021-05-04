@@ -13,7 +13,7 @@ private:
     std::string grade;
     int goodTapBoost = 300;
     int almostTapBoost = 150;
-    int badTapBoost = -50;
+    int badTapBoost = -300;
 
     // Dropping ingredients variables
     sf::Vector2f ingredientDim = sf::Vector2f(150.0f, 150.0f);
@@ -28,7 +28,7 @@ private:
     sf::Vector2f bowlSize = sf::Vector2f(200.0f, 100.0f);
     sf::Vector2f bowlPosition;
     sf::Vector2f bowlStartPosition;
-    float bowlSpeed = 3000.0f;
+    float bowlSpeed = 1500.0f;
     bool bowlMovingOut = true;
     int moveBowl = 0;
     float maxAmountToMoveBowl = 0;

@@ -1,9 +1,9 @@
 #pragma once
+
 #include <iostream>
 #include <SFML/Audio.hpp>
 
-class Song
-{
+class Song {
 public:
     // Constructor
     Song(std::vector<std::string> songFilePaths, std::vector<std::string> soundFilePaths);
@@ -14,24 +14,35 @@ public:
     // Getters, setters, and other short methods
     //Song methods
     void setMusic(std::string songFile);
+
     void setMinigameSong(std::string songFile);
 
     void playSong() { music.play(); }
+
     void pauseSong() { music.pause(); }
+
     void stopSong() { music.stop(); }
+
     float getSongTime() { return music.getPlayingOffset().asSeconds(); }
+
     float getSongDuration() { return music.getDuration().asSeconds(); }
 
     //Sound methods
     void setSound(std::string soundFile);
+
     void playSound() { sound.play(); }
+
     void pauseSound() { sound.play(); }
+
     void stopSound() { sound.stop(); }
+
     sf::Sound::Status getSoundStatus() { return sound.getStatus(); }
+
     void setSoundPitch(float pitch) { sound.setPitch(pitch); }
 
     void setGameStateAudio(int state, int round);
-    std::vector<float> &getAllTimings(){ return correctTimings; }
+
+    std::vector<float> &getAllTimings() { return correctTimings; }
 
     // Methods with logic
     float getACorrectTiming(int index);
@@ -41,7 +52,8 @@ private:
     //(M,S) determines if either Sound (S) or Music (M)
     //{1,2,3,4} Determines which song files are for minigame beats
     //Default song files do not get file prefixes (M,S){1,2,3,4}_, they go in var basicSongs
-    const std::vector<std::string> basicSongs = { "splashdown_sous", "Sixty_BPM", "zelda_cut", "death_by_glamour"}; //INSERT YOUR DEFAULT MINIGAME SONGS IN HERE
+    const std::vector<std::string> basicSongs = {"zelda_cut", "Sixty_BPM", "splashdown_sous",
+                                                 "death_by_glamour"}; //INSERT YOUR DEFAULT MINIGAME SONGS IN HERE
     std::vector<std::string> songFilePaths;
     std::vector<std::string> soundFilePaths;
     sf::Music music;

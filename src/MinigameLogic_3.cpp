@@ -4,24 +4,20 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     this->song = song;
 
     switch (round) {
-      case 0:
-        this->velocity = sf::Vector2f(-570, -570);
-        this->beltSpeed = 0.010;
-        break;
-      case 1:
-       this->velocity = sf::Vector2f(-670, -600);
-       this->beltSpeed = 0.009;
-        break;
-      case 2:
-        this->velocity = sf::Vector2f(-770, -630);
-        this->beltSpeed = 0.008;
-        break;
-      case 3:
-        this->velocity = sf::Vector2f(-870, -670);
-         this->beltSpeed = 0.0075;
-        break;
-      default:
-        break;
+        case 0:
+            this->velocity = sf::Vector2f(-700, -700);
+            break;
+        case 1:
+            this->velocity = sf::Vector2f(-800, -800);
+            break;
+        case 2:
+            this->velocity = sf::Vector2f(-900, -900);
+            break;
+        case 3:
+            this->velocity = sf::Vector2f(-1000, -1000);
+            break;
+        default:
+            break;
     }
 
     // Create default beat boxes for the entire song of timings from the start
@@ -29,13 +25,13 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
 
 
     for (float time : trueCuts) {
-        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 550),
-                                         sf::Vector2f(620, 550),
-                                         sf::Vector2f(1275, 550),
+        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 500),
+                                         sf::Vector2f(500, 500),
+                                         sf::Vector2f(1275, 500),
                                          velocity, time));
     }
 
-    knifePos = sf::Vector2f(600, 500);
+    knifePos = sf::Vector2f(600, 600);
     ingredientDim = sf::Vector2f(150, 75);
 
 
@@ -151,7 +147,7 @@ void MinigameLogic_3::updateScore(const int &hitOutcome) {
     if (hitOutcome == 2) this->score += this->almostTapBoost;
     if (hitOutcome == 3) this->score -= this->badTapBoost;
 
-    if(hitOutcome == 1){
+    if (hitOutcome == 1) {
         needToSplit = true;
     }
 

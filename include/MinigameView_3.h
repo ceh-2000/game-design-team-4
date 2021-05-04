@@ -40,6 +40,7 @@ private:
 
     sf::Font font;
     sf::Text scoreText;
+    sf::Text instructionsText;
 
     sf::Text outcome;
 
