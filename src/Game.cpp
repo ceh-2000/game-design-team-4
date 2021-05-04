@@ -57,7 +57,7 @@ void Game::switchToNewGame() {
             //INSTANTIATE DDR GAME
             logic_4 = std::make_shared<MinigameLogic_4>(song);
             view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-            minigameTime = 5.f;
+            minigameTime = song->getSongDuration();
             break;
         case 5:
             cut_scene->setScore(score);
@@ -155,7 +155,6 @@ void Game::calcRoundRank() {
             tally += 1;
     }
     //convert tally to round rank
-    std::cout << "ROUND SCORE: " << tally << std::endl;
     if (tally >= 19)
         roundRank[round] = "S";
     else if (tally >= 15)
