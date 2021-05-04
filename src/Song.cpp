@@ -67,7 +67,7 @@ void Song::setGameStateAudio(int state, int round) {
   }
 
   //Retrieve song timings for minigames
-  if(state > 0 && state < 5) {
+  if(state > 0 && state < 5 && state != 2) {
     //If no user created songs were found
     if (pathAudio == "") {
       pathAudio = basicSongs[state-1];

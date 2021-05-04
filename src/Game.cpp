@@ -41,6 +41,7 @@ void Game::switchToNewGame() {
 		//INSTANTIATE SOUS CHEF GAME
 		logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 		view_1 = std::make_shared<MinigameView_1>(logic_1, app);
+		minigameTime = song->getSongDuration();
 		break;
 		case 2:
 		//INSTANTIATE PIZZA GAME
@@ -51,11 +52,13 @@ void Game::switchToNewGame() {
 		//INSTANTIATE CUTTING GAME
 		logic_3 = std::make_shared<MinigameLogic_3>(song, round);
 		view_3 = std::make_shared<MinigameView_3>(logic_3, app);
+		minigameTime = song->getSongDuration();
 		break;
 		case 4:
 		//INSTANTIATE DDR GAME
 		logic_4 = std::make_shared<MinigameLogic_4>(song);
 		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+		minigameTime = song->getSongDuration();
 		break;
 		case 5:
 		cut_scene->setScore(score);
