@@ -1,6 +1,9 @@
 #include "MinigameLogic.h"
 
-MinigameLogic::MinigameLogic(std::shared_ptr<Song> song) {
+MinigameLogic::MinigameLogic(std::shared_ptr<Song> song, sf::Vector2f region) {
+    winRegion = region.x;
+    almostRegion = region.y;
+    actRegion = winRegion + almostRegion;
     this->song = song;
     this->elapsedDuration = this->duration;
 }

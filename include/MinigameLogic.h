@@ -23,16 +23,16 @@ protected:
     bool resetHitYet = false;
 
     // Act and success regions (TODO: vary between songs?)
-    float actRegion = 0.3f;   //defines entire hit action region for a given song
-    float winRegion = 0.15f;   //defines successful hit time window in action region
-    float almostRegion = 0.15f; //defines near hit / near miss time window in action region
+    float actRegion = 0.1f;   //defines entire hit action region for a given song
+    float winRegion = 0.05f;   //defines successful hit time window in action region
+    float almostRegion = 0.05f; //defines near hit / near miss time window in action region
 
     // Variables for timings
     float elapsedDuration;
     float duration = 0.075f;
 
 public:
-    MinigameLogic(std::shared_ptr<Song> song);
+    MinigameLogic(std::shared_ptr<Song> song, sf::Vector2f region);
 
     int getBackgroundColor() { return backgroundColor; }
 
