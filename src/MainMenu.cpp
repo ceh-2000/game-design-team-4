@@ -201,7 +201,7 @@ void MainMenu::drawResources(const float& deltaTime){
                         "Conveyor belt sprite sheet: https://opengameart.org/content/isometric-conveyor-belt-animation\n"
                          "Sushi sprite: https://www.freepik.com/premium-vector/pixel-art-japanese-food-sushi-bit-game-item_11812806.html\n"
                          "Pizza sprite: https://www.pinterest.com/pin/369717450659483649/\n"
-                         "All other assets were created by our team"
+                         "All other art assets were created by our team"
                          "\n\n"
                          "MUSIC:\n";
 

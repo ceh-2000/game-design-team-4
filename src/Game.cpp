@@ -49,7 +49,7 @@ void Game::switchToNewGame() {
 		break;
 		case 3:
 		//INSTANTIATE CUTTING GAME
-		logic_3 = std::make_shared<MinigameLogic_3>(song);
+		logic_3 = std::make_shared<MinigameLogic_3>(song, round);
 		view_3 = std::make_shared<MinigameView_3>(logic_3, app);
 		break;
 		case 4:

@@ -1,16 +1,34 @@
 #include "MinigameLogic_3.h"
 
-MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
+MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     this->song = song;
+
+    switch (round) {
+      case 0:
+        this->velocity = sf::Vector2f(-570, -570);
+        break;
+      case 1:
+       this->velocity = sf::Vector2f(-670, -600);
+        break;
+      case 2:
+        this->velocity = sf::Vector2f(-770, -630);
+        break;
+      case 3:
+        this->velocity = sf::Vector2f(-870, -670);
+        break;
+      default:
+        break;
+    }
 
     // Create default beat boxes for the entire song of timings from the start
     std::vector<float> trueCuts = song->getAllTimings();
+
 
     for (float time : trueCuts) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
                                          sf::Vector2f(500, 400),
                                          sf::Vector2f(1275, 400),
-                                         sf::Vector2f(-570.0f, -570.0f), time));
+                                         velocity, time));
     }
 
     knifePos = sf::Vector2f(600, 500);
@@ -134,7 +152,7 @@ void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
 
     if(!regionCheck) this->score += this->badTapBoost;
 
-    if(hitOutcome == 1 || hitOutcome == 2){
+    if(hitOutcome == 1){
         needToSplit = true;
     }
 
