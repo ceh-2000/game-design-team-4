@@ -48,13 +48,13 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
     }
     satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(0, this->app->getSize().y - 150);
+    satsanaSprite.setPosition(0, this->app->getSize().y-150);
 
     animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
     outcome.setFont(font);
     outcome.setCharacterSize(48);
     outcome.setFillColor(sf::Color::White);
-    outcome.setPosition(sf::Vector2f(105, this->app->getSize().y - 125));
+    outcome.setPosition(sf::Vector2f(105, this->app->getSize().y-125));
 
     //set up score text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
@@ -65,7 +65,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     this->instructionsText.setFont(font);
     this->instructionsText.setCharacterSize(50);
     this->instructionsText.setFillColor(sf::Color::Red);
-    this->instructionsText.setPosition(120, 80);
+    this->instructionsText.setPosition(120 , 80);
     this->instructionsText.setString("Press the space \nbar on the beat \nto cut the sushi.");
 
     //set up conveyor belt animation
@@ -76,12 +76,12 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     beltSprite.setPosition(-350, 500);
     beltSprite.setScale(sf::Vector2f(8, 2.5));
 
-    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, miniLogic->getBeltSpeed(), true);
+    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, 0.011, true);
 
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
     this->scoreText.setFillColor(sf::Color::White);
-    this->scoreText.setPosition(this->app->getSize().x - 200, this->app->getSize().y - 125);
+    this->scoreText.setPosition(this->app->getSize().x-200, this->app->getSize().y-125);
 }
 
 void MinigameView_3::drawBackground(const int &backgroundNum) {
