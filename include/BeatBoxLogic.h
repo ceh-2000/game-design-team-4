@@ -15,7 +15,8 @@ private:
     float songTimeHit;
 public:
     // Constructor
-    BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f postHitPos, sf::Vector2f velocity, float songTimeHit);
+    BeatBoxLogic(sf::Vector2f startPos, sf::Vector2f endPos, sf::Vector2f postHitPos, sf::Vector2f velocity,
+                 float songTimeHit);
 
     // Getters, setters, and short methods
     sf::Vector2f &getStartPos() { return startPos; }
@@ -59,4 +60,6 @@ public:
     void moveYAfter(const float &deltaTime);
 
     bool update(const float &deltaTime, const float &curSongTime);
+
+    void setPostHitPos(sf::Vector2<float> pos) { this->postHitPos = pos; }
 };

@@ -42,18 +42,21 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
     std::vector<BeatBoxLogic> temp;
     int count = 0;
     for (BeatBoxLogic beatBox : beatBoxes) {
-        // TODO: Handle case and improve detection for when beat box can't make it :(
-        bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
+
+        bool isAtPostHit = beatBox.isAtPostHit();
+        if (isAtPostHit) {
+            beatBox.setPostHitPos(sf::Vector2f(-100, -100));
+            beatBox.setCurPos(sf::Vector2f(-100, -100));
+        }
+
+        beatBox.update(deltaTime, curSongTime);
 
         bool isAtEnd = beatBox.isAtEnd();
         if (isAtEnd) {
             curBeatBoxIndex = count;
         }
 
-        bool isAtPostHit = beatBox.isAtPostHit();
-        if (!isAtPostHit) {
 
-        }
         temp.push_back(beatBox);
         count++;
     }
