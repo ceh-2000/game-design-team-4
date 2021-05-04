@@ -132,7 +132,7 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
     // Set the amount to move the bowl (better hits moves the bowl farther
     if (hitOutcome == 0) {
         this->maxAmountToMoveBowl = 0;
-    } else if (hitOutcome == 1){ // and moveBowl == 0) {
+    } else if (hitOutcome == 1) { // and moveBowl == 0) {
         this->maxAmountToMoveBowl = 300.0f;
         // Case where we move the right direction out of the way of a bad ingredient
         if (!isGood && (isRightCorrect == isRightTap)) {
@@ -148,11 +148,11 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
         std::cout << "GOOD HIT" << std::endl;
 
         // Do nothing if they move out of the way of a good ingredient
-    } else if (hitOutcome == 2){ // moveBowl == 0) {
+    } else if (hitOutcome == 2) { // moveBowl == 0) {
         this->maxAmountToMoveBowl = 150.0f;
         // Regardless of good or bad ingredient just provide the almost tap boost
         this->score += this->almostTapBoost;
-    } else if (hitOutcome == 3){ // and moveBowl == 0) {
+    } else if (hitOutcome == 3) { // and moveBowl == 0) {
         this->maxAmountToMoveBowl = 50.0f;
         // Case where we want to accept a good ingredient, so we get bonus points for a miss :)
         if (isGood) {
@@ -182,7 +182,7 @@ void MinigameLogic_1::noTap(const bool &didHit) {
             score += this->goodTapBoost;
         } else {
             // Extra punishment for not moving
-            score -= this->goodTapBoost;
+            score += this->badTapBoost;
         }
     }
 

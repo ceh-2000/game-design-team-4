@@ -76,6 +76,13 @@ void Animation::animate(sf::Text& text, const float& dt, std::shared_ptr<sf::Ren
     
     this->sprite.setTextureRect(textureRect);
     window->draw(sprite);
-    window->draw(text);
+
+    if(textureRect.left == 0){
+        //std::cout << "Don't draw";
+    }
+    else{
+        window->draw(text);
+    }
+
 
 }

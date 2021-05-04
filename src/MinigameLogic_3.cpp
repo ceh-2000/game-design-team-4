@@ -4,20 +4,20 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     this->song = song;
 
     switch (round) {
-      case 0:
-        this->velocity = sf::Vector2f(-700, -700);
-        break;
-      case 1:
-       this->velocity = sf::Vector2f(-800, -800);
-        break;
-      case 2:
-        this->velocity = sf::Vector2f(-900, -900);
-        break;
-      case 3:
-        this->velocity = sf::Vector2f(-1000, -1000);
-        break;
-      default:
-        break;
+        case 0:
+            this->velocity = sf::Vector2f(-700, -700);
+            break;
+        case 1:
+            this->velocity = sf::Vector2f(-800, -800);
+            break;
+        case 2:
+            this->velocity = sf::Vector2f(-900, -900);
+            break;
+        case 3:
+            this->velocity = sf::Vector2f(-1000, -1000);
+            break;
+        default:
+            break;
     }
 
     // Create default beat boxes for the entire song of timings from the start
@@ -141,15 +141,13 @@ std::string MinigameLogic_3::gradeMinigame() {
     return this->grade;
 }
 
-void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
-    if (hitOutcome == 0) this->score += this->badTapBoost;
+void MinigameLogic_3::updateScore(const int &hitOutcome) {
+    if (hitOutcome == 0) this->score -= this->badTapBoost;
     if (hitOutcome == 1) this->score += this->goodTapBoost;
     if (hitOutcome == 2) this->score += this->almostTapBoost;
-    if (hitOutcome == 3) this->score += this->badTapBoost;
+    if (hitOutcome == 3) this->score -= this->badTapBoost;
 
-    if (!regionCheck) this->score += this->badTapBoost;
-
-    if(hitOutcome == 1){
+    if (hitOutcome == 1) {
         needToSplit = true;
     }
 

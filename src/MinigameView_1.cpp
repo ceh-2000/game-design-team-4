@@ -49,7 +49,7 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     this->instructionsText.setFont(font);
     this->instructionsText.setCharacterSize(40);
     this->instructionsText.setFillColor(sf::Color::Red);
-    this->instructionsText.setPosition(120 , 80);
+    this->instructionsText.setPosition(120, 80);
     this->instructionsText.setString("Press the right \nand left arrows \nto avoid dead mice \nand collect apples.");
 
     // Set up satsana animation
