@@ -52,7 +52,11 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		mcTexture.loadFromFile("../data/art/mc-cutscene.png");
 		otherCharacterTexture.loadFromFile("../data/art/male-chef.png");
 		dialogueBoxTexture.loadFromFile("../data/art/dialogueBox.png");
-		dialogueStr = "Current score is "+ (this->score)+ ".\nPress [SPACE BAR] to skip.";
+		dialogueStr = "Hi " + this->name + "! "+"Current rank is "+ this->rank + ".\nPress [SPACE BAR] to ";
+		if(this->rank != "F")
+			dialogueStr += "skip.";
+		else
+			dialogueStr += "try round again.";
 		background.setTexture(backgroundTexture);
 		mainCharacter.setTexture(mcTexture);
 		otherCharacter.setTexture(otherCharacterTexture);
@@ -61,9 +65,13 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		dialogueBox.setPosition(0, 600);
 		scoreText.setPosition(125, 625);
 	break;
-	case 2:
-		
-		dialogueStr = "Current score is "+ (this->score)+ ".\nPress [SPACE BAR] to skip.";
+	case 2:		
+		scoreText.setString("");
+		dialogueStr = "Current rank is "+ this->rank + ".\nPress [SPACE BAR] to ";
+		if(this->rank != "F")
+			dialogueStr += "skip.";
+		else
+			dialogueStr += "try round again.";;
 	break;
 	default: break;
 	}

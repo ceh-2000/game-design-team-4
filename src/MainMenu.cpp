@@ -15,6 +15,9 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->gameTitlePos = sf::Vector2f(335, 30);
     this->gameLogoPos = sf::Vector2f(400, 250);
     this->conceptArtPos = sf::Vector2f(600, 275);
+    this->mainMenuInstrPos = sf::Vector2f(20, 20);
+    this->chefNameInstrPos = sf::Vector2f(40, 230);
+    this->finalChefInstrPos = sf::Vector2f(40, 430);
 
     if (!this->font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
@@ -28,49 +31,51 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
         std::cout << "Could not load game-logo.png" << std::endl;
     }
 
-    options[0].setFont(this->font);
-    options[0].setCharacterSize(64);
-    options[0].setFillColor(sf::Color::Green);
-    options[0].setStyle(sf::Text::Bold);
-    options[0].setPosition(startGamePos);
-    options[0].setString("PLAY GAME");
+    this->options[0].setFont(this->font);
+    this->options[0].setCharacterSize(64);
+    this->options[0].setFillColor(sf::Color::Green);
+    this->options[0].setStyle(sf::Text::Bold);
+    this->options[0].setPosition(startGamePos);
+    this->options[0].setString("PLAY GAME");
 
-    options[1].setFont(this->font);
-    options[1].setCharacterSize(64);
-    options[1].setFillColor(sf::Color::White);
-    options[1].setStyle(sf::Text::Bold);
-    options[1].setPosition(settingsPos);
-    options[1].setString("SETTINGS");
+    this->options[1].setFont(this->font);
+    this->options[1].setCharacterSize(64);
+    this->options[1].setFillColor(sf::Color::White);
+    this->options[1].setStyle(sf::Text::Bold);
+    this->options[1].setPosition(settingsPos);
+    this->options[1].setString("SETTINGS");
 
-    options[2].setFont(this->font);
-    options[2].setCharacterSize(64);
-    options[2].setFillColor(sf::Color::White);
-    options[2].setStyle(sf::Text::Bold);
-    options[2].setPosition(resourcesPos);
-    options[2].setString("RESOURCES");
+    this->options[2].setFont(this->font);
+    this->options[2].setCharacterSize(64);
+    this->options[2].setFillColor(sf::Color::White);
+    this->options[2].setStyle(sf::Text::Bold);
+    this->options[2].setPosition(resourcesPos);
+    this->options[2].setString("RESOURCES");
 
-    returnBack.setFont(this->font);
-    returnBack.setCharacterSize(36);
-    returnBack.setPosition(20, 690);
-    returnBack.setStyle(sf::Text::Bold);
-    returnBack.setString("Press escape to return to menu");
+    this->returnBack.setFont(this->font);
+    this->returnBack.setCharacterSize(36);
+    this->returnBack.setPosition(20, 690);
+    this->returnBack.setStyle(sf::Text::Bold);
+    this->returnBack.setString("Press escape to return to menu\nSettings will save automatically");
 
-    settingsTitle.setFont(this->font);
-    settingsTitle.setCharacterSize(64);
-    settingsTitle.setPosition(480, 20);
-    settingsTitle.setString("SETTINGS");
+    this->settingsTitle.setFont(this->font);
+    this->settingsTitle.setCharacterSize(64);
+    this->settingsTitle.setPosition(480, 20);
+    this->settingsTitle.setString("SETTINGS");
 
-    settingsOptions[0].setFont(this->font);
-    settingsOptions[0].setCharacterSize(48);
-    settingsOptions[0].setPosition(20, 150);
-    settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
-    settingsOptions[0].setFillColor(sf::Color::Green);
+    this->settingsOptions[0].setFont(this->font);
+    this->settingsOptions[0].setCharacterSize(48);
+    this->settingsOptions[0].setPosition(20, 150);
+    this->settingsOptions[0].setStyle(sf::Text::Bold);
+    this->settingsOptions[0].setString("Enter Chef Name: " + chefNameString);
+    this->settingsOptions[0].setFillColor(sf::Color::Green);
 
-    settingsOptions[1].setFont(this->font);
-    settingsOptions[1].setCharacterSize(48);
-    settingsOptions[1].setPosition(20, 350);
-    settingsOptions[1].setString("Select Final Chef: " + finalChef);
-    settingsOptions[1].setFillColor(sf::Color::White);
+    this->settingsOptions[1].setFont(this->font);
+    this->settingsOptions[1].setCharacterSize(48);
+    this->settingsOptions[1].setPosition(20, 350);
+    this->settingsOptions[1].setStyle(sf::Text::Bold);
+    this->settingsOptions[1].setString("Select Final Chef: " + finalChef);
+    this->settingsOptions[1].setFillColor(sf::Color::White);
 
 
     this->gameTitle.setFont(this->font);
@@ -88,6 +93,21 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->conceptArtSprite.setPosition(conceptArtPos);
     this->conceptArtSprite.setScale(sf::Vector2f(.5, .5));
 
+    this->mainMenuInstr.setFont(this->font);
+    this->mainMenuInstr.setCharacterSize(32);
+    this->mainMenuInstr.setPosition(this->mainMenuInstrPos);
+    this->mainMenuInstr.setString("Use Up and Down arrows to navigate.\nPress Space to select!");
+
+    this->chefNameInstr.setFont(this->font);
+    this->chefNameInstr.setPosition(this->chefNameInstrPos);
+    this->chefNameInstr.setCharacterSize(32);
+    this->chefNameInstr.setString("While highlighted, type in your name\n(Max 20 characters)");
+
+    this->finalChefInstr.setFont(this->font);
+    this->finalChefInstr.setPosition(this->finalChefInstrPos);
+    this->finalChefInstr.setCharacterSize(32);
+    this->finalChefInstr.setString("Use Left and Right arrows\nto pick final chef");
+
     
 }
 
@@ -102,6 +122,7 @@ void MainMenu::draw(const float &dt, int screen){
         this->app->draw(options[2]);
         this->app->draw(this->gameTitle);
         this->app->draw(this->logoSprite);
+        this->app->draw(this->mainMenuInstr);
 
         this->app->display();
     }
@@ -183,6 +204,8 @@ void MainMenu::drawOptions(const float& deltaTime){
     settingsOptions[1].setString("Select Final Chef: " + finalChef);
     this->app->draw(settingsOptions[1]);
     this->app->draw(conceptArtSprite);
+    this->app->draw(finalChefInstr);
+    this->app->draw(chefNameInstr);
 
     this->app->display();
 }

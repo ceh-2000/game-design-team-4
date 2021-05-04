@@ -15,8 +15,9 @@ private:
     sf::Font font;
     sf::Text scoreText;
     std::string dialogueStr;
-    std::string score = " ";
-    std::string name = "";
+    int score = 0;
+    std::string rank;
+    std::string name = "Chef";
     std::string chefName = "";
     int dialogueStrIter = 0;
     float elapsedTime = 0;
@@ -31,7 +32,6 @@ private:
     sf::Sprite background;
     sf::Sprite otherCharacter;
     sf::Sprite letterScore;
-
     sf::Texture satsanaTexture;
 	sf::Sprite satsanaSprite;
 	std::shared_ptr<Animation> satsanaAnimation;
@@ -39,11 +39,14 @@ private:
 							{"Are you doing that right?", "Looks great!", "Not too bad.", "Are you doing that right?"},
 							{"My readers will hear about this!", "Textbook!", "Interesting way of doing that...", "My readers will hear about this!"},
 							{"This is a disaster!", "Amazing!", "I could do better!", "This is a disaster!"}};    
+
 public:
     Cutscene(std::shared_ptr<sf::RenderWindow> app);
     void draw();
-    void setScore(std::string s) { this->score = s;}
-    void setName(std::string n) { this->name = n; };
+    void setFinalChefName(std::string c) { this->chefName = c;}
+    void setName(std::string n) { this->name = n; }
+    void setScore(int s) { this->score = s;}
+    void setRank(std::string r) {this->rank = r;}
     void update(const float& dt);
     void selectCutscene(const int& cutSceneNum);
 };

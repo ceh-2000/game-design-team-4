@@ -21,6 +21,9 @@ private:
     sf::Text resources;
     sf::Text returnBack;
     sf::Text settingsTitle;
+    sf::Text mainMenuInstr;
+    sf::Text chefNameInstr;
+    sf::Text finalChefInstr;
 
     sf::Vector2f startGamePos;
     sf::Vector2f settingsPos;
@@ -28,6 +31,10 @@ private:
     sf::Vector2f resourcesPos;
     sf::Vector2f gameLogoPos;
     sf::Vector2f conceptArtPos;
+    sf::Vector2f mainMenuInstrPos;
+    sf::Vector2f chefNameInstrPos;
+    sf::Vector2f finalChefInstrPos;
+
 
     sf::Texture gameLogo;
     sf::Sprite logoSprite;
@@ -82,7 +89,7 @@ public:
     void selectLeft();
     void selectRight();
 
-    sf::String getFinalChef(){ return finalChef; }
+    sf::String &getFinalChef(){ return finalChef; }
 };
 
 #endif //CSCI437_MAINMENU_H

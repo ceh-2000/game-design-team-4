@@ -4,20 +4,24 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     this->song = song;
 
     switch (round) {
-      case 0:
-        this->velocity = sf::Vector2f(-570, -570);
-        break;
-      case 1:
-       this->velocity = sf::Vector2f(-670, -600);
-        break;
-      case 2:
-        this->velocity = sf::Vector2f(-770, -630);
-        break;
-      case 3:
-        this->velocity = sf::Vector2f(-870, -670);
-        break;
-      default:
-        break;
+        case 0:
+            this->velocity = sf::Vector2f(-700, -700);
+            this->beltSpeed = 0.008;
+            break;
+        case 1:
+            this->velocity = sf::Vector2f(-800, -800);
+            this->beltSpeed = 0.007;
+            break;
+        case 2:
+            this->velocity = sf::Vector2f(-900, -900);
+            this->beltSpeed = 0.006;
+            break;
+        case 3:
+            this->velocity = sf::Vector2f(-1000, -1000);
+            this->beltSpeed = 0.0055;
+            break;
+        default:
+            break;
     }
 
     // Create default beat boxes for the entire song of timings from the start
@@ -25,13 +29,13 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
 
 
     for (float time : trueCuts) {
-        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
-                                         sf::Vector2f(500, 400),
-                                         sf::Vector2f(1275, 400),
+        beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 500),
+                                         sf::Vector2f(625, 500),
+                                         sf::Vector2f(1275, 500),
                                          velocity, time));
     }
 
-    knifePos = sf::Vector2f(600, 500);
+    knifePos = sf::Vector2f(600, 600);
     ingredientDim = sf::Vector2f(150, 75);
 
 
@@ -141,15 +145,13 @@ std::string MinigameLogic_3::gradeMinigame() {
     return this->grade;
 }
 
-void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
-    if (hitOutcome == 0) this->score += this->badTapBoost;
+void MinigameLogic_3::updateScore(const int &hitOutcome) {
+    if (hitOutcome == 0) this->score -= this->badTapBoost;
     if (hitOutcome == 1) this->score += this->goodTapBoost;
     if (hitOutcome == 2) this->score += this->almostTapBoost;
-    if (hitOutcome == 3) this->score += this->badTapBoost;
+    if (hitOutcome == 3) this->score -= this->badTapBoost;
 
-    if (!regionCheck) this->score += this->badTapBoost;
-
-    if(hitOutcome == 1){
+    if (hitOutcome == 1) {
         needToSplit = true;
     }
 

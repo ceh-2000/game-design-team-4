@@ -16,12 +16,17 @@ private:
     sf::Texture backgroundTexture2;
     sf::Texture backgroundTexture3;
     sf::Texture backgroundTexture4;
+
+    sf::Texture bowlTexture;
+
     sf::Texture appleTexture;
     sf::Texture mouseTexture;
+
     sf::Font font;
     sf::Text scoreText;
+    sf::Text instructionsText;
 
-    sf::CircleShape circle = sf::CircleShape(100.0f);
+    sf::RectangleShape rectangle = sf::RectangleShape(sf::Vector2f(200.0f, 100.0f));
 
     sf::Text outcome;
     sf::Texture satsanaTexture;
