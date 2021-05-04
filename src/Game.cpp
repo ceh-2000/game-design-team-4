@@ -58,7 +58,7 @@ void Game::switchToNewGame() {
 		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
 		break;
 		case 5:
-		cut_scene->setScore(score);
+		cut_scene->setScore(roundRank[round]);
 		break;
 	}
 }
@@ -148,6 +148,7 @@ void Game::calcRoundRank () {
 		roundRank[round] = "C";
 	else if (tally > 12)
 		roundRank[round] = "F";
+
 }
 
 void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {

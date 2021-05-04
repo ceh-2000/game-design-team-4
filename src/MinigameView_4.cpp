@@ -8,9 +8,7 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 
 	texture.loadFromFile("../data/art/arrows-spritesheet.png");
 	font.loadFromFile("../data/fonts/orange_kid.ttf");
-	if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
-		std::cout << "Could not load Satsana sprite sheet." << std::endl;
-	}
+	satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
 
 	chef = sf::Sprite(texture, sf::IntRect());
 	chef_2 = sf::Sprite(texture, sf::IntRect());
@@ -18,7 +16,6 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	counter = sf::Sprite(texture, sf::IntRect(0,384,128,128));
 	oven = sf::Sprite(texture, sf::IntRect(0,512,128,128));
 	stove = sf::Sprite(texture, sf::IntRect(0,640,128,128));
-
 
 	satsanaSprite.setTexture(satsanaTexture);
 	satsanaSprite.setPosition(10,680);
@@ -30,11 +27,11 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	outcome.setPosition(sf::Vector2f(115, 680));
 
 	int count = 0;
-	for(float iter = 0.25f; iter<1.25f; iter+=0.25f)
+	for(int i = 0; i<4; i++)
 	{
 		sf::Sprite endPoint = sf::Sprite(texture);
 		endPoint.setTextureRect(sf::IntRect(0,count,64,64));
-		endPoint.setPosition(300.0f*iter+750.0f, 100.0f);
+		endPoint.setPosition(75*i+825, 100.0f);
 		endPoints.push_back(endPoint);
 		count+=64;
 	}
@@ -74,7 +71,7 @@ void MinigameView_4::resetSprites()
 void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 {
 	resetSprites();
-	this->miniLogic->setScore(tapOutcome);
+	this->miniLogic->setScore(input, tapOutcome);
 
 	switch(input)
 	{
@@ -146,22 +143,20 @@ void MinigameView_4::reachInput(const int& input, const int& tapOutcome)
 void MinigameView_4::updateBeatBoxes(std::vector<BeatBoxLogic> &beatBoxes)
 {
 	int iter = 0;
-	std::vector<BeatBoxLogic>::iterator beatBoxIter = beatBoxes.begin();
 	for (BeatBoxLogic beatBox : beatBoxes)
 	{
 		arrow = std::make_shared<sf::Sprite>(texture);
 		arrow->setPosition(beatBox.getCurPos());
-		if(arrow->getPosition().y < 798.0f)
+		if(arrow->getPosition().y > 36.0f)
+		{
 			switch(int(arrow->getPosition().x))
 			{
 				case 825: arrowTextureRect.top = 0; break;
 				case 900: arrowTextureRect.top = 64; break;
 				case 975: arrowTextureRect.top = 128; break;
-				case 1050: arrowTextureRect.top = 192;	break;
+				case 1050: arrowTextureRect.top = 192; break;
 				default: break;
 			}
-		if(arrow->getPosition().y > 36.0f)
-		{
 			arrow->setTextureRect(arrowTextureRect);
 			app->draw(*arrow);
 		}

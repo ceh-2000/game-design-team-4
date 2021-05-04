@@ -15,7 +15,9 @@ private:
     sf::Font font;
     sf::Text scoreText;
     std::string dialogueStr;
-    int score = 0;
+    std::string score = " ";
+    std::string name = "";
+    std::string chefName = "";
     int dialogueStrIter = 0;
     float elapsedTime = 0;
 
@@ -40,7 +42,8 @@ private:
 public:
     Cutscene(std::shared_ptr<sf::RenderWindow> app);
     void draw();
-    void setScore(int s) { this->score = s;}
+    void setScore(std::string s) { this->score = s;}
+    void setName(std::string n) { this->name = n; };
     void update(const float& dt);
     void selectCutscene(const int& cutSceneNum);
 };

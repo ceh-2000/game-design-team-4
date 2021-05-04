@@ -76,7 +76,7 @@ public:
 
     void addTextToName(sf::String newInput);
 
-    sf::String getUserChefName(){ return chefNameString; }
+    sf::String &getUserChefName(){ return chefNameString; }
     void setUserChefName(sf::String newName){ chefNameString = newName;}
 
     void selectLeft();
