@@ -65,8 +65,8 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     this->instructionsText.setFont(font);
     this->instructionsText.setCharacterSize(50);
     this->instructionsText.setFillColor(sf::Color::Red);
-    this->instructionsText.setPosition(120 , 80);
-    this->instructionsText.setString("Press the space \nbar on the beat \nto cut the sushi.");
+    this->instructionsText.setPosition(90 , 80);
+    this->instructionsText.setString("Press the space bar\non the beat to\ncut the sushi in half.");
 
     //set up conveyor belt animation
     if (!beltTexture.loadFromFile("../data/art/spritesheet.png")) {
@@ -76,12 +76,12 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
     beltSprite.setPosition(-350, 500);
     beltSprite.setScale(sf::Vector2f(8, 2.5));
 
-    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, 0.011, true);
+    beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, this->miniLogic->getBeltSpeed(), true);
 
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
     this->scoreText.setFillColor(sf::Color::White);
-    this->scoreText.setPosition(this->app->getSize().x-200, this->app->getSize().y-125);
+    this->scoreText.setPosition(this->app->getSize().x-250, this->app->getSize().y-125);
 }
 
 void MinigameView_3::drawBackground(const int &backgroundNum) {
@@ -142,16 +142,6 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes,
                                      const std::vector<BeatBoxLogic> &passedBoxes,
                                      const std::vector<BeatBoxLogic> &cutBoxes) {
 
-    for (BeatBoxLogic beatBox : beatBoxes) {
-        sf::Sprite sprite;
-        sprite.setTexture(sushiTexture);
-        sprite.setTextureRect(sf::IntRect(0, 0, 150, 75));
-        sprite.setScale(this->miniLogic->getIngredientDim() / 75.0f);
-        sprite.setPosition(beatBox.getCurPos().x - this->miniLogic->getIngredientDim().x / 2,
-                           beatBox.getCurPos().y - this->miniLogic->getIngredientDim().y / 2);
-        app->draw(sprite);
-    }
-
     for (BeatBoxLogic beatBox : passedBoxes) {
         sf::Sprite sprite;
         sprite.setTexture(sushiTexture);
@@ -166,6 +156,16 @@ void MinigameView_3::updateBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes,
         sf::Sprite sprite;
         sprite.setTexture(cutSushiTexture);
         sprite.setTextureRect(sf::IntRect(0, 0, 75, 75));
+        sprite.setScale(this->miniLogic->getIngredientDim() / 75.0f);
+        sprite.setPosition(beatBox.getCurPos().x - this->miniLogic->getIngredientDim().x / 2,
+                           beatBox.getCurPos().y - this->miniLogic->getIngredientDim().y / 2);
+        app->draw(sprite);
+    }
+
+    for (BeatBoxLogic beatBox : beatBoxes) {
+        sf::Sprite sprite;
+        sprite.setTexture(sushiTexture);
+        sprite.setTextureRect(sf::IntRect(0, 0, 150, 75));
         sprite.setScale(this->miniLogic->getIngredientDim() / 75.0f);
         sprite.setPosition(beatBox.getCurPos().x - this->miniLogic->getIngredientDim().x / 2,
                            beatBox.getCurPos().y - this->miniLogic->getIngredientDim().y / 2);

@@ -6,15 +6,19 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     switch (round) {
         case 0:
             this->velocity = sf::Vector2f(-700, -700);
+            this->beltSpeed = 0.008;
             break;
         case 1:
             this->velocity = sf::Vector2f(-800, -800);
+            this->beltSpeed = 0.007;
             break;
         case 2:
             this->velocity = sf::Vector2f(-900, -900);
+            this->beltSpeed = 0.006;
             break;
         case 3:
             this->velocity = sf::Vector2f(-1000, -1000);
+            this->beltSpeed = 0.0055;
             break;
         default:
             break;
@@ -26,7 +30,7 @@ MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
 
     for (float time : trueCuts) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 500),
-                                         sf::Vector2f(500, 500),
+                                         sf::Vector2f(625, 500),
                                          sf::Vector2f(1275, 500),
                                          velocity, time));
     }
