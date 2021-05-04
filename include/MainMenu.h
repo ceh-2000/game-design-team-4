@@ -12,16 +12,22 @@ private:
     sf::Font font;
     sf::Font font1;
 
+    sf::Texture conceptArt;
+    sf::Sprite conceptArtSprite;
+
     sf::Text startGame;
     sf::Text settings;
     sf::Text gameTitle;
     sf::Text resources;
+    sf::Text returnBack;
+    sf::Text settingsTitle;
 
     sf::Vector2f startGamePos;
     sf::Vector2f settingsPos;
     sf::Vector2f gameTitlePos;
     sf::Vector2f resourcesPos;
     sf::Vector2f gameLogoPos;
+    sf::Vector2f conceptArtPos;
 
     sf::Texture gameLogo;
     sf::Sprite logoSprite;
@@ -31,6 +37,17 @@ private:
     int currentScreen = 0;
 
     std::array<sf::Text, 3> options = {startGame, settings, resources};
+
+    sf::String chefNameString;
+    sf::Text chefName;
+    sf::Text finalChefSetting;
+
+    std::array<sf::Text, 2> settingsOptions = {chefName, finalChefSetting};
+    int optionsSelected = 0;
+
+    std::array<sf::String, 3> finalChefs = {sf::String("Guy Fieri"), sf::String("Bobby Flay"), sf::String("Gordon Ramsay")};
+    int chefSelected;
+    sf::String finalChef;
 
 public:
     MainMenu(std::shared_ptr<sf::RenderWindow> app);
@@ -54,6 +71,18 @@ public:
 
     int getCurrentScreen(){ return currentScreen; }
     void setCurrentScreen(int screen){ currentScreen = screen; }
+
+    int getOptionSelected(){ return optionsSelected; }
+
+    void addTextToName(sf::String newInput);
+
+    sf::String getUserChefName(){ return chefNameString; }
+    void setUserChefName(sf::String newName){ chefNameString = newName;}
+
+    void selectLeft();
+    void selectRight();
+
+    sf::String getFinalChef(){ return finalChef; }
 };
 
 #endif //CSCI437_MAINMENU_H
