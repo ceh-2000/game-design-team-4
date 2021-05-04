@@ -27,10 +27,10 @@ MinigameLogic_1::MinigameLogic_1(std::shared_ptr<Song> song, float x, float y) {
         }
 
         beatBoxes.emplace_back(sf::Vector2f(startX, -ingredientDim.y),
-                             sf::Vector2f(startX, distanceToBowl - bowlSize.y * 2),
-                             sf::Vector2f(startX, distanceToBowl),
-                             sf::Vector2f(ingredientSpeed, ingredientSpeed),
-                             time);
+                               sf::Vector2f(startX, distanceToBowl - bowlSize.y * 2),
+                               sf::Vector2f(startX, distanceToBowl),
+                               sf::Vector2f(ingredientSpeed, ingredientSpeed),
+                               time);
     }
 }
 
@@ -42,18 +42,21 @@ void MinigameLogic_1::updateBeatBoxes(const float &deltaTime) {
     std::vector<BeatBoxLogic> temp;
     int count = 0;
     for (BeatBoxLogic beatBox : beatBoxes) {
-        // TODO: Handle case and improve detection for when beat box can't make it :(
-        bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
+
+        bool isAtPostHit = beatBox.isAtPostHit();
+        if (isAtPostHit) {
+            beatBox.setPostHitPos(sf::Vector2f(-100, -100));
+            beatBox.setCurPos(sf::Vector2f(-100, -100));
+        }
+
+        beatBox.update(deltaTime, curSongTime);
 
         bool isAtEnd = beatBox.isAtEnd();
         if (isAtEnd) {
             curBeatBoxIndex = count;
         }
 
-        bool isAtPostHit = beatBox.isAtPostHit();
-        if(!isAtPostHit){
 
-        }
         temp.push_back(beatBox);
         count++;
     }
@@ -66,7 +69,7 @@ void MinigameLogic_1::updateBowl(const float &deltaTime) {
     float bowl_start_pos = bowlStartPosition.x;
     float bowl_cur_pos = bowlPosition.x;
     float bowl_end_pos = bowlStartPosition.x + maxAmountToMoveBowl;
-    if(moveBowl == 2){
+    if (moveBowl == 2) {
         bowl_end_pos = bowlStartPosition.x - maxAmountToMoveBowl;
     }
 
@@ -74,29 +77,29 @@ void MinigameLogic_1::updateBowl(const float &deltaTime) {
     if (bowlMovingOut && bowl_cur_pos >= bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
         bowlPosition.x += bowlSpeed * deltaTime;
     }
-    // Moving bowl out and to the left; less than max
+        // Moving bowl out and to the left; less than max
     else if (bowlMovingOut && bowl_cur_pos <= bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
         bowlPosition.x -= bowlSpeed * deltaTime;
     }
-    // Moving bowl in and and from the right; less than max
+        // Moving bowl in and and from the right; less than max
     else if (!bowlMovingOut && bowl_cur_pos > bowl_start_pos && bowl_cur_pos < bowl_end_pos && moveBowl == 1) {
         bowlPosition.x -= bowlSpeed * deltaTime;
     }
-    // Moving bowl in and and from the left; less than max
+        // Moving bowl in and and from the left; less than max
     else if (!bowlMovingOut && bowl_cur_pos < bowl_start_pos && bowl_cur_pos > bowl_end_pos && moveBowl == 2) {
         bowlPosition.x += bowlSpeed * deltaTime;
     }
-    // Moving bowl in and and from the right; beyond max
+        // Moving bowl in and and from the right; beyond max
     else if (bowl_cur_pos >= bowl_end_pos && moveBowl == 1) {
         bowlMovingOut = false;
         bowlPosition.x -= bowlSpeed * deltaTime;
     }
-    // Moving bowl in and and from the left; beyond max
+        // Moving bowl in and and from the left; beyond max
     else if (bowl_cur_pos <= bowl_end_pos && moveBowl == 2) {
         bowlMovingOut = false;
         bowlPosition.x += bowlSpeed * deltaTime;
     }
-    // Don't move bowl
+        // Don't move bowl
     else {
         bowlPosition.x = bowlStartPosition.x;
         maxAmountToMoveBowl = 0.0f;
@@ -129,22 +132,27 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
     // Set the amount to move the bowl (better hits moves the bowl farther
     if (hitOutcome == 0) {
         this->maxAmountToMoveBowl = 0;
-    } else if (hitOutcome == 1 and moveBowl == 0) {
+    } else if (hitOutcome == 1) { // and moveBowl == 0) {
         this->maxAmountToMoveBowl = 300.0f;
         // Case where we move the right direction out of the way of a bad ingredient
         if (!isGood && (isRightCorrect == isRightTap)) {
             this->score += this->goodTapBoost;
+            std::cout << "CORRECT DIRECTION" << std::endl;
+
         }
             // Case where we move the wrong direction out of the way of a bad ingredient
         else if (!isGood) {
             this->score += this->badTapBoost;
+            std::cout << "PLAYER MOVED THE WRONG WAY" << std::endl;
         }
+        std::cout << "GOOD HIT" << std::endl;
+
         // Do nothing if they move out of the way of a good ingredient
-    } else if (hitOutcome == 2 and moveBowl == 0) {
+    } else if (hitOutcome == 2) { // moveBowl == 0) {
         this->maxAmountToMoveBowl = 150.0f;
         // Regardless of good or bad ingredient just provide the almost tap boost
         this->score += this->almostTapBoost;
-    } else if (hitOutcome == 3 and moveBowl == 0) {
+    } else if (hitOutcome == 3) { // and moveBowl == 0) {
         this->maxAmountToMoveBowl = 50.0f;
         // Case where we want to accept a good ingredient, so we get bonus points for a miss :)
         if (isGood) {
@@ -173,6 +181,7 @@ void MinigameLogic_1::noTap(const bool &didHit) {
         if (isGoodVector.at(curBeatBoxIndex)) {
             score += this->goodTapBoost;
         } else {
+            // Extra punishment for not moving
             score += this->badTapBoost;
         }
     }
@@ -182,25 +191,24 @@ void MinigameLogic_1::noTap(const bool &didHit) {
 }
 
 std::string MinigameLogic_1::gradeMinigame() {
-  //calculate max score for percent out of 100
-  float maxScore = this->goodTapBoost * beatBoxes.size();
-  float grade = 100.f * score / maxScore;
+    //calculate max score for percent out of 100
+    float maxScore = this->goodTapBoost * beatBoxes.size();
+    float grade = 100.f * score / maxScore;
 
-  std::string letter_grade = " ";
-  if(grade > 95 ) {
-    letter_grade = "S";
-  } else if (grade > 90) {
-    letter_grade = "A";
-  } else if (grade > 80) {
-    letter_grade = "B";
-  } else if (grade > 70) {
-    letter_grade = "C";
-  } else if (grade > 60) {
-    letter_grade = "D";
-  }
-  else letter_grade = "F";
-  this->grade = letter_grade;
-  return this->grade;
+    std::string letter_grade = " ";
+    if (grade > 95) {
+        letter_grade = "S";
+    } else if (grade > 90) {
+        letter_grade = "A";
+    } else if (grade > 80) {
+        letter_grade = "B";
+    } else if (grade > 70) {
+        letter_grade = "C";
+    } else if (grade > 60) {
+        letter_grade = "D";
+    } else letter_grade = "F";
+    this->grade = letter_grade;
+    return this->grade;
 }
 
 void MinigameLogic_1::update(const float &deltaTime, const bool &didHit) {
