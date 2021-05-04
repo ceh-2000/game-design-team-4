@@ -18,11 +18,11 @@ private:
 	bool playState = false;
 	bool list = false;
 	int counter = 0;
-	
+
 public:
 	Music_Player(std::string &path);
 	Music_Player(std::vector<std::string> &filePaths);
-	
+
 	void play(){ music.play(); playState = true; }
 	void pause(){ music.pause(); playState = false; }
 	void stop(){ music.stop(); playState = false; }

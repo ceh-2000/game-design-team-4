@@ -19,7 +19,7 @@ private:
 	std::vector<BeatBoxLogic> cutBoxes;
 
     sf::Vector2f knifePos;
-    float knifeSpeed = 3500;
+    float knifeSpeed = 5000;
 
     int score = 0;
     std::string grade;
@@ -30,9 +30,11 @@ private:
 	bool needToSplit = false;
 	int curBeatBoxIndex;
 
+    sf::Vector2f velocity;
+
 
 public:
-    MinigameLogic_3(std::shared_ptr<Song> song);
+    MinigameLogic_3(std::shared_ptr<Song> song, int round);
 
     void move(const float &dt);
 

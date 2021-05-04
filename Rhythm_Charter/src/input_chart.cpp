@@ -1,5 +1,8 @@
 #include "input_chart.h"
 #include <iostream>
+#include <iomanip>
+#include <sstream>
+
 Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, std::shared_ptr<Music_Player> mp, TYPE type) : GUI_Element(type)
 {
 	this->horiz_scrollbar = horiz_scrollbar;
@@ -9,7 +12,7 @@ Input_Chart::Input_Chart(std::shared_ptr<Horizontal_Scrollbar> horiz_scrollbar, 
 	this->selection->setOutlineColor(sf::Color::Magenta);
 	this->selection->setOutlineThickness(5.0f);
 }
-  
+
 //Check if a certain beat is selected
 bool Input_Chart::selected(sf::Vector2f mousePos)
 {
@@ -155,9 +158,12 @@ void Input_Chart::saveJSON()
 	if(std::distance(this->timings.begin(), this->timings.end()) != 0)
 		std::sort(this->timings.begin(), this->timings.end());
 	nlohmann::json jsonfile;
-	
-	for(auto itr = this->timings.begin(); itr<this->timings.end(); ++itr)
-		jsonfile["test"] += *itr;
+	for(auto itr = this->timings.begin(); itr<this->timings.end(); ++itr) {
+		std::stringstream stream;
+		stream << std::fixed << std::setprecision(2) << *itr;
+		std::string s = stream.str();
+		jsonfile["death_by_glamour0"] += s;
+	}
 
 	std::ofstream file("../timingChart.json");
 	file << jsonfile;

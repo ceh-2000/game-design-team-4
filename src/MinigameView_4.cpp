@@ -6,6 +6,11 @@ MinigameView_4::MinigameView_4(std::shared_ptr<MinigameLogic_4> MinigameLogic_4,
 	this->app = app;
 	// this->score.setPosition(app->getSize().x/2.0f, app->getSize().y/2.0f);
 
+    // Get background image
+    if (!backgroundTexture.loadFromFile("../data/art/ddr_background.jpg")) {
+        std::cout << "Could not load pizza sprite." << std::endl;
+    }
+
 	texture.loadFromFile("../data/art/arrows-spritesheet.png");
 	font.loadFromFile("../data/fonts/orange_kid.ttf");
 	satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png");
@@ -164,10 +169,22 @@ void MinigameView_4::updateBeatBoxes(std::vector<BeatBoxLogic> &beatBoxes)
 	this->miniLogic->setTotalScore(iter);
 }
 
+void MinigameView_4::drawBackground() {
+    sf::RectangleShape background(
+            sf::Vector2f(static_cast<float>(this->app->getSize().x), static_cast<float>(this->app->getSize().y)));
+
+    const sf::Texture *pBackgroundTexture = &backgroundTexture;
+    background.setTexture(pBackgroundTexture);
+
+    app->draw(background);
+}
+
 //draws squares to show when inputs reach endpoints
 void MinigameView_4::draw()
 {
 	app->clear(sf::Color(0,0,0,255));
+    drawBackground();
+
 	app->draw(backBoard);
 	for(int i = 0; i < 4; i++)
 	{

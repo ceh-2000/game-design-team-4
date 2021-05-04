@@ -1,16 +1,34 @@
 #include "MinigameLogic_3.h"
 
-MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song) {
+MinigameLogic_3::MinigameLogic_3(std::shared_ptr<Song> song, int round) {
     this->song = song;
+
+    switch (round) {
+      case 0:
+        this->velocity = sf::Vector2f(-570, -570);
+        break;
+      case 1:
+       this->velocity = sf::Vector2f(-670, -600);
+        break;
+      case 2:
+        this->velocity = sf::Vector2f(-770, -630);
+        break;
+      case 3:
+        this->velocity = sf::Vector2f(-870, -670);
+        break;
+      default:
+        break;
+    }
 
     // Create default beat boxes for the entire song of timings from the start
     std::vector<float> trueCuts = song->getAllTimings();
+
 
     for (float time : trueCuts) {
         beatBoxes.push_back(BeatBoxLogic(sf::Vector2f(-225, 400),
                                          sf::Vector2f(500, 400),
                                          sf::Vector2f(1275, 400),
-                                         sf::Vector2f(-570.0f, -570.0f), time));
+                                         velocity, time));
     }
 
     knifePos = sf::Vector2f(600, 500);
@@ -29,58 +47,56 @@ void MinigameLogic_3::updateBeatBoxes(const float &deltaTime) {
     std::vector<BeatBoxLogic> temp;
     int count = 0;
 
-    for (BeatBoxLogic beatBox : beatBoxes){
+    for (BeatBoxLogic beatBox : beatBoxes) {
         bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
         //bool isDone = beatBox.isAtEnd();
         sf::Vector2f endPos = beatBox.getEndPos();
         curBeatBoxIndex = count;
 
-            if(endPos.x - 20 <= beatBox.getCurPos().x && beatBox.getCurPos().x <= beatBox.getCurPos().x + 20 && needToSplit){
-                sf::Vector2f newRightPos = beatBox.getCurPos();
-                sf::Vector2f newLeftPos = beatBox.getCurPos();
-                newRightPos.x += 65;
-                newLeftPos.x -= 75;
+        if (endPos.x - 20 <= beatBox.getCurPos().x && beatBox.getCurPos().x <= beatBox.getCurPos().x + 20 &&
+            needToSplit) {
+            sf::Vector2f newRightPos = beatBox.getCurPos();
+            sf::Vector2f newLeftPos = beatBox.getCurPos();
+            newRightPos.x += 65;
+            newLeftPos.x -= 75;
 
-                cutBoxes.push_back(BeatBoxLogic(newRightPos,
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getVelocity(),
-                                                beatBox.getSongTime() + .5));
+            cutBoxes.push_back(BeatBoxLogic(newRightPos,
+                                            beatBox.getPostHitPos(),
+                                            beatBox.getPostHitPos(),
+                                            beatBox.getVelocity(),
+                                            beatBox.getSongTime() + .5));
 
-                cutBoxes.push_back(BeatBoxLogic(newLeftPos,
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getVelocity(),
-                                                beatBox.getSongTime() + .5));
+            cutBoxes.push_back(BeatBoxLogic(newLeftPos,
+                                            beatBox.getPostHitPos(),
+                                            beatBox.getPostHitPos(),
+                                            beatBox.getVelocity(),
+                                            beatBox.getSongTime() + .5));
 
-                needToSplit = false;
+            needToSplit = false;
 
-            }
-
-            else if(beatBox.getCurPos().x > endPos.x + 200 && !needToSplit){
-                passedBoxes.push_back(BeatBoxLogic(beatBox.getCurPos(),
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getPostHitPos(),
-                                                beatBox.getVelocity(),
-                                                beatBox.getSongTime() + .5));
-            }
-            else {
-                //keep going
-                temp.push_back(beatBox);
-            }
-
-            count++;
+        } else if (beatBox.getCurPos().x > endPos.x + 200 && !needToSplit) {
+            passedBoxes.push_back(BeatBoxLogic(beatBox.getCurPos(),
+                                               beatBox.getPostHitPos(),
+                                               beatBox.getPostHitPos(),
+                                               beatBox.getVelocity(),
+                                               beatBox.getSongTime() + .5));
+        } else {
+            //keep going
+            temp.push_back(beatBox);
         }
+
+        count++;
+    }
 
     this->beatBoxes = temp;
 }
 
-void MinigameLogic_3::updateCut(const float& deltaTime){
+void MinigameLogic_3::updateCut(const float &deltaTime) {
     float curSongTime = song->getSongTime();
     std::vector<BeatBoxLogic> temp;
     int count = 0;
 
-     for (BeatBoxLogic beatBox : this->cutBoxes) {
+    for (BeatBoxLogic beatBox : this->cutBoxes) {
         beatBox.moveX(deltaTime);
         //bool canWeMakeIt = beatBox.update(deltaTime, curSongTime);
 
@@ -90,12 +106,12 @@ void MinigameLogic_3::updateCut(const float& deltaTime){
     this->cutBoxes = temp;
 }
 
-void MinigameLogic_3::updatePassed(const float& deltaTime){
+void MinigameLogic_3::updatePassed(const float &deltaTime) {
     float curSongTime = song->getSongTime();
     std::vector<BeatBoxLogic> temp;
     int count = 0;
 
-     for (BeatBoxLogic beatBox : this->passedBoxes) {
+    for (BeatBoxLogic beatBox : this->passedBoxes) {
         beatBox.moveX(deltaTime);
 
         temp.push_back(beatBox);
@@ -105,25 +121,24 @@ void MinigameLogic_3::updatePassed(const float& deltaTime){
 }
 
 std::string MinigameLogic_3::gradeMinigame() {
-  //calculate max score for percent out of 100
-  float maxScore = this->goodTapBoost * beatBoxes.size();
-  float grade = 100.f * score / maxScore;
+    //calculate max score for percent out of 100
+    float maxScore = this->goodTapBoost * beatBoxes.size();
+    float grade = 100.f * score / maxScore;
 
-  std::string letter_grade = " ";
-  if(grade > 95 ) {
-    letter_grade = "S";
-  } else if (grade > 90) {
-    letter_grade = "A";
-  } else if (grade > 80) {
-    letter_grade = "B";
-  } else if (grade > 70) {
-    letter_grade = "C";
-  } else if (grade > 60) {
-    letter_grade = "D";
-  }
-  else letter_grade = "F";
-  this->grade = letter_grade;
-  return this->grade;
+    std::string letter_grade = " ";
+    if (grade > 95) {
+        letter_grade = "S";
+    } else if (grade > 90) {
+        letter_grade = "A";
+    } else if (grade > 80) {
+        letter_grade = "B";
+    } else if (grade > 70) {
+        letter_grade = "C";
+    } else if (grade > 60) {
+        letter_grade = "D";
+    } else letter_grade = "F";
+    this->grade = letter_grade;
+    return this->grade;
 }
 
 void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
@@ -132,9 +147,9 @@ void MinigameLogic_3::updateScore(const int &hitOutcome, bool regionCheck) {
     if (hitOutcome == 2) this->score += this->almostTapBoost;
     if (hitOutcome == 3) this->score += this->badTapBoost;
 
-    if(!regionCheck) this->score += this->badTapBoost;
+    if (!regionCheck) this->score += this->badTapBoost;
 
-    if(hitOutcome == 1 || hitOutcome == 2){
+    if(hitOutcome == 1){
         needToSplit = true;
     }
 

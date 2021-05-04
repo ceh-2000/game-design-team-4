@@ -1,20 +1,37 @@
 #include "MinigameView_1.h"
 #include "Animation.h"
 
-MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::shared_ptr<sf::RenderWindow> app)
-{
+MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::shared_ptr<sf::RenderWindow> app) {
     this->app = app;
     this->miniLogic = miniLogic;
     float scale = this->miniLogic->getBowlSize().x / this->miniLogic->getBowlSize().y;
     this->circle.setScale(scale, 1);
     this->circle.setPosition(this->miniLogic->getBowlPosition());
 
+    // Load all textures
     if (!appleTexture.loadFromFile("../data/art/apple.png")) {
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
 
     if (!mouseTexture.loadFromFile("../data/art/deadmouse.png")) {
         std::cout << "Could not load apple sprite sheet." << std::endl;
+    }
+
+    // Load all backgrounds
+    if (!backgroundTexture1.loadFromFile("../data/art/background_round1.jpeg")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture2.loadFromFile("../data/art/background_round2.jpeg")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture3.loadFromFile("../data/art/background_round3.png")) {
+        std::cout << "Could not load background." << std::endl;
+    }
+
+    if (!backgroundTexture4.loadFromFile("../data/art/background_round4.jpeg")) {
+        std::cout << "Could not load background." << std::endl;
     }
 
     //load in the font for result text
@@ -27,11 +44,11 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
 
 
     //set up satsana animation
-    if(!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")){
+    if (!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")) {
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
     }
     satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(10,680);
+    satsanaSprite.setPosition(10, 680);
 
     satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
     outcome.setFont(font);
@@ -40,8 +57,34 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
     outcome.setPosition(sf::Vector2f(115, 680));
 }
 
-void MinigameView_1::drawBowl()
-{
+void MinigameView_1::drawBackground(const int &backgroundNum) {
+    sf::RectangleShape background(
+            sf::Vector2f(static_cast<float>(this->app->getSize().x), static_cast<float>(this->app->getSize().y)));
+
+    switch (backgroundNum) {
+        const sf::Texture *pBackgroundTexture;
+        case 0:
+            pBackgroundTexture = &backgroundTexture1;
+            background.setTexture(pBackgroundTexture);
+            break;
+        case 1:
+            pBackgroundTexture = &backgroundTexture2;
+            background.setTexture(pBackgroundTexture);
+            break;
+        case 2:
+            pBackgroundTexture = &backgroundTexture3;
+            background.setTexture(pBackgroundTexture);
+            break;
+        default:
+            pBackgroundTexture = &backgroundTexture4;
+            background.setTexture(pBackgroundTexture);
+            break;
+    }
+
+    app->draw(background);
+}
+
+void MinigameView_1::drawBowl() {
     this->circle.setPosition(this->miniLogic->getBowlPosition());
     app->draw(this->circle);
 }
@@ -56,24 +99,24 @@ void MinigameView_1::drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
         sf::Sprite sprite;
 
         bool isGood = isGoodVector.at(counter);
-        if(isGood){
+        if (isGood) {
             sprite.setTexture(appleTexture);
-        }
-        else{
+        } else {
             sprite.setTexture(mouseTexture);
         }
 
         sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-        sprite.setScale(this->miniLogic->getIngredDim()/50.0f);
-        sprite.setPosition(beatBox.getCurPos().x-this->miniLogic->getIngredDim().x/2, beatBox.getCurPos().y-this->miniLogic->getIngredDim().y/2);
+        sprite.setScale(this->miniLogic->getIngredDim() / 50.0f);
+        sprite.setPosition(beatBox.getCurPos().x - this->miniLogic->getIngredDim().x / 2,
+                           beatBox.getCurPos().y - this->miniLogic->getIngredDim().y / 2);
         app->draw(sprite);
 
-        counter ++;
+        counter++;
     }
 }
 
-void MinigameView_1::drawStatic(){
-    float beatBoxEnd = this->miniLogic->getBeatBoxes().at(0).getEndPos().y + this->miniLogic->getIngredDim().y/2.0f;
+void MinigameView_1::drawStatic() {
+    float beatBoxEnd = this->miniLogic->getBeatBoxes().at(0).getEndPos().y + this->miniLogic->getIngredDim().y / 2.0f;
     sf::RectangleShape line(sf::Vector2f(app->getSize().x, 2.0f));
     line.setPosition(sf::Vector2f(0.0f, beatBoxEnd));
     line.setFillColor(sf::Color::Black);
@@ -81,14 +124,14 @@ void MinigameView_1::drawStatic(){
 }
 
 void MinigameView_1::drawScore(int score) {
-    this->scoreText.setString("Score: "+std::to_string(score));
+    this->scoreText.setString("Score: " + std::to_string(score));
     app->draw(scoreText);
 }
 
-void MinigameView_1::update(const float& deltaTime)
-{
-    app->clear(sf::Color(255, 165, 0, 1));
+void MinigameView_1::update(const float &deltaTime, const int &round) {
+    app->clear(sf::Color(193, 148, 126));
 
+    drawBackground(round);
     drawBowl();
     drawBeatBoxes(this->miniLogic->getBeatBoxes());
     drawScore(this->miniLogic->getScore());
@@ -96,9 +139,10 @@ void MinigameView_1::update(const float& deltaTime)
     satsanaAnimation->animate(outcome, deltaTime, app);
 }
 
-void MinigameView_1::animatePostHit(const int& hitOutcome, int round, const float& deltaTime){
+void MinigameView_1::animatePostHit(const int &hitOutcome, int round, const float &deltaTime) {
 
     outcome.setString(outcomes[round][hitOutcome]);
     satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
 
 }
+

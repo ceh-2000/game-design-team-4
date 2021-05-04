@@ -62,7 +62,8 @@ void Cutscene::selectCutscene(const int& cutSceneNum)
 		scoreText.setPosition(125, 625);
 	break;
 	case 2:
-		"Current score is "+ (this->score)+ ".\nPress [SPACE BAR] to skip.";
+		
+		dialogueStr = "Current score is "+ (this->score)+ ".\nPress [SPACE BAR] to skip.";
 	break;
 	default: break;
 	}
