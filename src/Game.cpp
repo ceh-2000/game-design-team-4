@@ -6,7 +6,7 @@ Game::Game(std::shared_ptr<Song> song) {
 		app->setKeyRepeatEnabled(false);
 
 		this->song = song;
-		this->song->setGameStateAudio(this->currentGame);
+		this->song->setGameStateAudio(this->currentGame, this->round);
 		cut_scene = std::make_shared<Cutscene>(app);
 		main_menu = std::make_shared<MainMenu>(app);
 		logic = std::make_shared<MinigameLogic>(this->song);
@@ -26,7 +26,7 @@ Game::Game(std::shared_ptr<Song> song) {
 void Game::switchToNewGame() {
 	elapsedTime = 0;
 	logic->stopGame();
-	song->setGameStateAudio(this->currentGame);
+	song->setGameStateAudio(this->currentGame, this->round);
 	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
 	//Body of loop not needed for second minigame
 	if (currentGame != 2 && currentGame != 5) {
@@ -147,7 +147,7 @@ void Game::calcRoundRank () {
 	else if (tally > 14)
 		roundRank[round] = "C";
 	else if (tally > 12)
-		roundRank[round] = "F";
+		roundRank[round] = "D";
 }
 
 void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
@@ -249,13 +249,11 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
 							switchToNewGame();
 							logic->startGame();
 							break;
-						case 1: 
-                            main_menu->setCurrentScreen(main_menu->chooseSelection());
-							break;
+						case 1:
 						case 2:
 							main_menu->setCurrentScreen(main_menu->chooseSelection());
 							break;
-						default: 
+						default:
 							break;
 					}
 				case sf::Keyboard::Up: main_menu->moveUp();	break;
