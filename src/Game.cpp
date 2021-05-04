@@ -5,12 +5,12 @@ Game::Game(std::shared_ptr<Song> song) {
     //prevent repeat events when holding down
     app->setKeyRepeatEnabled(false);
 
-		this->song = song;
-		this->song->setGameStateAudio(this->currentGame, this->round);
-		cut_scene = std::make_shared<Cutscene>(app);
-		main_menu = std::make_shared<MainMenu>(app);
-		logic = std::make_shared<MinigameLogic>(this->song);
-		view = std::make_shared<MinigameView>(logic, app);
+    this->song = song;
+    this->song->setGameStateAudio(this->currentGame, this->round);
+    cut_scene = std::make_shared<Cutscene>(app);
+    main_menu = std::make_shared<MainMenu>(app);
+    logic = std::make_shared<MinigameLogic>(this->song);
+    view = std::make_shared<MinigameView>(logic, app);
 
 //    logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
 //    logic_2 = std::make_shared<MinigameLogic_2>(song, 10); // Pass maximum cuts allowed
@@ -24,46 +24,45 @@ Game::Game(std::shared_ptr<Song> song) {
 }
 
 void Game::switchToNewGame() {
-	elapsedTime = 0;
-	logic->stopGame();
-	song->setGameStateAudio(this->currentGame, this->round);
-	//REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
-	//Body of loop not needed for second minigame
-	if (currentGame != 2 && currentGame != 5) {
-		logic = std::make_shared<MinigameLogic>(song);
-		view = std::make_shared<MinigameView>(logic, app);
-		logic->startGame();
-	}
-	// Game Switching Part
-	switch(currentGame)
-	{
-		case 1:
-		//INSTANTIATE SOUS CHEF GAME
-		logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
-		view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-		minigameTime = song->getSongDuration();
-		break;
-		case 2:
-		//INSTANTIATE PIZZA GAME
-		logic_2 = std::make_shared<MinigameLogic_2>(song, round); //pass maximum cuts allowed
-		view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-		break;
-		case 3:
-		//INSTANTIATE CUTTING GAME
-		logic_3 = std::make_shared<MinigameLogic_3>(song, round);
-		view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-		minigameTime = song->getSongDuration();
-		break;
-		case 4:
-		//INSTANTIATE DDR GAME
-		logic_4 = std::make_shared<MinigameLogic_4>(song);
-		view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-		minigameTime = song->getSongDuration();
-		break;
-		case 5:
-		cut_scene->setScore(score);
-		break;
-	}
+    elapsedTime = 0;
+    logic->stopGame();
+    song->setGameStateAudio(this->currentGame, this->round);
+    //REINSTANTIATES RESPECTIVE MINIGAMES WHEN SWITCHING B/W THEM
+    //Body of loop not needed for second minigame
+    if (currentGame != 2 && currentGame != 5) {
+        logic = std::make_shared<MinigameLogic>(song);
+        view = std::make_shared<MinigameView>(logic, app);
+        logic->startGame();
+    }
+    // Game Switching Part
+    switch (currentGame) {
+        case 1:
+            //INSTANTIATE SOUS CHEF GAME
+            logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
+            view_1 = std::make_shared<MinigameView_1>(logic_1, app);
+            minigameTime = song->getSongDuration();
+            break;
+        case 2:
+            //INSTANTIATE PIZZA GAME
+            logic_2 = std::make_shared<MinigameLogic_2>(song, round); //pass maximum cuts allowed
+            view_2 = std::make_shared<MinigameView_2>(logic_2, app);
+            break;
+        case 3:
+            //INSTANTIATE CUTTING GAME
+            logic_3 = std::make_shared<MinigameLogic_3>(song, round);
+            view_3 = std::make_shared<MinigameView_3>(logic_3, app);
+            minigameTime = song->getSongDuration();
+            break;
+        case 4:
+            //INSTANTIATE DDR GAME
+            logic_4 = std::make_shared<MinigameLogic_4>(song);
+            view_4 = std::make_shared<MinigameView_4>(logic_4, app);
+            minigameTime = song->getSongDuration();
+            break;
+        case 5:
+            cut_scene->setScore(score);
+            break;
+    }
 }
 
 /**
@@ -138,32 +137,32 @@ void Game::checkEvent(const float &deltaTime) {
     }
 }
 
-void Game::calcRoundRank () {
-	//calculate minigame rank tally
-	int tally = 0;
-	for (std::string grade : scoreRank[round]) {
-		if (grade == "S")
-			tally += 5;
-		else if (grade == "A")
-			tally += 4;
-		else if (grade == "B")
-			tally += 3;
-		else if (grade == "C")
-			tally += 2;
-		else if (grade == "D")
-			tally += 1;
-	}
-	//convert tally to round rank
-	if (tally > 19)
-		roundRank[round] = "S";
-	else if (tally > 18)
-		roundRank[round] = "A";
-	else if (tally > 16)
-		roundRank[round] = "B";
-	else if (tally > 14)
-		roundRank[round] = "C";
-	else if (tally > 12)
-		roundRank[round] = "D";
+void Game::calcRoundRank() {
+    //calculate minigame rank tally
+    int tally = 0;
+    for (std::string grade : scoreRank[round]) {
+        if (grade == "S")
+            tally += 5;
+        else if (grade == "A")
+            tally += 4;
+        else if (grade == "B")
+            tally += 3;
+        else if (grade == "C")
+            tally += 2;
+        else if (grade == "D")
+            tally += 1;
+    }
+    //convert tally to round rank
+    if (tally > 19)
+        roundRank[round] = "S";
+    else if (tally > 18)
+        roundRank[round] = "A";
+    else if (tally > 16)
+        roundRank[round] = "B";
+    else if (tally > 14)
+        roundRank[round] = "C";
+    else if (tally > 12)
+        roundRank[round] = "D";
 }
 
 void Game::minigame1EventHandler(const float &deltaTime, sf::Event event) {
@@ -225,6 +224,9 @@ void Game::minigame3EventHandler(const float &deltaTime, sf::Event event) {
             switch (event.key.code) {
                 case sf::Keyboard::Space:
                     logic->tapCheck();
+
+                    std::cout << logic->getElapsedTime() << std::endl;
+
                     logic_3->updateScore(logic->tapCheck(), logic->regionCheck());
                     view_3->splitBox(deltaTime);
                     view_3->animatePostHit(logic->tapCheck(), round, deltaTime);
@@ -259,25 +261,29 @@ void Game::minigame4EventHandler(const float &deltaTime, sf::Event event) {
 }
 
 void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
-		switch (event.type) {
-			case sf::Event::KeyPressed:
-				switch (event.key.code) {
-					case sf::Keyboard::Space:
-						switch(main_menu->chooseSelection()) {
-							case 0:
-								currentGame = 1;
-								switchToNewGame();
-								logic->startGame();
-								break;
-							case 1:
-							case 2:
-								main_menu->setCurrentScreen(main_menu->chooseSelection());
-								break;
-							default:
-								break;
-						}
-					case sf::Keyboard::Up: main_menu->moveUp();	break;
-					case sf::Keyboard::Down: main_menu->moveDown();	break;
+    switch (event.type) {
+        case sf::Event::KeyPressed:
+            switch (event.key.code) {
+                case sf::Keyboard::Space:
+                    switch (main_menu->chooseSelection()) {
+                        case 0:
+                            currentGame = 1;
+                            switchToNewGame();
+                            logic->startGame();
+                            break;
+                        case 1:
+                        case 2:
+                            main_menu->setCurrentScreen(main_menu->chooseSelection());
+                            break;
+                        default:
+                            break;
+                    }
+                case sf::Keyboard::Up:
+                    main_menu->moveUp();
+                    break;
+                case sf::Keyboard::Down:
+                    main_menu->moveDown();
+                    break;
                 case sf::Keyboard::Right:
                     main_menu->selectRight();
                     break;
@@ -301,7 +307,7 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
                     main_menu->addTextToName(event.text.unicode);
                 }
             }
-				break;
+            break;
     }
 }
 

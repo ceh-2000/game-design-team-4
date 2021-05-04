@@ -4,16 +4,19 @@
 MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::shared_ptr<sf::RenderWindow> app) {
     this->app = app;
     this->miniLogic = miniLogic;
-    float scale = this->miniLogic->getBowlSize().x / this->miniLogic->getBowlSize().y;
-    this->circle.setScale(scale, 1);
-    this->circle.setPosition(this->miniLogic->getBowlPosition());
+    this->rectangle.setSize(sf::Vector2f(this->miniLogic->getBowlSize().x * 2, this->miniLogic->getBowlSize().y * 3.5));
 
-    // Load all textures
+    // Load all ingredient textures
     if (!appleTexture.loadFromFile("../data/art/apple.png")) {
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
 
     if (!mouseTexture.loadFromFile("../data/art/deadmouse.png")) {
+        std::cout << "Could not load apple sprite sheet." << std::endl;
+    }
+
+    // Load bowl texture
+    if (!bowlTexture.loadFromFile("../data/art/Bowl.png")) {
         std::cout << "Could not load apple sprite sheet." << std::endl;
     }
 
@@ -34,27 +37,33 @@ MinigameView_1::MinigameView_1(std::shared_ptr<MinigameLogic_1> miniLogic, std::
         std::cout << "Could not load background." << std::endl;
     }
 
-    //load in the font for result text
+    // Load in the font for result text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
-    this->scoreText.setFillColor(sf::Color::Red);
+    this->scoreText.setFillColor(sf::Color::White);
+    this->scoreText.setPosition(this->app->getSize().x - 230, this->app->getSize().y - 125);
 
+    this->instructionsText.setFont(font);
+    this->instructionsText.setCharacterSize(40);
+    this->instructionsText.setFillColor(sf::Color::Red);
+    this->instructionsText.setPosition(120 , 80);
+    this->instructionsText.setString("Press the right \nand left arrows \nto avoid dead mice \nand collect apples.");
 
-    //set up satsana animation
+    // Set up satsana animation
     if (!satsanaTexture.loadFromFile("../data/art/SatsanaSheet.png")) {
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
     }
     satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(10, 680);
+    satsanaSprite.setPosition(0, this->app->getSize().y - 150);
 
     satsanaAnimation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
     outcome.setFont(font);
     outcome.setCharacterSize(48);
     outcome.setFillColor(sf::Color::White);
-    outcome.setPosition(sf::Vector2f(115, 680));
+    outcome.setPosition(sf::Vector2f(105, this->app->getSize().y - 125));
 }
 
 void MinigameView_1::drawBackground(const int &backgroundNum) {
@@ -85,8 +94,10 @@ void MinigameView_1::drawBackground(const int &backgroundNum) {
 }
 
 void MinigameView_1::drawBowl() {
-    this->circle.setPosition(this->miniLogic->getBowlPosition());
-    app->draw(this->circle);
+    this->rectangle.setPosition(this->miniLogic->getBowlPosition());
+    const sf::Texture *pBackgroundTexture = &bowlTexture;
+    rectangle.setTexture(pBackgroundTexture);
+    app->draw(this->rectangle);
 }
 
 /*
@@ -105,7 +116,7 @@ void MinigameView_1::drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
             sprite.setTexture(mouseTexture);
         }
 
-        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
+        sprite.setTextureRect(sf::IntRect(150, 0, 50, 50));
         sprite.setScale(this->miniLogic->getIngredDim() / 50.0f);
         sprite.setPosition(beatBox.getCurPos().x - this->miniLogic->getIngredDim().x / 2,
                            beatBox.getCurPos().y - this->miniLogic->getIngredDim().y / 2);
@@ -117,10 +128,11 @@ void MinigameView_1::drawBeatBoxes(const std::vector<BeatBoxLogic> &beatBoxes) {
 
 void MinigameView_1::drawStatic() {
     float beatBoxEnd = this->miniLogic->getBeatBoxes().at(0).getEndPos().y + this->miniLogic->getIngredDim().y / 2.0f;
-    sf::RectangleShape line(sf::Vector2f(app->getSize().x, 2.0f));
-    line.setPosition(sf::Vector2f(0.0f, beatBoxEnd));
+    sf::RectangleShape line(sf::Vector2f(app->getSize().x, 10.0f));
+    line.setPosition(sf::Vector2f(0.0f, beatBoxEnd - 60.0f));
     line.setFillColor(sf::Color::Black);
     app->draw(line);
+    app->draw(instructionsText);
 }
 
 void MinigameView_1::drawScore(int score) {

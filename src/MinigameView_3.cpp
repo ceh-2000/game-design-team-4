@@ -13,7 +13,7 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
 
     knifeSprite.setTexture(knifeTexture);
     knifeSprite.setTextureRect(sf::IntRect(0, 0, 28, 390));
-    knifeSprite.setScale(sf::Vector2f(1.5, 1.3));
+    knifeSprite.setScale(sf::Vector2f(1.5, 1.0));
     knifeSprite.setPosition(this->miniLogic->getKnifePos());
 
     // Load all backgrounds
@@ -48,33 +48,40 @@ MinigameView_3::MinigameView_3(std::shared_ptr<MinigameLogic_3> MinigameLogic_3,
         std::cout << "Could not load Satsana sprite sheet." << std::endl;
     }
     satsanaSprite.setTexture(satsanaTexture);
-    satsanaSprite.setPosition(10, 10);
+    satsanaSprite.setPosition(0, this->app->getSize().y-150);
 
     animation = std::make_shared<Animation>(satsanaSprite, 0, 3, 128, 128, 0.25, false);
     outcome.setFont(font);
     outcome.setCharacterSize(48);
     outcome.setFillColor(sf::Color::White);
-    outcome.setPosition(sf::Vector2f(115, 20));
+    outcome.setPosition(sf::Vector2f(105, this->app->getSize().y-125));
 
     //set up score text
     if (!font.loadFromFile("../data/fonts/orange_kid.ttf")) {
         std::cout << "Could not load orange_kid.ttf." << std::endl;
     }
 
+    //load instructions text
+    this->instructionsText.setFont(font);
+    this->instructionsText.setCharacterSize(50);
+    this->instructionsText.setFillColor(sf::Color::Red);
+    this->instructionsText.setPosition(120 , 80);
+    this->instructionsText.setString("Press the space \nbar on the beat \nto cut the sushi.");
+
     //set up conveyor belt animation
     if (!beltTexture.loadFromFile("../data/art/spritesheet.png")) {
         std::cout << "Could not load belt sprite sheet." << std::endl;
     }
     beltSprite.setTexture(beltTexture);
-    beltSprite.setPosition(-350, 400);
+    beltSprite.setPosition(-350, 500);
     beltSprite.setScale(sf::Vector2f(8, 2.5));
 
     beltAnimation = std::make_shared<Animation>(beltSprite, 0, 24, 235, 59, 0.011, true);
 
     this->scoreText.setFont(font);
     this->scoreText.setCharacterSize(50);
-    this->scoreText.setFillColor(sf::Color::Red);
-    this->scoreText.setPosition(980, 10);
+    this->scoreText.setFillColor(sf::Color::White);
+    this->scoreText.setPosition(this->app->getSize().x-200, this->app->getSize().y-125);
 }
 
 void MinigameView_3::drawBackground(const int &backgroundNum) {
@@ -124,6 +131,9 @@ void MinigameView_3::draw(const float &deltaTime, const float &round) {
 
     //draw the score
     app->draw(scoreText);
+
+    //draw the instructions
+    app->draw(instructionsText);
 
 
 }
@@ -197,7 +207,7 @@ void MinigameView_3::update(const float &deltaTime, const float &round) {
 
         //we need to move down
     else {
-        if (this->miniLogic->getKnifePos().y < 500) {
+        if (this->miniLogic->getKnifePos().y < 600) {
             sf::Vector2f down(x, y + this->miniLogic->getKnifeSpeed() * deltaTime);
             this->miniLogic->setKnifePos(down);
         } else {

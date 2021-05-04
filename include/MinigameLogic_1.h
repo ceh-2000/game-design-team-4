@@ -28,7 +28,7 @@ private:
     sf::Vector2f bowlSize = sf::Vector2f(200.0f, 100.0f);
     sf::Vector2f bowlPosition;
     sf::Vector2f bowlStartPosition;
-    float bowlSpeed = 3000.0f;
+    float bowlSpeed = 1500.0f;
     bool bowlMovingOut = true;
     int moveBowl = 0;
     float maxAmountToMoveBowl = 0;

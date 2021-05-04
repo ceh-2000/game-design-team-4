@@ -181,7 +181,8 @@ void MinigameLogic_1::noTap(const bool &didHit) {
         if (isGoodVector.at(curBeatBoxIndex)) {
             score += this->goodTapBoost;
         } else {
-            score += this->badTapBoost;
+            // Extra punishment for not moving
+            score -= this->goodTapBoost;
         }
     }
 
