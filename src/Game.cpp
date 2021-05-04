@@ -33,7 +33,6 @@ void Game::switchToNewGame() {
             //INSTANTIATE PIZZA GAME
             logic_2 = std::make_shared<MinigameLogic_2>(song, round); //pass maximum cuts allowed
             view_2 = std::make_shared<MinigameView_2>(logic_2, app);
-            minigameTime = 100.0f;
             break;
         case 3:
             //INSTANTIATE CUTTING GAME
@@ -200,7 +199,6 @@ void Game::minigame2EventHandler(const float &deltaTime, sf::Event event) {
                         case MinigameLogic_2::gameState::ENDING:
                             score += logic_2->getScore();
                             scoreRank.at(round).at(currentGame - 1) = logic_2->gradeMinigame();
-                            currentGame++;
                             switchToNewGame();
                             break;
                         default:
@@ -348,7 +346,6 @@ void Game::endRound() {
         // Show the main menu
     else {
         currentGame = 6;
-        //round = 0;
     }
 }
 

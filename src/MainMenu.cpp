@@ -226,7 +226,11 @@ void MainMenu::drawResources(const float& deltaTime){
                          "Pizza sprite: https://www.pinterest.com/pin/369717450659483649/\n"
                          "All other art assets were created by our team"
                          "\n\n"
-                         "MUSIC:\n";
+                         "MUSIC:\n"
+                         "Undertale OST 068: - Death By Glamour\n"
+                         "https://www.youtube.com/watch?v=2TgO-tN5wAM&list=PLvJE24xlovhuuhaQInNsjRyRF8QdFnh6V&index=8\n"
+                         "Rhythm Heaven - Splashdown\n"
+                         "https://www.youtube.com/watch?v=YwATIPwH2DM\n";
 
     sf::Text worksCited;
     worksCited.setFont(this->font);
