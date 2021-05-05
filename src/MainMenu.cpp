@@ -230,7 +230,9 @@ void MainMenu::drawResources(const float& deltaTime){
                          "Undertale OST 068: - Death By Glamour\n"
                          "https://www.youtube.com/watch?v=2TgO-tN5wAM&list=PLvJE24xlovhuuhaQInNsjRyRF8QdFnh6V&index=8\n"
                          "Rhythm Heaven - Splashdown\n"
-                         "https://www.youtube.com/watch?v=YwATIPwH2DM\n";
+                         "https://www.youtube.com/watch?v=YwATIPwH2DM\n"
+                         "Legend Of Zelda Theme (8 Bit Remix Cover Version) - 8 Bit Universe\n"
+                         "https://www.youtube.com/watch?v=CHFM7f1ErZo";
 
     sf::Text worksCited;
     worksCited.setFont(this->font);
