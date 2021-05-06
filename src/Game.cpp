@@ -27,7 +27,7 @@ void Game::switchToNewGame() {
             logic->startGame();
             logic_1 = std::make_shared<MinigameLogic_1>(song, app->getSize().x, app->getSize().y);
             view_1 = std::make_shared<MinigameView_1>(logic_1, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f;
             break;
         case 2:
             //INSTANTIATE PIZZA GAME
@@ -37,12 +37,12 @@ void Game::switchToNewGame() {
             break;
         case 3:
             //INSTANTIATE CUTTING GAME
-            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.3, 0.3));
+            logic = std::make_shared<MinigameLogic>(song, sf::Vector2f(0.15, 0.15));
             view = std::make_shared<MinigameView>(logic, app);
             logic->startGame();
             logic_3 = std::make_shared<MinigameLogic_3>(song, round);
             view_3 = std::make_shared<MinigameView_3>(logic_3, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f;
             break;
         case 4:
             //INSTANTIATE DDR GAME
@@ -51,13 +51,18 @@ void Game::switchToNewGame() {
             logic->startGame();
             logic_4 = std::make_shared<MinigameLogic_4>(song);
             view_4 = std::make_shared<MinigameView_4>(logic_4, app);
-            minigameTime = song->getSongDuration();
+            minigameTime = 30.0f;
             break;
         case 5:
             cut_scene->setFinalChefName(main_menu->getFinalChef());
             cut_scene->setName(main_menu->getUserChefName());
             cut_scene->setScore(score);
             cut_scene->setRank(roundRank[round]);
+            break;
+        case 6:
+            round = 0;
+            break;
+        default:
             break;
     }
 }
@@ -79,26 +84,11 @@ void Game::checkEvent(const float &deltaTime) {
                     case sf::Keyboard::Q:
                         isActive = false;
                         break; // Exit
-                    case sf::Keyboard::Num1:
-                        currentGame = 1;
-                        switchToNewGame();
-                        break;
-                    case sf::Keyboard::Num2:
-                        currentGame = 2;
-                        switchToNewGame();
-                        break;
-                    case sf::Keyboard::Num3:
-                        currentGame = 3;
-                        switchToNewGame();
-                        break;
-                    case sf::Keyboard::Num4:
-                        currentGame = 4;
-                        switchToNewGame();
-                        break;
                     case sf::Keyboard::Escape:
                         switch (currentGame) {
                             case 6:
                                 main_menu->setCurrentScreen(0);
+                                break;
                             default:
                                 break;
                         }
@@ -107,6 +97,9 @@ void Game::checkEvent(const float &deltaTime) {
                         if (currentGame == 5) {
                             endRound();
                         }
+                        break;
+                    default:
+                        break;
                 }
             default:
                 break;
@@ -135,10 +128,9 @@ void Game::checkEvent(const float &deltaTime) {
 }
 
 void Game::calcRoundRank() {
-    //calculate minigame rank tally
+    // Calculate minigame rank tally
     int tally = 0;
     for (std::string grade : scoreRank[round]) {
-        std::cout << grade << std::endl;
         if (grade == "S")
             tally += 5;
         else if (grade == "A")
@@ -150,9 +142,8 @@ void Game::calcRoundRank() {
         else if (grade == "D")
             tally += 1;
     }
-    //convert tally to round rank
-    roundRank[round] = "S";
 
+    // Convert tally to round rank
     if (tally >= 19)
         roundRank[round] = "S";
     else if (tally >= 15)
@@ -262,7 +253,7 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
     switch (event.type) {
         case sf::Event::KeyPressed:
             switch (event.key.code) {
-                case sf::Keyboard::Space:
+                case sf::Keyboard::Return:
                     switch (main_menu->chooseSelection()) {
                         case 0:
                             currentGame = 1;
@@ -302,10 +293,12 @@ void Game::mainMenuEventHandler(const float &deltaTime, sf::Event event) {
                                 main_menu->getUserChefName().substring(0,
                                                                        main_menu->getUserChefName().getSize() - 1));
                     }
-                } else if (event.text.unicode < 128) {
+                } else if ((event.text.unicode <= 122 && event.text.unicode >= 97) ||  (event.text.unicode <= 90 && event.text.unicode >= 65)) {
                     main_menu->addTextToName(event.text.unicode);
                 }
             }
+            break;
+        default:
             break;
     }
 }
@@ -338,17 +331,17 @@ void Game::endRound() {
     elapsedTime = 0.0f;
 
     // Show the first minigame again
-    if (round < numOfRounds) {
-        currentGame = 1;
-        switchToNewGame();
+    if (round < numOfRounds - 1) {
         if (roundRank[round] != "F") {
             round++;
         }
+        currentGame = 1;
+        switchToNewGame();
     }
         // Show the main menu
     else {
         currentGame = 6;
-        //round = 0;
+        switchToNewGame();
     }
 }
 
@@ -385,13 +378,13 @@ void Game::update(const float &deltaTime) {
             calcRoundRank();
         }
 
-        if (currentGame < 5 and currentGame!=2) {
+        if (currentGame < 5 and currentGame != 2) {
             currentGame++;
             switchToNewGame();
         }
     }
 
-
+    int cutsceneNum;
     switch (currentGame) {
         case 1:
             // Sous chef game
@@ -418,8 +411,12 @@ void Game::update(const float &deltaTime) {
             break;
         case 5:
             // Cut scene
-            cut_scene->selectCutscene(1);
-            cut_scene->update(deltaTime);
+            cutsceneNum = 1;
+            if (round == numOfRounds - 1 and roundRank[round] != "F") {
+                cutsceneNum = 2;
+            }
+            cut_scene->selectCutscene(cutsceneNum);
+            cut_scene->update(deltaTime, cutsceneNum);
             break;
         case 6:    // Main menu
             main_menu->draw(deltaTime, main_menu->getCurrentScreen());

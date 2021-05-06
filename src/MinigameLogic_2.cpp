@@ -44,7 +44,6 @@ void MinigameLogic_2::update(float deltaTime)
     if((cutAngles.size() == maxCuts || pizzaAngle >= 2.0f * PI) && gameScore < 0.0)
     {
         calcScore();
-        std::cout << "Game Score: " << gameScore << "\n";
     }
 }
 

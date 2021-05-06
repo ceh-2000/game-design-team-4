@@ -104,19 +104,13 @@ void MinigameView_2::draw() {
         scoreText.setString(scoreMsg);
         app->draw(scoreText);
 
-        if (miniLogic->getRank() != "F")
-            scoreMsg = "  RANK:  " + miniLogic->getRank();
-        else
-            scoreMsg = " You failed";
+        scoreMsg = "  RANK:  " + miniLogic->getRank();
 
         scoreText.setPosition(100, 400);
         scoreText.setString(scoreMsg);
         app->draw(scoreText);
 
-        if (miniLogic->getRank() != "F")
-            scoreText.setString("Press Spacebar to continue");
-        else
-            scoreText.setString("Press Spacebar to try again");
+        scoreText.setString("Press space bar to continue");
         scoreText.setPosition(250, 600);
         app->draw(scoreText);
     }

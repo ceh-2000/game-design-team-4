@@ -137,15 +137,11 @@ void MinigameLogic_1::reactTap(const int &hitOutcome, const bool &isRightTap) {
         // Case where we move the right direction out of the way of a bad ingredient
         if (!isGood && (isRightCorrect == isRightTap)) {
             this->score += this->goodTapBoost;
-            std::cout << "CORRECT DIRECTION" << std::endl;
-
         }
             // Case where we move the wrong direction out of the way of a bad ingredient
         else if (!isGood) {
             this->score += this->badTapBoost;
-            std::cout << "PLAYER MOVED THE WRONG WAY" << std::endl;
         }
-        std::cout << "GOOD HIT" << std::endl;
 
         // Do nothing if they move out of the way of a good ingredient
     } else if (hitOutcome == 2) { // moveBowl == 0) {

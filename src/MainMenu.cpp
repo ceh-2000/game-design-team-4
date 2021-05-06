@@ -96,7 +96,7 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> app) {
     this->mainMenuInstr.setFont(this->font);
     this->mainMenuInstr.setCharacterSize(32);
     this->mainMenuInstr.setPosition(this->mainMenuInstrPos);
-    this->mainMenuInstr.setString("Use Up and Down arrows to navigate.\nPress Space to select!");
+    this->mainMenuInstr.setString("Use Up and Down arrows to navigate.\nPress ENTER to select!");
 
     this->chefNameInstr.setFont(this->font);
     this->chefNameInstr.setPosition(this->chefNameInstrPos);
@@ -218,12 +218,15 @@ void MainMenu::drawResources(const float& deltaTime){
     returnBack.setCharacterSize(36);
     returnBack.setPosition(20, 690);
     returnBack.setStyle(sf::Text::Bold);
-    returnBack.setString("Press escape to return to menu");
+    returnBack.setString("\nPress escape to return to menu");
 
     std::string works = "ART:\n"
                         "Conveyor belt sprite sheet: https://opengameart.org/content/isometric-conveyor-belt-animation\n"
                          "Sushi sprite: https://www.freepik.com/premium-vector/pixel-art-japanese-food-sushi-bit-game-item_11812806.html\n"
                          "Pizza sprite: https://www.pinterest.com/pin/369717450659483649/\n"
+                         "Bobby Flay: https://www.celebrity-cutouts.com/product/bobby-flay-celebrity-mask/\n"
+                         "Gordon Ramsey: https://www.pngkit.com/bigpic/u2q8u2r5w7w7r5t4/\n"
+                         "Guy Fieri: https://www.orlandoweekly.com/Blogs/archives/2017/08/21/\nguy-fieri-to-open-restaurant-in-the-villages-now-to-be-renamed-flavortown\n"
                          "All other art assets were created by our team"
                          "\n\n"
                          "MUSIC:\n"
